@@ -1,0 +1,133 @@
+JUMP FUNCTION_MAIN
+
+
+FUNCTION_MAIN,	INPUT
+                JNS FUNCTION_STACK_PUSH
+                INPUT
+                JNS FUNCTION_STACK_PUSH
+				JNS FUNCTION_ADD
+                
+                / popping final result
+                JNS FUNCTION_STACK_POP
+				OUTPUT
+				HALT
+       
+       
+FUNCTION_STACK_PUSH, 	DEC 0
+                        STORE VAR_TEMP
+                        / move stack pointer 1 cell forward
+                        LOAD STACK_POINTER
+                        ADD CONST_1
+                        STORE STACK_POINTER
+                        / store the new value on the stack
+                        LOAD VAR_TEMP
+                        STOREI STACK_POINTER / *stack_pointer = ACC;
+                        JUMPI FUNCTION_STACK_PUSH
+
+FUNCTION_STACK_POP, 	DEC 0
+                        / keep the top stack value in temp
+                        LOADI STACK_POINTER
+                        STORE VAR_TEMP / temp = *ptr;
+                        OUTPUT
+                        / move stack pointer 1 cell backward
+                        LOAD STACK_POINTER
+                        SUBT CONST_1 / ptr -= 1;
+                        STORE STACK_POINTER
+                        / store the popped value in the ACC
+                        LOAD VAR_TEMP
+                        JUMPI FUNCTION_STACK_POP
+           
+           
+FUNCTION_FACTORIAL,		DEC 0
+                        CLEAR
+                        STORE VAR_FACTORIAL_RESULT
+                        JNS FUNCTION_STACK_POP
+                        SUBT CONST_1
+                        SKIPCOND 800 
+                        JUMP RETURN / n <= 1
+LABEL_FACTORIAL_BODY,	LOAD VAR_FACTORIAL_N
+						JNS FUNCTION_STACK_PUSH
+						LOAD FUNCTION_FACTORIAL / return address
+                        JNS FUNCTION_STACK_PUSH
+                        LOAD VAR_FACTORIAL_N / calculate n - 1
+                        SUBT CONST_1
+                        JNS FUNCTION_STACK_PUSH
+                        JNS FUNCTION_FACTORIAL / factorial(n - 1);
+
+
+
+                  
+
+                    
+LABEL_FACTORIAL_IF,	ADD CONST_1
+					JNS FUNCTION_STACK_PUSH
+					JUMPI FUNCTION_FACTORIAL
+
+LABEL_FACTORIAL_ELSE, 	ADD CONST_1
+						/ perform multiplication
+						STORE RECORD_MULT_X
+                      	INPUT
+                      	STORE RECORD_MULT_Y
+                      	JNS FUNCTION_MULT
+					
+
+RETURN, LOAD VAR_FACTORIAL_RESULT
+		JNS FUNCTION_STACK_PUSH
+		JUMPI FUNCTION_FACTORIAL
+
+
+
+FUNCTION_MAIN , INPUT
+STORE RECORD_MULT_X
+INPUT
+STORE RECORD_MULT_Y
+JNS FUNCTION_MULT
+OUTPUT
+HALT
+
+RECORD_MULT_X , DEC 0
+RECORD_MULT_Y , DEC 0
+VAR_TEMP_MULT_RESULT , DEC 0
+
+FUNCTION_MULT , DEC 0
+CLEAR
+STORE VAR_TEMP_MULT_RESULT
+
+LOOP_LABEL_FOR_START , CLEAR
+STORE LOOP_ITERATOR_I
+
+// start --> int i = 0
+// cond --> i < N --> !i > N --> ! i - N > 0
+LOOP_LABEL_FOR_COND , LOAD LOOP_ITERATOR_I
+SUBT RECORD_MULT_Y
+SKIPCOND 000
+JUMP LOOP_LABEL_FOR_END
+JUMP LOOP_LABEL_FOR_BODY
+
+// BODY = { res += x}
+LOOP_LABEL_FOR_BODY , LOAD VAR_TEMP_MULT_RESULT
+ADD RECORD_MULT_X
+STORE VAR_TEMP_MULT_RESULT
+
+// i++
+LOOP_LABEL_FOR_POSTSTEP , LOAD LOOP_ITERATOR_I
+ADD CONST
+
+      
+      
+      
+FUNCTION_ADD, DEC 0
+				JNS FUNCTION_STACK_POP
+                STORE ADD_TEMP
+				JNS FUNCTION_STACK_POP
+				ADD ADD_TEMP
+                JUMPI FUNCTION_ADD
+
+VAR_TEMP, DEC 0
+STACK_POINTER, DEC 100
+CONST_1, DEC 1
+CONST_10, DEC 10
+STACK_ARRAY, DEC 100
+ADD_TEMP, DEC 0
+VAR_FACTORIAL_RESULT, DEC 0
+VAR_FACTORIAL_N, DEC 0

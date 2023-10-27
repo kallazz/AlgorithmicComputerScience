@@ -1,0 +1,54 @@
+/ division with remainder in MARIE
+
+JUMP FUNCTION_MAIN
+
+VAR_RESULT, 						DEC 0
+VAR_REMAINDER, 						DEC 0
+
+FUNCTION_MAIN,  					INPUT
+                                    STORE RECORD_DIVIDE_A
+                                    INPUT
+                                    STORE RECORD_DIVIDE_B
+                                    / if B == 0, terminate the program
+                                    SKIPCOND 400
+                                    JUMP LABEL_MAIN_ELSE / B != 0
+                                    JUMP LABEL_MAIN_IF / B == 0
+LABEL_MAIN_AFTER_CMP,				LOAD VAR_RESULT
+									OUTPUT
+                                    LOAD VAR_REMAINDER
+									OUTPUT
+                                    HALT
+
+
+/ prints -1
+LABEL_MAIN_IF,						SUBT CONST_1 
+									OUTPUT
+                        			HALT
+/ performs the division
+LABEL_MAIN_ELSE,					JNS FUNCTION_DIVIDE
+									JUMP LABEL_MAIN_AFTER_CMP
+
+/ (int, int) divide(int A, int B) { return (A / B, A % B); }
+FUNCTION_DIVIDE,    				DEC 0
+									/ A - B to check if B is bigger than A
+LABEL_DIVIDE_LOOP,					LOAD RECORD_DIVIDE_A
+									SUBT RECORD_DIVIDE_B
+                                    STORE RECORD_DIVIDE_A / A = A - B
+									SKIPCOND 000
+                        			JUMP LABEL_DIVIDE_ELSE / B <= A
+                        			JUMP LABEL_DIVIDE_IF / B > A
+
+/ update the remainder and leave the divide function
+LABEL_DIVIDE_IF,					ADD RECORD_DIVIDE_B
+									STORE VAR_REMAINDER / remainder = A - B + B = A
+									JUMPI FUNCTION_DIVIDE
+/ increment the result of division by 1 and go back to the loop
+LABEL_DIVIDE_ELSE, 					LOAD VAR_RESULT
+									ADD CONST_1
+									STORE VAR_RESULT
+                                    JUMP LABEL_DIVIDE_LOOP
+
+RECORD_DIVIDE_A, 					DEC 0
+RECORD_DIVIDE_B, 					DEC 0
+
+CONST_1, 							DEC 1

@@ -1,0 +1,41 @@
+@startuml Diagram
+
+class Customer {
+  -firstName: String
+  -lastName: String
+  -age: int
+  +Customer(firstName: String, lastName: String, age: int)
+  +getFullName(): String
+  +getAge(): int
+}
+
+class Product {
+  -name: String
+  -price: int
+  -expectedDeliveryTime: int
+  +Product(name: String, price: int, expectedDeliveryTime: int)
+  +getName(): String
+  +getPrice(): int
+  +getExpectedDeliveryTime(): int
+  +changeName(name: String): void
+  +changePrice(price: int): void
+  +changeExpectedDeliveryTime(expectedDeliveryTime: int): void
+}
+
+class ShoppingCart {
+  -MIN_DELIVERY_TIME: int
+  -customer: Customer
+  -totalValue: int
+  -products: Map<Product, int>
+  +ShoppingCart(customer: Customer)
+  +addProduct(product: Product, quantity: int): void
+  +removeProduct(product: Product): void
+  +getProductTypesCount(): int
+  +getTotalValue(): int
+  +buy(): void
+}
+
+Product -> ShoppingCart
+Customer -> ShoppingCart
+
+@enduml

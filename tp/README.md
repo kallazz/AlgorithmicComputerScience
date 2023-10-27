@@ -1,0 +1,2 @@
+🇺🇸 Software Engineering
+🇵🇱 Technologia programowania
