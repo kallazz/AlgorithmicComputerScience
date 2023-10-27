@@ -2,6 +2,8 @@
 *
 !/**/
 !*.*
+# Except for "Dockerfile"
+!Dockerfile
 
 # VS Code
 .vscode/
