@@ -1,0 +1,107 @@
+JUMP FUNCTION_MAIN
+
+STACK_ARR, 					HEX 100
+STACK_PTR, 					HEX 100 / head of the stack
+FACTORIAL_CALCULATE_PTR, 	DEC 31 / points to FACTORIAL_CALCULATE
+
+CONST_1, 					DEC 1
+CONST_2, 					DEC 2
+
+FUNCTION_MAIN,				INPUT
+                            JNS FUNCTION_STACK_PUSH
+                            JNS FUNCTION_FACTORIAL_START
+
+                            / popping the final result
+                            JNS FUNCTION_STACK_POP
+                            OUTPUT
+                            HALT
+
+FUNCTION_FACTORIAL_START,	DEC 0
+							STORE VAR_TEMP_FACTORIAL_N
+                            LOAD FUNCTION_FACTORIAL_START
+                            JNS FUNCTION_STACK_PUSH / push the address for coming back to main
+                            LOAD VAR_TEMP_FACTORIAL_N
+                            JUMP FUNCTION_FACTORIAL_CHECK
+
+FUNCTION_FACTORIAL, 		DEC 0
+							ADD CONST_1 / N = N + 1 to get the current N value after if
+                            STORE VAR_TEMP_FACTORIAL_N
+                            JNS FUNCTION_STACK_PUSH / push the current N value
+                            LOAD FACTORIAL_CALCULATE_PTR
+                            JNS FUNCTION_STACK_PUSH / push the address for coming back(FACTORIAL_CALCULATE)
+                            LOAD VAR_TEMP_FACTORIAL_N
+							/ check if (N - 1) == 1
+FUNCTION_FACTORIAL_CHECK, 	SUBT CONST_2 / N = N - 2;
+                            SKIPCOND 400
+                            JNS FUNCTION_FACTORIAL
+                            / push 1 to the stack
+                            ADD CONST_1
+							JNS FUNCTION_STACK_PUSH
+                            JUMP FACTORIAL_CALCULATE
+
+
+FACTORIAL_CALCULATE,		JNS FUNCTION_STACK_POP
+                            STORE VAR_TEMP_FACTORIAL_N
+                            JNS FUNCTION_STACK_POP
+                            STORE VAR_TEMP_FACTORIAL_ADDRESS
+                            JNS FUNCTION_STACK_POP
+
+                            JNS FUNCTION_MULT
+                            JNS FUNCTION_STACK_PUSH / pushing the multiplication result
+                            JUMPI VAR_TEMP_FACTORIAL_ADDRESS
+
+VAR_TEMP_FACTORIAL_N, 		DEC 0
+VAR_TEMP_FACTORIAL_ADDRESS,	DEC 0
+
+/ Multiplication
+FUNCTION_MULT, 				DEC 0
+                            STORE RECORD_MULT_X
+                            LOAD VAR_TEMP_FACTORIAL_N
+                            STORE RECORD_MULT_Y
+
+							CLEAR
+							STORE VAR_TEMP_MULT_RESULT
+                			// start--> int i = 0
+LOOP_LABEL_FOR_START, 		CLEAR
+                        	STORE LOOP_ITERATOR_I
+                        	// cond--> i < N--> !i > N--> ! i-N > 0
+LOOP_LABEL_FOR_COND, 		LOAD LOOP_ITERATOR_I
+                            SUBT RECORD_MULT_Y
+                            SKIPCOND 000
+                            JUMP LOOP_LABEL_FOR_END
+                            JUMP LOOP_LABEL_FOR_BODY
+                            // BODY = {res += x}
+LOOP_LABEL_FOR_BODY, 		LOAD VAR_TEMP_MULT_RESULT
+                            ADD RECORD_MULT_X
+                            STORE VAR_TEMP_MULT_RESULT
+                        	// i++
+LOOP_LABEL_FOR_POSTSTEP,	LOAD LOOP_ITERATOR_I
+                            ADD CONST_1
+                            STORE LOOP_ITERATOR_I
+                            JUMP LOOP_LABEL_FOR_COND
+LOOP_LABEL_FOR_END, 		LOAD VAR_TEMP_MULT_RESULT
+                			JUMPI FUNCTION_MULT
+
+RECORD_MULT_X, 				DEC 0
+RECORD_MULT_Y, 				DEC 0
+VAR_TEMP_MULT_RESULT, 		DEC 0
+LOOP_ITERATOR_I, 			DEC 0
+
+/ Stack
+FUNCTION_STACK_PUSH, 		DEC 0
+                            STORE VAR_TEMP_STACK_PUSH_VALUE
+                            STOREI STACK_PTR
+                            LOAD STACK_PTR
+                            ADD CONST_1
+                            STORE STACK_PTR
+                            LOAD VAR_TEMP_STACK_PUSH_VALUE / keep the pushed value in the AC
+                            JUMPI FUNCTION_STACK_PUSH
+
+FUNCTION_STACK_POP, 		DEC 0
+                            LOAD STACK_PTR
+                            SUBT CONST_1
+                            STORE STACK_PTR
+                            LOADI STACK_PTR / keep the popped value in the AC
+                            JUMPI FUNCTION_STACK_POP
+
+VAR_TEMP_STACK_PUSH_VALUE, 	DEC 0

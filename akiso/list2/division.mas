@@ -1,5 +1,3 @@
-/ division with remainder in MARIE
-
 JUMP FUNCTION_MAIN
 
 VAR_RESULT, 						DEC 0
