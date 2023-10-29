@@ -2,12 +2,12 @@ JUMP FUNCTION_MAIN
 
 STACK_ARR, 					HEX 100
 STACK_PTR, 					HEX 100 / head of the stack
-FACTORIAL_CALCULATE_PTR, 	DEC 31 / points to FACTORIAL_CALCULATE
+FACTORIAL_CALCULATE_PTR, 	DEC 35 / points to FACTORIAL_CALCULATE
 
 CONST_1, 					DEC 1
 CONST_2, 					DEC 2
 
-FUNCTION_MAIN,				INPUT
+FUNCTION_MAIN,				INPUT / N should be >= 0
                             JNS FUNCTION_STACK_PUSH
                             JNS FUNCTION_FACTORIAL_START
 
@@ -17,6 +17,12 @@ FUNCTION_MAIN,				INPUT
                             HALT
 
 FUNCTION_FACTORIAL_START,	DEC 0
+							/ if N == 1 or N == 0, return 1
+                            SUBT CONST_1
+							SKIPCOND 800
+                            JUMP FACTORIAL_RETURN_ONE
+
+                            ADD CONST_1 / get the current N after if
 							STORE VAR_TEMP_FACTORIAL_N
                             LOAD FUNCTION_FACTORIAL_START
                             JNS FUNCTION_STACK_PUSH / push the address for coming back to main
@@ -39,7 +45,6 @@ FUNCTION_FACTORIAL_CHECK, 	SUBT CONST_2 / N = N - 2;
 							JNS FUNCTION_STACK_PUSH
                             JUMP FACTORIAL_CALCULATE
 
-
 FACTORIAL_CALCULATE,		JNS FUNCTION_STACK_POP
                             STORE VAR_TEMP_FACTORIAL_N
                             JNS FUNCTION_STACK_POP
@@ -49,6 +54,12 @@ FACTORIAL_CALCULATE,		JNS FUNCTION_STACK_POP
                             JNS FUNCTION_MULT
                             JNS FUNCTION_STACK_PUSH / pushing the multiplication result
                             JUMPI VAR_TEMP_FACTORIAL_ADDRESS
+
+FACTORIAL_RETURN_ONE, 		JNS FUNCTION_STACK_POP
+							CLEAR
+							ADD CONST_1
+                            JNS FUNCTION_STACK_PUSH
+							JUMPI FUNCTION_FACTORIAL_START
 
 VAR_TEMP_FACTORIAL_N, 		DEC 0
 VAR_TEMP_FACTORIAL_ADDRESS,	DEC 0
