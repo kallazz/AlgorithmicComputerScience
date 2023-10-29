@@ -27,7 +27,7 @@ FUNCTION_FACTORIAL_START,	DEC 0
                             LOAD FUNCTION_FACTORIAL_START
                             JNS FUNCTION_STACK_PUSH / push the address for coming back to main
                             LOAD VAR_TEMP_FACTORIAL_N
-                            JUMP FUNCTION_FACTORIAL_CHECK
+                            JUMP FACTORIAL_CHECK
 
 FUNCTION_FACTORIAL, 		DEC 0
 							ADD CONST_1 / N = N + 1 to get the current N value after if
@@ -37,7 +37,7 @@ FUNCTION_FACTORIAL, 		DEC 0
                             JNS FUNCTION_STACK_PUSH / push the address for coming back(FACTORIAL_CALCULATE)
                             LOAD VAR_TEMP_FACTORIAL_N
 							/ check if (N - 1) == 1
-FUNCTION_FACTORIAL_CHECK, 	SUBT CONST_2 / N = N - 2;
+FACTORIAL_CHECK, 	        SUBT CONST_2 / N = N - 2;
                             SKIPCOND 400
                             JNS FUNCTION_FACTORIAL
                             / push 1 to the stack
