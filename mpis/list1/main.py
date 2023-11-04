@@ -63,6 +63,7 @@ def create_plot(n_arr, approximation_results, mean_results, formula, exact_value
                                'Mean of the approximations for specific n',
                                'Actual value'])
     plt.xlim(0, 5000)
+    plt.xticks(np.arange(0, 5001, 500))
     plt.grid()
     plt.tight_layout()
     plt.savefig('./plots/plot' + str(plot_index) + '.png')
