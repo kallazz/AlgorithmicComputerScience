@@ -46,7 +46,7 @@ INTEGRAL_FORMULAS = (r"$\int_{0}^{8} \sqrt[3]{x} \,dx$", r"$\int_{0}^{\pi} \sin(
                      r"$\int_{0}^{1} 4x(1-x)^3 \,dx$")
 
 def create_plot(n_arr, approximation_results, mean_results, formula, exact_value, plot_index):
-    plt.figure(figsize=(12, 8))
+    plt.figure()
     plt.title('Monte Carlo Approximation of ' + formula)
     plt.xlabel('Number of random points(n)')
     plt.ylabel('Value')
