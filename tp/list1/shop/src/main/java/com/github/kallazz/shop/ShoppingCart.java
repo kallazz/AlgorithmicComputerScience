@@ -1,4 +1,4 @@
-package com.myshopapp;
+package com.github.kallazz.shop;
 
 import java.util.HashMap;
 import java.util.Map;

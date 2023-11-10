@@ -1,4 +1,4 @@
-package com.myshopapp;
+package com.github.kallazz.shop;
 
 import static org.junit.Assert.assertTrue;
 

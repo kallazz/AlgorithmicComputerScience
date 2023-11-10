@@ -1,4 +1,4 @@
-package com.myshopapp;
+package com.github.kallazz.shop;
 
 public class Customer {
     private String firstName;
