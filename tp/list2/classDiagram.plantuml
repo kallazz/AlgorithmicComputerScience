@@ -1,0 +1,54 @@
+@startuml
+
+class Product {
+    - name: String
+    - price: double
+    + Product(name: String, price: double)
+    + getName(): String
+    + getPrice(): double
+}
+
+class Element {
+    - product: Product
+    - quantity: int
+    + Element(productName: String, productPrice: double, quantity: int)
+    + getQuantity(): int
+    + getProductName(): String
+    + getProductPrice(): double
+    + getProductFullPrice(): double
+}
+
+class Party {
+    - name: String
+    - email: String
+    + Party(name: String, email: String)
+    + getName(): String
+    + getEmail(): String
+}
+
+class Invoice {
+    - buyer: Party
+    - seller: Party
+    - elements: Vector<Element>
+    + Invoice(buyerName: String, buyerEmail: String, sellerName: String, sellerEmail: String)
+    + addElement(productName: String, productPrice: double, quantity: int): void
+    + printInvoice(): void
+    + getBuyer(): Party
+    + getSeller(): Party
+    + getElements(): Vector<Element>
+    + getFullPrice(): double
+}
+
+interface IDatabaseHandler {
+    + connectToDatabase(url: String, name: String, password: String): void
+    + closeConnection(): void
+    + saveInvoice(invoice: Invoice): void
+    + getInvoice(invoiceId: int): Invoice
+}
+
+Product -> Element
+Element -> Invoice
+Party -> Invoice
+Invoice -> IDatabaseHandler
+
+@enduml

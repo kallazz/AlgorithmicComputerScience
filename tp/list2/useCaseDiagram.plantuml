@@ -1,0 +1,14 @@
+@startuml
+
+actor User
+
+"Create Invoice" as (Create Invoice)
+User --> (Create Invoice)
+
+"Add Product" as (Add Product)
+User --> (Add Product)
+
+"Print Invoice" as (Print Invoice)
+User --> (Print Invoice)
+
+@enduml
