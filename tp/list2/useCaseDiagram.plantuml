@@ -11,4 +11,7 @@ User --> (Add Product)
 "Print Invoice" as (Print Invoice)
 User --> (Print Invoice)
 
+"Exit" as (Exit)
+User --> (Exit)
+
 @enduml
