@@ -8,8 +8,9 @@
 # VS Code
 .vscode/
 
-# C
+# C, C++
 *.o
+*.out
 
 # Gcov
 *.gcda
