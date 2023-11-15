@@ -13,7 +13,7 @@ int main() {
     std::ofstream meansFile("means.txt");
     std::ofstream valuesFile("values.txt");
 
-    std::mt19937 generator(std::random_device{}());
+    std::mt19937 generator(std::random_device{}()); // Mersenne Twister generator
 
     for (int currentN = minN; currentN <= maxN; currentN += 1000) {
         std::cout << currentN << '\n';
