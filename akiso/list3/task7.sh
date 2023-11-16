@@ -1,1 +1,1 @@
-find . -maxdepth 1 -type f -exec sh -c 'echo {}; echo {} | tr "[:upper:]" "[:lower:]"' \; | xargs -n 2 -d '\n' mv
+find . -maxdepth 1 -type f -exec sh -c 'echo {}; echo {} | tr "[:upper:]" "[:lower:]" | tr -d "_-"' \; | xargs -n 2 -d '\n' mv
