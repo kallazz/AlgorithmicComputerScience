@@ -64,6 +64,27 @@ while true; do
     printf "Received speed: %s/s Transmitted speed: %s/s\n" $(convert_bytes $received_speed) $(convert_bytes $transmitted_speed)
     printf "Received speed mean: %s/s Transmitted speed mean: %s/s\n" $received_speed_mean $transmitted_speed_mean
 
+    printf "Graphical representation:\n"
+    printf "Received:    "
+    for ((i = 0; i < $((received_speed / 10)); i++)); do
+        if (( $i == 45 )); then
+            # max number of squares
+            break
+        fi
+        printf "▇"
+    done
+    printf "\n"
+
+    printf "Transmitted: "
+    for ((i = 0; i < $((transmitted_speed / 10)); i++)); do
+        if (( $i == 45 )); then
+            # max number of squares
+            break
+        fi
+        printf "▇"
+    done
+    printf "\n"
+
     last_bytes_received=$bytes_received
     last_bytes_transmitted=$bytes_transmitted
 
@@ -88,7 +109,9 @@ while true; do
     for ((i = 0; i < $cpu_count; i++)); do
         cpu_used=$((${cpu_sums_deltas[i]} - ${cpu_idles_deltas[i]}))
         cpu_usage=$(echo "scale=4; 100 * $cpu_used / ${cpu_sums_deltas[i]}" | bc)
-        printf "%s: %f%%\n" ${cpu_names[i]} $cpu_usage
+        cpu_speed=$(cat /proc/cpuinfo | grep "cpu MHz" | awk '{print $4}' | head -n $(($i+1)) | tail -n 1)
+        cpu_speed=$(echo "scale=4; $cpu_speed * $cpu_usage / 100" | bc)
+        printf "%s: %f%% %fMHz\n" ${cpu_names[i]} $cpu_usage $cpu_speed
     done
 
     cpu_last_sums=$cpu_sums
