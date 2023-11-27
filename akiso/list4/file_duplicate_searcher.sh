@@ -36,9 +36,10 @@ done
 
 for i in "${!same_files[@]}"; do
     value=${same_files[$i]}
-    value_length=${#value}
-    # check if there are at least 2 files there
-    if (( value_length >= 3 )); then
+    # count spaces to get number of duplicates - 1
+    duplicate_count=$(echo $value | grep -o ' ' | wc -l)
+    duplicate_count=$(($duplicate_count + 1))
+    if (( $duplicate_count >= 2 )); then
         file_indices=($value)
         for file_idx in "${file_indices[@]}"; do
             printf "%s Size: %dB\n" "${files[$file_idx]}" "${file_sizes[$file_idx]}"
