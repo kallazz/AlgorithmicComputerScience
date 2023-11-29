@@ -102,15 +102,15 @@ while true; do
     cpu_idles=($(cat /proc/stat | grep -E "cpu[0-9]+" | awk '{ print $5 }'))
     cpu_idles_deltas=()
     for ((i = 0; i < $cpu_count; i++)); do
-        delta=$((${cpu_idles} - ${cpu_last_idles[i]}))
+        delta=$((${cpu_idles[i]} - ${cpu_last_idles[i]}))
         cpu_idles_deltas+=("$delta")
     done
 
     for ((i = 0; i < $cpu_count; i++)); do
         cpu_used=$((${cpu_sums_deltas[i]} - ${cpu_idles_deltas[i]}))
-        cpu_usage=$(echo "scale=4; 100 * $cpu_used / ${cpu_sums_deltas[i]}" | bc)
+        cpu_usage=$(echo "scale=6; 100 * $cpu_used / ${cpu_sums_deltas[i]}" | bc)
         cpu_speed=$(cat /proc/cpuinfo | grep "cpu MHz" | awk '{print $4}' | head -n $(($i+1)) | tail -n 1)
-        cpu_speed=$(echo "scale=4; $cpu_speed * $cpu_usage / 100" | bc)
+        cpu_speed=$(echo "scale=6; $cpu_speed * $cpu_usage / 100" | bc)
         printf "%s: %f%% %fMHz\n" ${cpu_names[i]} $cpu_usage $cpu_speed
     done
 
