@@ -25,9 +25,12 @@ plot 'values.txt' using 1:2 title 'values' with points pointtype 7 pointsize 0.5
 # Un
 set title 'Un plot'
 set output './plots/Un_plot.png'
+set ylabel 'Number of empty bins'
 
 plot 'values.txt' using 1:3 title 'values' with points pointtype 7 pointsize 0.5 lc rgb "blue", \
     'means.txt' using 1:3 title 'means' with points pointtype 7 pointsize 1 lc rgb "red"
+
+set ylabel 'Number of balls'
 
 # Cn
 set title 'Cn plot'
@@ -70,9 +73,12 @@ plot 'values.txt' using 1:($2/sqrt($1)) title 'values' with points pointtype 7 p
 # Un / n
 set title 'Un / n plot'
 set output './plots/Un_over_n_plot.png'
+set ylabel 'Number of empty bins'
 
 plot 'values.txt' using 1:($3/$1) title 'values' with points pointtype 7 pointsize 0.5 lc rgb "blue", \
     'means.txt' using 1:($3/$1) title 'means' with points pointtype 7 pointsize 1 lc rgb "red"
+
+set ylabel 'Number of balls'
 
 # ************************************************ c) ************************************************
 # Cn / n
