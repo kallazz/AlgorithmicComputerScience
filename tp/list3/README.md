@@ -1,0 +1,1 @@
+These are files I modified/created for the design patterns task. However, there is not much to see in these files alone, as they are part of larger Maven projects.
