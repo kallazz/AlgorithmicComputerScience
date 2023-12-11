@@ -36,7 +36,7 @@ char* getCurrentWorkingDirectory(void) {
     char *cwd = malloc(allocationSize);
 
     if (!cwd) {
-        perror("getCurrentWorkingDirectory");
+        printError("getCurrentWorkingDirectory");
         free(cwd);
         return "";
     }
