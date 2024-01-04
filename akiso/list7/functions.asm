@@ -12,19 +12,19 @@ quit:
 ; int strlen(String message)
 ; returns the length of the string
 strlen:
-    push      ebx              ; push ebx value to the stack to save it
-    mov ebx,  eax
+    push      ebx               ; push ebx value to the stack to save it
+    mov       ebx,  eax
 
 .nextChar:
-    cmp       byte [eax], 0    ; look for 0 in string(end of string)
+    cmp       byte [eax], 0     ; look for 0 in string(end of string)
     jz        .finished         ; jump if zero flag is set(cmp can set it if x == y)
-    inc       eax              ; increment eax by one byte
+    inc       eax               ; increment eax by one byte
     jmp       .nextChar         ; jump to nextChar label
 
 .finished:
-    sub       eax, ebx         ; eax = eax - ebx, this is the string's length
-    pop       ebx              ; pop from stack back into into ebx
-    ret                        ; return to where the function was called
+    sub       eax, ebx          ; eax = eax - ebx, this is the string's length
+    pop       ebx               ; pop from stack back into into ebx
+    ret                         ; return to where the function was called
 
 
 ;------------------------------------------------------------------------------------
@@ -52,19 +52,25 @@ printStr:
 
 
 ;------------------------------------------------------------------------------------
-; void printStrLF(String message)
-; prints the string with linfeed(newline) character
-printStrLF:
-    call    printStr
-
+; void printLF(String message)
+; print the LF character
+printLF:
     push    eax
     mov     eax, 0Ah
     push    eax         ; push eax with LF character to the stack
     mov     eax, esp    ; use esp to get the adress(which is required by write syscall)
     call    printStr
+    pop     eax
+    pop     eax
+    ret
 
-    pop     eax
-    pop     eax
+
+;------------------------------------------------------------------------------------
+; void printStrLF(String message)
+; prints the string with linfeed(newline) character
+printStrLF:
+    call    printStr
+    call    printLF
     ret
 
 
@@ -109,14 +115,7 @@ printInt:
 ; prints integer with newline
 printIntLF:
     call    printInt
-
-    push eax
-    mov     eax, 0Ah
-    push    eax
-    mov     eax, esp
-    call    printStr
-    pop eax
-    pop eax
+    call    printLF
     ret
 
 
@@ -125,7 +124,7 @@ printIntLF:
 ; converts the given number to a hex digit in ASCII int form
 getHexDigitASCII:
     cmp     eax, 9
-    jg      .letter      ; if this is a number 10-15
+    jg      .letter     ; if this is a number 10-15
 
     add     eax, 48     ; mapping 0-9 to ASCII 0-9
     jmp     .numberReady
@@ -184,14 +183,7 @@ printHex:
 ; take a decimal number and print it out as hexadecimal number with newline
 printHexLF:
     call    printHex
-
-    push    eax
-    mov     eax, 0Ah
-    push    eax
-    mov     eax, esp
-    call    printStr
-    pop     eax
-    pop     eax
+    call    printLF
     ret
 
 

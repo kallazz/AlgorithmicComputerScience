@@ -1,10 +1,10 @@
 %include "../functions.asm"
 
 section .data
-welcomeMsg db "Please enter a number: ", 0h
+welcomeMsg  db "Please enter a number: ", 0h
 
 section .bss
-userInput: resb 255
+userInput:  resb 255
 
 section .text
 global _start
