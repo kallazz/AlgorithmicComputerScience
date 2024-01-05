@@ -53,7 +53,7 @@ printStr:
 
 ;------------------------------------------------------------------------------------
 ; void printLF(String message)
-; print the LF character
+; prints the LF character
 printLF:
     push    eax
     mov     eax, 0Ah
@@ -138,7 +138,7 @@ getHexDigitASCII:
 
 ;------------------------------------------------------------------------------------
 ; void printHex(Integer decimalNumber)
-; take a decimal number and print it out as hexadecimal number
+; takes a decimal number and prints it out as a hexadecimal number
 printHex:
     ; push to stack to preserve the values
     push    eax
@@ -180,7 +180,7 @@ printHex:
 
 ;------------------------------------------------------------------------------------
 ; void printHexLF(Integer decimalNumber)
-; take a decimal number and print it out as hexadecimal number with newline
+; takes a decimal number and prints it out as a hexadecimal number with newline
 printHexLF:
     call    printHex
     call    printLF
@@ -189,7 +189,7 @@ printHexLF:
 
 ;------------------------------------------------------------------------------------
 ; int stringToInt(String text)
-; take a string(can have LF at the end) and convert it to an int
+; takes a string(can have LF at the end) and converts it to an int
 stringToInt:
     push    ebx,
     push    ecx,
@@ -228,4 +228,45 @@ stringToInt:
     pop     edx,
     pop     ecx,
     pop     ebx,
+    ret
+
+
+;------------------------------------------------------------------------------------
+; bool isPrime(int number)
+; checks if the provided int is a prime number
+isPrime:
+    push    ebx
+    push    ecx
+    push    edx
+
+    cmp     eax, 2
+    jl      .notPrime
+    mov     ecx, 2          ; set loop counter to 2
+    mov     ebx, eax        ; ebx will hold the number value
+
+.loop:
+    cmp     ecx, ebx        ; stop when counter == number
+    je      .prime
+
+    mov     eax, ebx
+    mov     edx, 0          ; clear the remainder register before division
+    div     ecx             ; number = number / i
+    cmp     edx, 0          ; check if remainder is 0
+    je      .notPrime       ; if so, this is not a prime
+
+    inc     ecx             ; increment the counter
+    jmp     .loop
+
+
+.prime:
+    mov     eax, 1
+    jmp     .finished
+
+.notPrime:
+    mov     eax, 0
+
+.finished:
+    pop     edx
+    pop     ecx
+    pop     ebx
     ret
