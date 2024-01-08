@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlogApp</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <nav class="sticky">
+        <div class="left-links">
+            <a class="links" href="/">Home</a>
+            <a class="links" href="/about">About</a>
+            <a class="links" href="/add-blog">Add Blog</a>
+         </div>
+         <% if (user) { %>
+            <div class="right-links">
+                <a class="links" href="/settings"><%= user.username %></a>
+                <a class="links" href="/logout">Logout</a>
+            </div>
+         <% } else { %>
+            <div class="right-links">
+                <a class="links" href="/signup">Register</a>
+                <a class="links" href="/login">Login</a>
+            </div>
+        <% } %>
+    </nav>

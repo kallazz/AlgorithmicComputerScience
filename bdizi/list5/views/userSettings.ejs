@@ -1,0 +1,77 @@
+<%- include('partials/header'); -%>
+
+<form>
+    <h2>User Profile</h2>
+
+    <label for="job">Job:</label>
+    <input type="text" id="job" name="job" value="<%= userInfo.job %>">
+    <div class="job success"></div>
+    <div class="job error"></div>
+    <button type="button" onclick="changeJob()">Change Job</button>
+
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" value="<%= userInfo.age %>">
+    <div class="age success"></div>
+    <div class="age error"></div>
+    <button type="button" onclick="changeAge()">Change Age</button>
+
+    <p class="error" id="errorMessage"></p>
+</form>
+
+<script>
+    const form = document.querySelector("form");
+    const jobSuccess = document.querySelector(".job.success")
+    const ageSuccess = document.querySelector(".age.success")
+    const jobError = document.querySelector(".job.error")
+    const ageError = document.querySelector(".age.error")
+
+    async function changeJob() {
+        const userId = <%= userId %>;
+        const newJob = form.job.value;
+
+        jobSuccess.textContent = "";
+        ageSuccess.textContent = "";
+        jobError.textContent = "";
+        ageError.textContent = "";
+
+        try {
+            const result = await fetch("/settings", {
+                method: "POST",
+                body: JSON.stringify({ id: userId , job: newJob }),
+                headers: { "Content-Type": "application/json" }
+            });
+
+            const data = await result.json();
+            jobSuccess.textContent = data.successMsg;
+        } catch (err) {
+            console.error("Error changing job:", err);
+            jobError.textContent = "Couldn't change the job info";
+        }
+    }
+
+    async function changeAge() {
+        const userId = <%= userId %>;
+        const newAge = form.age.value;
+
+        jobSuccess.textContent = "";
+        ageSuccess.textContent = "";
+        jobError.textContent = "";
+        ageError.textContent = "";
+
+        try {
+            const result = await fetch("/settings", {
+                method: "POST",
+                body: JSON.stringify({ id: userId , age: newAge }),
+                headers: { "Content-Type": "application/json" }
+            });
+
+            const data = await result.json();
+            ageSuccess.textContent = data.successMsg;
+        } catch (error) {
+            console.error("Error changing job:", error);
+            ageError.textContent = "Couldn't change the age info";
+        }
+    }
+</script>
+
+<%- include('partials/footer'); -%>

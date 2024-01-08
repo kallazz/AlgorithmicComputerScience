@@ -1,0 +1,22 @@
+<%- include('partials/header'); -%>
+
+<form class="blog-form" method="POST" action="/add-blog">
+    <h2>Add a New Blog Post</h2>
+
+    <label for="blogTitle">Blog Title</label>
+    <input type="text" id="blogTitle" name="blogTitle" required>
+
+    <label for="blogBody">Blog Description</label>
+    <textarea id="blogBody" name="blogBody" rows="4" required></textarea>
+
+    <label for="tags">Tags (select multiple by pressing CTRL)</label>
+    <select id="tags" name="tags" multiple>
+        <% tags.forEach(function(tag) { %>
+            <option value="<%= tag.id %>"><%= tag.tag_name %></option>
+        <% }); %>
+    </select>
+
+    <button type="submit">Add Blog</button>
+</form>
+
+<%- include('partials/footer'); -%>

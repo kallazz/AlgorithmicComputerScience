@@ -1,0 +1,26 @@
+<%- include('partials/header'); -%>
+
+<div class="blog-list small-container">
+    <% blogs.forEach(blog => { %>
+        <div class="blog-item">
+            <h2 class="about-h1"><%= blog.title %></h2>
+            <p class="tags">Tags: 
+                <% blog.tags.forEach((tag, index) => { %>
+                    <span class="tag">
+                        <% if (index < blog.tags.length - 1) { %>
+                            <%= tag + "," %>
+                        <% } else { %>
+                            <%= tag %>
+                        <% }}); %>
+                    </span>
+            </p>
+            <a class="about-a" href="/blogs/<%= blog.id %>">Read More</a>
+        </div>
+    <% }); %>
+
+    <% if (blogs.length === 0) { %>
+        <p>No blogs available.</p>
+    <% } %>
+</div>
+
+<%- include('partials/footer'); -%>

@@ -1,0 +1,71 @@
+<%- include('partials/header'); -%>
+
+<div class="blog-detail">
+    <% if (blog) { %>
+        <h1><%= blog.title %></h1>
+
+        <div class="blog-author">
+            <p>Written by: <%= blog.author %></p>
+        </div>
+
+        <div class="blog-body">
+            <p><%= blog.body %></p>
+        </div>
+
+        <% if (user && user.id === blog.user_id) { %>
+            <form class="delete-blog-form" method="POST" action="/blogs/<%= blog.id %>/delete">
+                <button type="submit" class="delete-button">Delete Blog</button>
+            </form>
+        <% } %>
+
+        <% if (comments && comments.length > 0) { %>
+            <div class="comments-section">
+                <h2>Comments</h2>
+                <ul class="comments-list">
+                    <% comments.forEach(function(comment) { %>
+                        <li class="comment">
+                            <p><strong><%= comment.author %>:</strong> <%= comment.body %></p>
+                        </li>
+                    <% }); %>
+                </ul>
+            </div>
+        <% } else { %>
+            <p>No comments yet.</p>
+        <% } %>
+
+        <form class="comment-form" id="commentForm">
+            <div class="comment error"></div>
+            <label for="comment">Your Comment:</label>
+            <textarea id="comment" name="comment" rows="4" required></textarea>
+            <button type="submit">Submit Comment</button>
+        </form>
+
+    <% } else { %>
+        <p>Blog not found.</p>
+    <% } %>
+</div>
+
+<%- include('partials/footer'); -%>
+
+<script>
+    const commentError = document.querySelector(".comment.error")
+
+    document.getElementById('commentForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const commentText = document.getElementById('comment').value;
+
+        commentError.textContent = "";
+
+        try {
+            await fetch(window.location.href, {
+                method: "POST",
+                body: JSON.stringify({ body: commentText }),
+                headers: { "Content-Type": "application/json" }
+            });
+            location.reload(true);
+        } catch (err) {
+            commentError.textContent = "Couldn't add the comment";
+        }
+    });
+</script>
