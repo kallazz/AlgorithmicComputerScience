@@ -14,7 +14,7 @@ isPrime:
 
     mov     r6, #2                  @ set the loop counter to 2
 loop:
-    cmp     r6, r5                  @ check if counter >= n/2
+    cmp     r6, r5                  @ check if counter > n/2
     bgt     prime                   @ if so, stop comparing, the number is prime
 
     mov     r0, r7                  @ load the number

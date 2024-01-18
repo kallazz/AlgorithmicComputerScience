@@ -13,6 +13,7 @@ _start:
     mov     eax, welcomeMsg
     call    printStr
 
+    ; invoke SYS_READ
     mov     edx, 255
     mov     ecx, userInput
     mov     ebx, 0

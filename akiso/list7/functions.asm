@@ -22,7 +22,7 @@ strlen:
     jmp       .nextChar         ; jump to nextChar label
 
 .finished:
-    sub       eax, ebx          ; eax = eax - ebx, this is the string's length
+    sub       eax, ebx          ; eax = eax - ebx <- adresses, ebx points to the start of the string, eax was incremented, the result is the number of bytes between them
     pop       ebx               ; pop from stack back into into ebx
     ret                         ; return to where the function was called
 
@@ -35,6 +35,7 @@ printStr:
     push      ecx
     push      ebx
     push      eax
+
     call      strlen
 
     mov       edx, eax
@@ -42,7 +43,7 @@ printStr:
 
     mov       ecx, eax
     mov       ebx, 1
-    mov       eax, 4
+    mov       eax, 4            ; SYS_WRITE(code 4)
     int       80h
 
     pop       ebx
@@ -197,7 +198,7 @@ stringToInt:
     push    esi,
     mov     esi, eax
     mov     eax, 0          ; eax will hold the int
-    mov     ecx, 0
+    mov     ecx, 0          ; ecx is the loop counter
 
 .multiplyLoop:
     ; bl is a part of ebx, which only takes 8 bits and this is the size of 1 ASCII character
@@ -205,13 +206,14 @@ stringToInt:
     mov     bl, [esi+ecx]   ; move byte at adress computed by adding values esi+ecx to ebx register's lower half
                             ; [esi+ecx] just gets one character from the char array(string)
                             ; esi is the beggining of the array and ecx is the counter that gets incremented
+    ; check if this is a char
     cmp     bl, 48
     jl      .finished
     cmp     bl, 57
     jg      .finished
 
     sub     bl, 48          ; bl = bl - 48   ebx's lower half gets converted to decimal representation of ascii value
-    add     eax, ebx        ; eax = eax + ebx
+    add     eax, ebx        ; eax = eax + ebx = eax + digit
     mov     ebx, 10
     mul     ebx             ; eax = eax * ebx = eax * 10
     inc     ecx             ; increment the counter
