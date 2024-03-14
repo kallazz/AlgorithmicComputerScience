@@ -15,9 +15,7 @@ jest_synem(X) :-
 
 siostra(X, Y) :-
     kobieta(X),
-    rodzic(Z, X),
-    rodzic(Z, Y),
-    X \= Y.
+    rodzenstwo(X, Y).
 
 dziadek(X, Y) :-
     ojciec(X, Z),
