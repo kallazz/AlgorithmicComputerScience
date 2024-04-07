@@ -9,10 +9,12 @@ from list_generator import generate_random_list
 
 ARRAY_SIZES_TO_CHECK = 100
 
+
 def assert_random_arrays(sorting_algorithm):
     for i in range(ARRAY_SIZES_TO_CHECK):
         random_list = generate_random_list(i)
         assert sorted(random_list) == sorting_algorithm(random_list)
+
 
 def test_insertion_sort():
     for i in range(ARRAY_SIZES_TO_CHECK):
@@ -21,12 +23,14 @@ def test_insertion_sort():
         insertion_sort(random_list)
         assert random_list == expected_result
 
+
 def test_quick_sort():
     for i in range(ARRAY_SIZES_TO_CHECK):
         random_list = generate_random_list(i)
         expected_result = sorted(random_list)
         quick_sort(random_list, 0, i - 1)
         assert random_list == expected_result
+
 
 def test_hybrid_sort():
     for i in range(ARRAY_SIZES_TO_CHECK):
@@ -35,12 +39,14 @@ def test_hybrid_sort():
         hybrid_sort(random_list, 0, i - 1)
         assert random_list == expected_result
 
+
 def test_merge_sort():
     for i in range(ARRAY_SIZES_TO_CHECK):
         random_list = generate_random_list(i)
         expected_result = sorted(random_list)
         merge_sort(random_list, 0, i - 1)
         assert random_list == expected_result
+
 
 def test_custom_sort():
     for i in range(1, ARRAY_SIZES_TO_CHECK):

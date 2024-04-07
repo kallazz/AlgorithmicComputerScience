@@ -7,10 +7,12 @@ from sorting_analyzer import SortingAnalyzer
 MERGE_SORT_COMPARISONS = 0
 MERGE_SORT_SWAPS = 0
 
+
 def reset_counters_m():
     global MERGE_SORT_COMPARISONS, MERGE_SORT_SWAPS
     MERGE_SORT_COMPARISONS = 0
     MERGE_SORT_SWAPS = 0
+
 
 def merge_sort(arr: List[int], left: int, right: int) -> Tuple[int, int]:
     global MERGE_SORT_COMPARISONS, MERGE_SORT_SWAPS
@@ -23,13 +25,14 @@ def merge_sort(arr: List[int], left: int, right: int) -> Tuple[int, int]:
 
     return MERGE_SORT_COMPARISONS, MERGE_SORT_SWAPS
 
+
 def merge(arr: List[int], left: int, mid: int, right: int) -> None:
     global MERGE_SORT_COMPARISONS, MERGE_SORT_SWAPS
     left_arr_size = mid - left + 1
     right_arr_size = right - mid
 
-    left_arr = arr[left:mid + 1]
-    right_arr = arr[mid + 1:right + 1]
+    left_arr = arr[left : mid + 1]
+    right_arr = arr[mid + 1 : right + 1]
 
     left_index, right_index, merged_index = 0, 0, left
 
@@ -54,7 +57,8 @@ def merge(arr: List[int], left: int, mid: int, right: int) -> None:
         MERGE_SORT_SWAPS += 1
         right_index += 1
         merged_index += 1
-    
+
+
 def main() -> None:
     parser = argparse.ArgumentParser("Insertion sort")
     parser.add_argument("arr_to_sort", nargs="*", type=int)
@@ -67,6 +71,7 @@ def main() -> None:
     SortingAnalyzer.set_and_print_input_arr(args.arr_to_sort)
     merge_sort(args.arr_to_sort, 0, len(args.arr_to_sort) - 1)
     SortingAnalyzer.print_results(MERGE_SORT_COMPARISONS, MERGE_SORT_SWAPS)
+
 
 if __name__ == "__main__":
     main()

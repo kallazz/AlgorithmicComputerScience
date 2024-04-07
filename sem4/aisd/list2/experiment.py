@@ -81,7 +81,7 @@ def run_experiment(start: int, end: int, increment: int, is_big_n: bool) -> None
             print(f"k={k}, n={n}")
             for k_counter in range(k):
                 arr = generate_random_list(n)
-                '''
+                """
                 comparisons, swaps = quick_sort(arr.copy(), 0, len(arr) - 1)
                 if k_counter == k - 1:
                     comparison_sums[0][index] += comparisons
@@ -107,7 +107,7 @@ def run_experiment(start: int, end: int, increment: int, is_big_n: bool) -> None
                         comparison_sums_over_n[2][index] += comparisons / n
                         swap_sums_over_n[2][index] += swaps / n
                         reset_counters_i()
-                '''
+                """
                 comparisons, swaps = merge_sort(arr.copy(), 0, len(arr) - 1)
                 if k_counter == k - 1:
                     comparison_sums[3][index] += comparisons
@@ -130,7 +130,7 @@ def run_experiment(start: int, end: int, increment: int, is_big_n: bool) -> None
         ]
         average_swaps = [swap / k for swap in swap_sums]
         average_swaps_over_n = [swap / k for swap in swap_sums_over_n]
-        '''
+        """
         plot_data(
             average_comparisons[0:3] if not is_big_n else average_comparisons[0:2],
             average_swaps[0:3] if not is_big_n else average_swaps[0:2],
@@ -165,7 +165,7 @@ def run_experiment(start: int, end: int, increment: int, is_big_n: bool) -> None
             is_big_n=is_big_n,
             is_over_n=True,
         )
-        '''
+        """
         plot_data(
             average_comparisons[3:5],
             average_swaps[3:5],

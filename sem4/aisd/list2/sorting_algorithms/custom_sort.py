@@ -9,10 +9,12 @@ CUSTOM_SORT_SWAPS = 0
 
 MIN_MERGE = 32
 
+
 def reset_counters_c():
     global CUSTOM_SORT_COMPARISONS, CUSTOM_SORT_SWAPS
     CUSTOM_SORT_COMPARISONS = 0
     CUSTOM_SORT_SWAPS = 0
+
 
 def calculate_min_run(arr_length: int) -> int:
     remainder = 0
@@ -20,6 +22,7 @@ def calculate_min_run(arr_length: int) -> int:
         remainder |= arr_length & 1
         arr_length >>= 1
     return 2
+
 
 def custom_sort(arr: List[int]) -> Tuple[int, int]:
     global CUSTOM_SORT_COMPARISONS, CUSTOM_SORT_SWAPS
@@ -62,8 +65,8 @@ def merge(arr: List[int], left: int, mid: int, right: int) -> None:
     left_arr_size = mid - left + 1
     right_arr_size = right - mid
 
-    left_arr = arr[left:mid + 1]
-    right_arr = arr[mid + 1:right + 1]
+    left_arr = arr[left : mid + 1]
+    right_arr = arr[mid + 1 : right + 1]
 
     left_index, right_index, merged_index = 0, 0, left
 
@@ -89,6 +92,7 @@ def merge(arr: List[int], left: int, mid: int, right: int) -> None:
         right_index += 1
         merged_index += 1
 
+
 def main() -> None:
     parser = argparse.ArgumentParser("Hybrid sort")
     parser.add_argument("arr_to_sort", nargs="*", type=int)
@@ -101,6 +105,7 @@ def main() -> None:
     SortingAnalyzer.set_and_print_input_arr(args.arr_to_sort)
     custom_sort(args.arr_to_sort)
     SortingAnalyzer.print_results(CUSTOM_SORT_COMPARISONS, CUSTOM_SORT_SWAPS)
+
 
 if __name__ == "__main__":
     main()

@@ -1,5 +1,6 @@
 from typing import List
 
+
 class SortingAnalyzer:
     input_arr = []
     arr = []
