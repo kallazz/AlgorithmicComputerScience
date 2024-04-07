@@ -17,7 +17,7 @@ def h_insertion_sort(arr: List[int], start: int, end: int) -> None:
     for i in range(start, end + 1):
         key = arr[i]
         j = i - 1
-        while j >= 0 and arr[j] > key:
+        while j >= start and arr[j] > key:
             HYBRID_SORT_COMPARISONS += 1
             HYBRID_SORT_SWAPS += 1
             arr[j + 1] = arr[j]
