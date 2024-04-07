@@ -1,6 +1,6 @@
 import argparse
 from random import randint
-from typing import Callable, Dict, List 
+from typing import Callable, Dict, List
 
 def generate_random_list(list_size: int) -> List[int]:
     return [randint(0, 2 * list_size - 1) for _ in range(list_size)]
@@ -24,7 +24,7 @@ def main() -> None:
     args = parser.parse_args()
 
     generated_list = CHOICES_TO_GENERATORS[args.generator_type](args.list_size)
-    print(" ".join([str(e) for e in generated_list]))
+    print(" ".join([str(number) for number in generated_list]))
 
 if __name__ == "__main__":
     main()
