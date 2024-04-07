@@ -21,7 +21,7 @@ def calculate_min_run(arr_length: int) -> int:
     while arr_length >= MIN_MERGE:
         remainder |= arr_length & 1
         arr_length >>= 1
-    return 2
+    return arr_length + remainder
 
 
 def custom_sort(arr: List[int]) -> Tuple[int, int]:
