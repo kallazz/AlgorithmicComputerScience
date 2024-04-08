@@ -30,7 +30,7 @@ def custom_sort(arr: List[int]) -> Tuple[int, int]:
     min_run = calculate_min_run(arr_length)
     for i in range(0, arr_length, min_run):
         c_insertion_sort(arr, i, min(i + min_run - 1, arr_length - 1))
-    # SortingAnalyzer.print_text(f"After insertion sort {arr}")
+    SortingAnalyzer.print_text(f"After insertion sort {arr}")
 
     merged_array_size = min_run
     while merged_array_size < arr_length:
@@ -38,19 +38,19 @@ def custom_sort(arr: List[int]) -> Tuple[int, int]:
             mid = min(left + merged_array_size - 1, arr_length - 1)
             right = min(left + 2 * merged_array_size - 1, arr_length - 1)
             merge(arr, left, mid, right)
-            # SortingAnalyzer.print_text(f"After merge {arr}")
+            SortingAnalyzer.print_text(f"After merge {arr}")
 
         merged_array_size *= 2
 
     return CUSTOM_SORT_COMPARISONS, CUSTOM_SORT_SWAPS
 
 
-def c_insertion_sort(arr: List[int], start: int, end: int) -> None:
+def c_insertion_sort(arr: List[int], low: int, high: int) -> None:
     global CUSTOM_SORT_COMPARISONS, CUSTOM_SORT_SWAPS
-    for i in range(start, end + 1):
+    for i in range(low, high + 1):
         key = arr[i]
         j = i - 1
-        while j >= start and arr[j] > key:
+        while j >= low and arr[j] > key:
             CUSTOM_SORT_COMPARISONS += 1
             CUSTOM_SORT_SWAPS += 1
             arr[j + 1] = arr[j]

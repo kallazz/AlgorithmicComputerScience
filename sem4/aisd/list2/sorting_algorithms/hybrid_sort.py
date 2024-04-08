@@ -14,12 +14,12 @@ def reset_counters_h():
     HYBRID_SORT_SWAPS = 0
 
 
-def h_insertion_sort(arr: List[int], start: int, end: int) -> None:
+def h_insertion_sort(arr: List[int], low: int, high: int) -> None:
     global HYBRID_SORT_COMPARISONS, HYBRID_SORT_SWAPS
-    for i in range(start, end + 1):
+    for i in range(low, high + 1):
         key = arr[i]
         j = i - 1
-        while j >= start and arr[j] > key:
+        while j >= low and arr[j] > key:
             HYBRID_SORT_COMPARISONS += 1
             HYBRID_SORT_SWAPS += 1
             arr[j + 1] = arr[j]
@@ -27,42 +27,41 @@ def h_insertion_sort(arr: List[int], start: int, end: int) -> None:
         HYBRID_SORT_COMPARISONS += 1
         HYBRID_SORT_SWAPS += 1
         arr[j + 1] = key
-        # SortingAnalyzer.print_text(f"After iteration {arr}")
 
 
-def partition(arr: List[int], start: int, end: int) -> int:
+def partition(arr: List[int], low: int, high: int) -> int:
     global HYBRID_SORT_COMPARISONS, HYBRID_SORT_SWAPS
-    pivot = arr[end]
-    i = start - 1
+    pivot = arr[high]
+    i = low - 1
 
-    for j in range(start, end + 1):
+    for j in range(low, high + 1):
         if arr[j] < pivot:
             HYBRID_SORT_SWAPS += 1
             i += 1
             arr[i], arr[j] = arr[j], arr[i]
         HYBRID_SORT_COMPARISONS += 1
     HYBRID_SORT_SWAPS += 1
-    arr[i + 1], arr[end] = arr[end], arr[i + 1]
+    arr[i + 1], arr[high] = arr[high], arr[i + 1]
 
-    # SortingAnalyzer.print_text(f"After partition {arr}")
+    SortingAnalyzer.print_text(f"After partition {arr}")
     return i + 1
 
 
 def hybrid_sort(
-    arr: List[int], start: int, end: int, switch: int = 10
+    arr: List[int], low: int, high: int, switch: int = 10
 ) -> Tuple[int, int]:
-    while start < end:
-        if end - start + 1 < switch:
-            h_insertion_sort(arr, start, end)
+    while low < high:
+        if high - low + 1 < switch:
+            h_insertion_sort(arr, low, high)
             break
         else:
-            pivot_index = partition(arr, start, end)
-            if pivot_index - start < end - pivot_index:
-                hybrid_sort(arr, start, pivot_index - 1, switch)
-                start = pivot_index + 1
+            pivot_index = partition(arr, low, high)
+            if pivot_index - low < high - pivot_index:
+                hybrid_sort(arr, low, pivot_index - 1, switch)
+                low = pivot_index + 1
             else:
-                hybrid_sort(arr, pivot_index + 1, end, switch)
-                end = pivot_index - 1
+                hybrid_sort(arr, pivot_index + 1, high, switch)
+                high = pivot_index - 1
 
     return HYBRID_SORT_COMPARISONS, HYBRID_SORT_SWAPS
 

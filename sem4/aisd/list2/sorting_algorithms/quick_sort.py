@@ -14,31 +14,31 @@ def reset_counters_q():
     QUICK_SORT_SWAPS = 0
 
 
-def partition(arr: List[int], start: int, end: int) -> int:
+def partition(arr: List[int], low: int, high: int) -> int:
     global QUICK_SORT_COMPARISONS, QUICK_SORT_SWAPS
-    pivot = arr[end]
-    i = start - 1
+    pivot = arr[high]
+    i = low - 1
 
-    for j in range(start, end + 1):
+    for j in range(low, high + 1):
         if arr[j] < pivot:
             QUICK_SORT_SWAPS += 1
             i += 1
             arr[i], arr[j] = arr[j], arr[i]
         QUICK_SORT_COMPARISONS += 1
-    arr[i + 1], arr[end] = arr[end], arr[i + 1]
+    arr[i + 1], arr[high] = arr[high], arr[i + 1]
     QUICK_SORT_SWAPS += 1
 
-    # SortingAnalyzer.print_text(f"After partition {arr}")
+    SortingAnalyzer.print_text(f"After partition {arr}")
     return i + 1
 
 
-def quick_sort(arr: List[int], start: int, end: int) -> Tuple[int, int]:
-    if start >= end:
-        return
+def quick_sort(arr: List[int], low: int, high: int) -> Tuple[int, int]:
+    if low >= high:
+        return QUICK_SORT_COMPARISONS, QUICK_SORT_SWAPS
 
-    pivot_index = partition(arr, start, end)
-    quick_sort(arr, start, pivot_index - 1)
-    quick_sort(arr, pivot_index + 1, end)
+    pivot_index = partition(arr, low, high)
+    quick_sort(arr, low, pivot_index - 1)
+    quick_sort(arr, pivot_index + 1, high)
 
     return QUICK_SORT_COMPARISONS, QUICK_SORT_SWAPS
 

@@ -3,6 +3,10 @@ import numpy as np
 from typing import List
 
 from sorting_algorithms.custom_sort import custom_sort, reset_counters_c
+from sorting_algorithms.dual_pivot_quicksort import (
+    dual_pivot_quicksort,
+    reset_counters_d,
+)
 from sorting_algorithms.insertion_sort import insertion_sort, reset_counters_i
 from sorting_algorithms.quick_sort import quick_sort, reset_counters_q
 from sorting_algorithms.hybrid_sort import hybrid_sort, reset_counters_h
@@ -10,7 +14,7 @@ from sorting_algorithms.merge_sort import merge_sort, reset_counters_m
 from list_generator import generate_random_list
 
 PLOTS_DIR = "./plots"
-ALGORITHMS_TO_CHECK_AMOUNT = 5
+ALGORITHMS_TO_CHECK_AMOUNT = 6
 
 
 def plot_data(
@@ -81,7 +85,7 @@ def run_experiment(start: int, end: int, increment: int, is_big_n: bool) -> None
             print(f"k={k}, n={n}")
             for k_counter in range(k):
                 arr = generate_random_list(n)
-                """
+
                 comparisons, swaps = quick_sort(arr.copy(), 0, len(arr) - 1)
                 if k_counter == k - 1:
                     comparison_sums[0][index] += comparisons
@@ -90,7 +94,6 @@ def run_experiment(start: int, end: int, increment: int, is_big_n: bool) -> None
                     swap_sums_over_n[0][index] += swaps / n
                     reset_counters_q()
 
-                # switch 1000 -> wolno, switch 100 -> całkiem wolno, switch 10 - OK
                 comparisons, swaps = hybrid_sort(arr.copy(), 0, len(arr) - 1, switch=10)
                 if k_counter == k - 1:
                     comparison_sums[1][index] += comparisons
@@ -107,7 +110,7 @@ def run_experiment(start: int, end: int, increment: int, is_big_n: bool) -> None
                         comparison_sums_over_n[2][index] += comparisons / n
                         swap_sums_over_n[2][index] += swaps / n
                         reset_counters_i()
-                """
+
                 comparisons, swaps = merge_sort(arr.copy(), 0, len(arr) - 1)
                 if k_counter == k - 1:
                     comparison_sums[3][index] += comparisons
@@ -124,13 +127,20 @@ def run_experiment(start: int, end: int, increment: int, is_big_n: bool) -> None
                     swap_sums_over_n[4][index] += swaps / n
                     reset_counters_c()
 
+                comparisons, swaps = dual_pivot_quicksort(arr.copy(), 0, len(arr) - 1)
+                if k_counter == k - 1:
+                    comparison_sums[5][index] += comparisons
+                    swap_sums[5][index] += swaps
+                    comparison_sums_over_n[5][index] += comparisons / n
+                    swap_sums_over_n[5][index] += swaps / n
+                    reset_counters_d()
+
         average_comparisons = [comparison / k for comparison in comparison_sums]
         average_comparisons_over_n = [
             comparison / k for comparison in comparison_sums_over_n
         ]
         average_swaps = [swap / k for swap in swap_sums]
         average_swaps_over_n = [swap / k for swap in swap_sums_over_n]
-        """
         plot_data(
             average_comparisons[0:3] if not is_big_n else average_comparisons[0:2],
             average_swaps[0:3] if not is_big_n else average_swaps[0:2],
@@ -165,7 +175,6 @@ def run_experiment(start: int, end: int, increment: int, is_big_n: bool) -> None
             is_big_n=is_big_n,
             is_over_n=True,
         )
-        """
         plot_data(
             average_comparisons[3:5],
             average_swaps[3:5],
@@ -189,6 +198,30 @@ def run_experiment(start: int, end: int, increment: int, is_big_n: bool) -> None
             is_big_n=is_big_n,
             is_over_n=True,
             filename_addition="merge_custom",
+        )
+        plot_data(
+            average_comparisons[0:1] + average_comparisons[5:6],
+            average_swaps[0:1] + average_swaps[5:6],
+            k,
+            start,
+            end,
+            increment,
+            algorithm_names=["Quick Sort", "Dual Pivot Quick Sort"],
+            is_big_n=is_big_n,
+            is_over_n=False,
+            filename_addition="quick",
+        )
+        plot_data(
+            average_comparisons_over_n[0:1] + average_comparisons_over_n[5:6],
+            average_swaps_over_n[0:1] + average_swaps_over_n[5:6],
+            k,
+            start,
+            end,
+            increment,
+            algorithm_names=["Quick Sort", "Dual Pivot Quick Sort"],
+            is_big_n=is_big_n,
+            is_over_n=True,
+            filename_addition="quick",
         )
 
 

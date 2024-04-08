@@ -27,7 +27,7 @@ def insertion_sort(arr: List[int]) -> Tuple[int, int]:
         INSERTION_SORT_COMPARISONS += 1
         INSERTION_SORT_SWAPS += 1
         arr[j + 1] = key
-        # SortingAnalyzer.print_text(f"After iteration {arr}")
+        SortingAnalyzer.print_text(f"After iteration {arr}")
 
     return INSERTION_SORT_COMPARISONS, INSERTION_SORT_SWAPS
 
