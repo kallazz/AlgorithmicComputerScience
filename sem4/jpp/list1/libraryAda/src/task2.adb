@@ -45,7 +45,7 @@ procedure Task2 is
 
    end Test_GCD;
 
-    -- Diophantine Equation Solver Result Validation
+    -- Diophantine
     procedure Validate_Result(A, B, C : Integer; Solution : Math_Lib.Diophantine_Equation_Solution) is
         Hej : Integer;
     begin
@@ -58,8 +58,7 @@ procedure Task2 is
         end if;
     end Validate_Result;
 
-    -- Diophantine Equation Solver
-    procedure Test_Diophantine_Equation is
+    procedure Test_Diophantine is
         Inputs : constant array(0 .. 15, 0 .. 2) of Integer :=
             ((0, 0, 0), (0, 0, 5), (5, 0, 5), (0, 5, 5), (2, 4, 5), (6, -9, 29), (6, -9, 30),
             (-9, 6, 30), (2, -3, 10), (3, 2, 10), (4, 7, 19), (-6, -9, 10), (87, -64, 3),
@@ -79,7 +78,7 @@ procedure Task2 is
             declare
                 Result : Math_Lib.Diophantine_Equation_Solution;
             begin
-                Result := Math_Lib.Solve_Diophantine_Equation(A, B, C);
+                Result := Math_Lib.Diophantine(A, B, C);
                 Validate_Result(A, B, C, Result);
             end;
         end loop;
@@ -94,19 +93,19 @@ procedure Task2 is
             declare
                 Result : Math_Lib.Diophantine_Equation_Solution;
             begin
-                Result := Math_Lib.Solve_Diophantine_Equation_Recursive(A, B, C);
+                Result := Math_Lib.Diophantine_Recursive(A, B, C);
                 Validate_Result(A, B, C, Result);
             end;
         end loop;
 
 
-    end Test_Diophantine_Equation;
+    end Test_Diophantine;
 
 
 begin
    Test_Factorial;
    Test_GCD;
-   Test_Diophantine_Equation;
+   Test_Diophantine;
    New_Line;
    Put("All tests passed!");
 end Task2;

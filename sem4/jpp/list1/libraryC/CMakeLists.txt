@@ -8,9 +8,9 @@ set(SRC
 
 add_executable(${PROJECT_NAME}-factorial-ut tests/testFactorial.c ${SRC})
 add_executable(${PROJECT_NAME}-gcd-ut tests/testGcd.c ${SRC})
-add_executable(${PROJECT_NAME}-solveDiophantineEquation-ut tests/testSolveDiophantineEquation.c ${SRC})
+add_executable(${PROJECT_NAME}-diophantine-ut tests/testDiophantine.c ${SRC})
 
 enable_testing()
 add_test(NAME factorialTests COMMAND ${PROJECT_NAME}-factorial-ut)
 add_test(NAME gcdTests COMMAND ${PROJECT_NAME}-gcd-ut)
-add_test(NAME solveDiophantineEquationTests COMMAND ${PROJECT_NAME}-solveDiophantineEquation-ut)
+add_test(NAME diophantineTests COMMAND ${PROJECT_NAME}-diophantine-ut)

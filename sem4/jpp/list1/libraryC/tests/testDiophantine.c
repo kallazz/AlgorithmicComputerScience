@@ -38,7 +38,7 @@ int main(void) {
         int b = inputs[i][1];
         int c = inputs[i][2];
         printf("Input: a = %d, b = %d, c = %d\n", a, b, c);
-        DiophantineEquationSolution result = solveDiophantineEquation(a, b, c);
+        DiophantineEquationSolution result = diophantine(a, b, c);
         printf("Result: {%d, %d}\n", result.x, result.y);
         validate_result(a, b, c, &result);
     }
@@ -49,7 +49,7 @@ int main(void) {
         int b = inputs[i][1];
         int c = inputs[i][2];
         printf("Input: a = %d, b = %d, c = %d\n", a, b, c);
-        DiophantineEquationSolution result = solveDiophantineEquationRecursive(a, b, c);
+        DiophantineEquationSolution result = diophantineRecursive(a, b, c);
         printf("Result: {%d, %d}\n", result.x, result.y);
         validate_result(a, b, c, &result);
     }

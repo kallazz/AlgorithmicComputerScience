@@ -13,6 +13,6 @@ package Math_Lib is
    function GCD_Extended_Recursive(A, B : Integer; X, Y : out Integer) return Integer;
    function GCD_I(A, B : Integer) return Integer;
 
-   function Solve_Diophantine_Equation(A, B, C : Integer) return Diophantine_Equation_Solution;
-   function Solve_Diophantine_Equation_Recursive(A, B, C : Integer) return Diophantine_Equation_Solution;
+   function Diophantine(A, B, C : Integer) return Diophantine_Equation_Solution;
+   function Diophantine_Recursive(A, B, C : Integer) return Diophantine_Equation_Solution;
 end Math_Lib;

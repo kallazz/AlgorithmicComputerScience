@@ -115,7 +115,7 @@ package body Math_Lib is
       end;
    end GCD_Extended_Recursive;
 
-   function Solve_Diophantine_Equation(A, B, C : Integer) return Diophantine_Equation_Solution is
+   function Diophantine(A, B, C : Integer) return Diophantine_Equation_Solution is
       Solution : Diophantine_Equation_Solution := (0, 0);
       GCD_Result : Integer;
       X_Solution, Y_Solution : Integer;
@@ -143,9 +143,9 @@ package body Math_Lib is
       Solution.Y := Y_Solution;
 
       return Solution;
-   end Solve_Diophantine_Equation;
+   end Diophantine;
 
-   function Solve_Diophantine_Equation_Recursive(A, B, C : Integer) return Diophantine_Equation_Solution is
+   function Diophantine_Recursive(A, B, C : Integer) return Diophantine_Equation_Solution is
       Solution : Diophantine_Equation_Solution := (0, 0);
       GCD_Result : Integer;
       X_Solution, Y_Solution : Integer;
@@ -173,6 +173,6 @@ package body Math_Lib is
       Solution.Y := Y_Solution;
 
       return Solution;
-   end Solve_Diophantine_Equation_Recursive;
+   end Diophantine_Recursive;
 
 end Math_Lib;

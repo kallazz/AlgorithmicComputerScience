@@ -57,19 +57,16 @@ unsigned int gcdRecursive(unsigned int a, unsigned int b) {
 }
 
 int gcdExtended(int a, int b, int *x, int *y) {
-    // Initialize variables for the iterative version
     int x_prev = 1, y_prev = 0, x_curr = 0, y_curr = 1;
     int quotient, temp;
 
     while (b != 0) {
         quotient = a / b;
 
-        // Update a and b
         temp = b;
         b = a % b;
         a = temp;
 
-        // Update x and y
         temp = x_prev - quotient * x_curr;
         x_prev = x_curr;
         x_curr = temp;
@@ -78,11 +75,10 @@ int gcdExtended(int a, int b, int *x, int *y) {
         y_curr = temp;
     }
 
-    // Store the final values of x and y
     *x = x_prev;
     *y = y_prev;
 
-    return a; // Returns gcd(a, b)
+    return a;
 }
 
 int gcdExtendedRecursive(int a, int b, int *x, int *y) {
@@ -101,7 +97,7 @@ int gcdExtendedRecursive(int a, int b, int *x, int *y) {
     return gcdResult;
 }
 
-DiophantineEquationSolution solveDiophantineEquation(int a, int b, int c) {
+DiophantineEquationSolution diophantine(int a, int b, int c) {
     DiophantineEquationSolution solution = {0, 0};
 
     if (a == 0 && b == 0) {
@@ -129,7 +125,7 @@ DiophantineEquationSolution solveDiophantineEquation(int a, int b, int c) {
     return solution;
 }
 
-DiophantineEquationSolution solveDiophantineEquationRecursive(int a, int b, int c) {
+DiophantineEquationSolution diophantineRecursive(int a, int b, int c) {
     DiophantineEquationSolution solution = {0, 0};
 
     if (a == 0 && b == 0) {
