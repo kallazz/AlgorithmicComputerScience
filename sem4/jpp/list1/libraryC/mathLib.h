@@ -8,11 +8,13 @@ typedef struct {
 
 unsigned long factorial(unsigned long n);
 unsigned long factorialRecursive(unsigned long n);
+
 unsigned int gcd(unsigned int a, unsigned int b);
 unsigned int gcdRecursive(unsigned int a, unsigned int b);
 int gcdExtended(int a, int b, int *x, int *y);
 int gcdExtendedRecursive(int a, int b, int *x, int *y);
 int gcdI(int a, int b);
+
 DiophantineEquationSolution solveDiophantineEquation(int a, int b, int c);
 DiophantineEquationSolution solveDiophantineEquationRecursive(int a, int b, int c);
 
