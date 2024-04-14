@@ -16,6 +16,9 @@
 *.gcda
 *.gcno
 
+# Ada
+*.ali
+
 # Java
 *.class
 
