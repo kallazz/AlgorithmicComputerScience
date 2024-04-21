@@ -57,7 +57,7 @@ unsigned int gcdRecursive(unsigned int a, unsigned int b) {
 }
 
 int gcdExtended(int a, int b, int *x, int *y) {
-    int x_prev = 1, y_prev = 0, x_curr = 0, y_curr = 1;
+    int xPrev = 1, yPrev = 0, xCurr = 0, yCurr = 1;
     int quotient, temp;
 
     while (b != 0) {
@@ -67,16 +67,16 @@ int gcdExtended(int a, int b, int *x, int *y) {
         b = a % b;
         a = temp;
 
-        temp = x_prev - quotient * x_curr;
-        x_prev = x_curr;
-        x_curr = temp;
-        temp = y_prev - quotient * y_curr;
-        y_prev = y_curr;
-        y_curr = temp;
+        temp = xPrev - quotient * xCurr;
+        xPrev = xCurr;
+        xCurr = temp;
+        temp = yPrev - quotient * yCurr;
+        yPrev = yCurr;
+        yCurr = temp;
     }
 
-    *x = x_prev;
-    *y = y_prev;
+    *x = xPrev;
+    *y = yPrev;
 
     return a;
 }
@@ -89,7 +89,7 @@ int gcdExtendedRecursive(int a, int b, int *x, int *y) {
     }
 
     int x1, y1;
-    int gcdResult = gcdExtended(b % a, a, &x1, &y1);
+    int gcdResult = gcdExtendedRecursive(b % a, a, &x1, &y1);
 
     *x = y1 - (b / a) * x1;
     *y = x1;
