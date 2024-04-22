@@ -41,7 +41,7 @@ GF1234577Field GF1234577Field::operator/(const GF1234577Field& other) const {
     if (other.value_ == 0) {
         throw std::invalid_argument("Division by 0!");
     }
-    const int inverse = getMultiplicativeInverse(other.value_);
+    const int inverse = getModularInverse(other.value_);
     return GF1234577Field((value_ * inverse) % getCharacteristic());
 }
 
@@ -72,7 +72,7 @@ GF1234577Field& GF1234577Field::operator/=(const GF1234577Field& other) {
     if (other.value_ == 0) {
         throw std::invalid_argument("Division by 0!");
     }
-    const int inverse = getMultiplicativeInverse(other.value_);
+    const int inverse = getModularInverse(other.value_);
     value_ = (value_ * inverse) % getCharacteristic();
     return *this;
 }
@@ -93,7 +93,7 @@ GF1234577Field::operator double() const {
     return static_cast<double>(value_);
 }
 
-int GF1234577Field::getMultiplicativeInverse(int number) const {
+int GF1234577Field::getModularInverse(int number) const {
     int modulo = getCharacteristic();
     const int originalModulo = modulo;
     int inverse = 0;

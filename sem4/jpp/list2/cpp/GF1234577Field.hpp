@@ -34,7 +34,7 @@ public:
 private:
     int value_;
 
-    int getMultiplicativeInverse(int number) const;
+    int getModularInverse(int number) const;
 };
 
 #endif // GF_1234577_FIELD_HPP

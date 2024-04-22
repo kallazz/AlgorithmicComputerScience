@@ -19,7 +19,7 @@ public class GF1234577Field {
         return value;
     }
 
-    private int getMultiplicativeInverse(int number) {
+    private int getModularInverse(int number) {
         int modulo = getCharacteristic();
         final int originalModulo = modulo;
         int inverse = 0;
@@ -81,7 +81,7 @@ public class GF1234577Field {
         if (other.value == 0) {
             throw new IllegalArgumentException("Division by 0!");
         }
-        final int inverse = getMultiplicativeInverse(other.value);
+        final int inverse = getModularInverse(other.value);
         return new GF1234577Field((value * inverse) % getCharacteristic());
     }
 
@@ -112,7 +112,7 @@ public class GF1234577Field {
         if (other.value == 0) {
             throw new IllegalArgumentException("Divison by 0!");
         }
-        final int inverse = getMultiplicativeInverse(other.value);
+        final int inverse = getModularInverse(other.value);
         value = (value * inverse) % getCharacteristic();
         return this;
     }

@@ -65,7 +65,7 @@ class GF1234577Field:
             return NotImplemented
         if other._value == 0:
             raise ValueError("Division by 0!")
-        inverse = self._get_multiplicative_inverse(other._value)
+        inverse = self._get_modular_inverse(other._value)
         return GF1234577Field((self._value * inverse) % self.CHARACTERISTIC)
 
     def __iadd__(self, other: object) -> "GF1234577Field":
@@ -93,7 +93,7 @@ class GF1234577Field:
             return NotImplemented
         if other._value == 0:
             raise ValueError("Division by 0!")
-        inverse = self._get_multiplicative_inverse(other._value)
+        inverse = self._get_modular_inverse(other._value)
         self._value = (self._value * inverse) % self.CHARACTERISTIC
         return self
 
@@ -109,7 +109,7 @@ class GF1234577Field:
     def __float__(self) -> float:
         return float(self._value)
 
-    def _get_multiplicative_inverse(self, number: int) -> int:
+    def _get_modular_inverse(self, number: int) -> int:
         modulo = self.CHARACTERISTIC
         original_modulo = modulo
         inverse = 0
