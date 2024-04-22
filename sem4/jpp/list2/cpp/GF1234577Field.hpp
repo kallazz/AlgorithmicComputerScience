@@ -6,8 +6,10 @@
 
 class GF1234577Field {
 public:
-    GF1234577Field(const int value = 0);
+    static const int CHARACTERISTIC = 1234577;
     int getCharacteristic() const;
+
+    GF1234577Field(const int value = 0);
     int getValue() const;
 
     bool operator==(const GF1234577Field& other) const;
@@ -26,8 +28,10 @@ public:
 
     friend std::ostream& operator<<(std::ostream& os, const GF1234577Field& field);
 
+    operator int() const;
+    operator float() const;
+    operator double() const;
 private:
-    const int characteristic_ = 1234577;
     int value_;
 
     int getMultiplicativeInverse(int number) const;

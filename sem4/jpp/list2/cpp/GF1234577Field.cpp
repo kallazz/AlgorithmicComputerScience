@@ -3,14 +3,14 @@
 #include <stdexcept>
 #include <iostream>
 
-GF1234577Field::GF1234577Field(const int value) : value_(value % characteristic_) {
-    if (value_ < 0) {
-        value_ += characteristic_;
-    }
+int GF1234577Field::getCharacteristic() const {
+    return CHARACTERISTIC;
 }
 
-int GF1234577Field::getCharacteristic() const {
-    return characteristic_;
+GF1234577Field::GF1234577Field(const int value) : value_(value % getCharacteristic()) {
+    if (value_ < 0) {
+        value_ += getCharacteristic();
+    }
 }
 
 int GF1234577Field::getValue() const {
@@ -26,15 +26,15 @@ std::strong_ordering GF1234577Field::operator<=>(const GF1234577Field& other) co
 }
 
 GF1234577Field GF1234577Field::operator+(const GF1234577Field& other) const {
-    return GF1234577Field((value_ + other.value_) % characteristic_);
+    return GF1234577Field((value_ + other.value_) % getCharacteristic());
 }
 
 GF1234577Field GF1234577Field::operator-(const GF1234577Field& other) const {
-    return GF1234577Field((value_ - other.value_) % characteristic_);
+    return GF1234577Field((value_ - other.value_) % getCharacteristic());
 }
 
 GF1234577Field GF1234577Field::operator*(const GF1234577Field& other) const {
-    return GF1234577Field((value_ * other.value_) % characteristic_);
+    return GF1234577Field((value_ * other.value_) % getCharacteristic());
 }
 
 GF1234577Field GF1234577Field::operator/(const GF1234577Field& other) const {
@@ -42,7 +42,7 @@ GF1234577Field GF1234577Field::operator/(const GF1234577Field& other) const {
         throw std::invalid_argument("Division by 0!");
     }
     const int inverse = getMultiplicativeInverse(other.value_);
-    return GF1234577Field((value_ * inverse) % characteristic_);
+    return GF1234577Field((value_ * inverse) % getCharacteristic());
 }
 
 GF1234577Field& GF1234577Field::operator=(const GF1234577Field& other) {
@@ -51,20 +51,20 @@ GF1234577Field& GF1234577Field::operator=(const GF1234577Field& other) {
 }
 
 GF1234577Field& GF1234577Field::operator+=(const GF1234577Field& other) {
-    value_ = (value_ + other.value_) % characteristic_;
+    value_ = (value_ + other.value_) % getCharacteristic();
     return *this;
 }
 
 GF1234577Field& GF1234577Field::operator-=(const GF1234577Field& other) {
-    value_ = (value_ - other.value_) % characteristic_;
+    value_ = (value_ - other.value_) % getCharacteristic();
     if (value_ < 0) {
-        value_ += characteristic_;
+        value_ += getCharacteristic();
     }
     return *this;
 }
 
 GF1234577Field& GF1234577Field::operator*=(const GF1234577Field& other) {
-    value_ = (value_ * other.value_) % characteristic_;
+    value_ = (value_ * other.value_) % getCharacteristic();
     return *this;
 }
 
@@ -73,7 +73,7 @@ GF1234577Field& GF1234577Field::operator/=(const GF1234577Field& other) {
         throw std::invalid_argument("Division by 0!");
     }
     const int inverse = getMultiplicativeInverse(other.value_);
-    value_ = (value_ * inverse) % characteristic_;
+    value_ = (value_ * inverse) % getCharacteristic();
     return *this;
 }
 
@@ -81,8 +81,20 @@ std::ostream& operator<<(std::ostream& os, const GF1234577Field& field) {
     return os << field.value_;
 }
 
+GF1234577Field::operator int() const {
+    return value_;
+}
+
+GF1234577Field::operator float() const {
+    return static_cast<float>(value_);
+}
+
+GF1234577Field::operator double() const {
+    return static_cast<double>(value_);
+}
+
 int GF1234577Field::getMultiplicativeInverse(int number) const {
-    int modulo = characteristic_;
+    int modulo = getCharacteristic();
     const int originalModulo = modulo;
     int inverse = 0;
     int tempResult = 1;
