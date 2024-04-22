@@ -8,9 +8,9 @@ class GF1234577Field {
 public:
     static const int CHARACTERISTIC = 1234577;
     int getCharacteristic() const;
+    int getValue() const;
 
     GF1234577Field(const int value = 0);
-    int getValue() const;
 
     bool operator==(const GF1234577Field& other) const;
     std::strong_ordering operator<=>(const GF1234577Field& other) const;
@@ -26,7 +26,7 @@ public:
     GF1234577Field& operator*=(const GF1234577Field& other);
     GF1234577Field& operator/=(const GF1234577Field& other);
 
-    friend std::ostream& operator<<(std::ostream& os, const GF1234577Field& field);
+    friend std::ostream& operator<<(std::ostream& outputStream, const GF1234577Field& field);
 
     operator int() const;
     operator float() const;

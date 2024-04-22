@@ -77,8 +77,8 @@ GF1234577Field& GF1234577Field::operator/=(const GF1234577Field& other) {
     return *this;
 }
 
-std::ostream& operator<<(std::ostream& os, const GF1234577Field& field) {
-    return os << field.value_;
+std::ostream& operator<<(std::ostream& outputStream, const GF1234577Field& field) {
+    return outputStream << field.value_;
 }
 
 GF1234577Field::operator int() const {

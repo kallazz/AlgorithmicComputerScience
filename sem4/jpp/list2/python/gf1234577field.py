@@ -1,0 +1,130 @@
+class GF1234577Field:
+    CHARACTERISTIC = 1234577
+
+    def __init__(self, value: int = 0) -> None:
+        self._value = value % self.CHARACTERISTIC
+        if self._value < 0:
+            self._value += self.CHARACTERISTIC
+
+    @property
+    def value(self) -> int:
+        return self._value
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, GF1234577Field):
+            return NotImplemented
+        return self._value == other._value
+
+    def __ne__(self, other: object) -> bool:
+        if not isinstance(other, GF1234577Field):
+            return NotImplemented
+        return self._value != other._value
+
+    def __lt__(self, other: object) -> bool:
+        if not isinstance(other, GF1234577Field):
+            return NotImplemented
+        return self._value < other._value
+
+    def __le__(self, other: object) -> bool:
+        if not isinstance(other, GF1234577Field):
+            return NotImplemented
+        return self._value <= other._value
+
+    def __gt__(self, other: object) -> bool:
+        if not isinstance(other, GF1234577Field):
+            return NotImplemented
+        return self._value > other._value
+
+    def __ge__(self, other: object) -> bool:
+        if not isinstance(other, GF1234577Field):
+            return NotImplemented
+        return self._value >= other._value
+
+    def __add__(self, other: object) -> "GF1234577Field":
+        if not isinstance(other, GF1234577Field):
+            return NotImplemented
+        return GF1234577Field((self._value + other._value) % self.CHARACTERISTIC)
+
+    def __add__(self, other: object) -> "GF1234577Field":
+        if not isinstance(other, GF1234577Field):
+            return NotImplemented
+        return GF1234577Field((self._value + other._value) % self.CHARACTERISTIC)
+
+    def __sub__(self, other: object) -> "GF1234577Field":
+        if not isinstance(other, GF1234577Field):
+            return NotImplemented
+        return GF1234577Field((self._value - other._value) % self.CHARACTERISTIC)
+
+    def __mul__(self, other: object) -> "GF1234577Field":
+        if not isinstance(other, GF1234577Field):
+            return NotImplemented
+        return GF1234577Field((self._value * other._value) % self.CHARACTERISTIC)
+
+    def __truediv__(self, other: object) -> "GF1234577Field":
+        if not isinstance(other, GF1234577Field):
+            return NotImplemented
+        if other._value == 0:
+            raise ValueError("Division by 0!")
+        inverse = self._get_multiplicative_inverse(other._value)
+        return GF1234577Field((self._value * inverse) % self.CHARACTERISTIC)
+
+    def __iadd__(self, other: object) -> "GF1234577Field":
+        if not isinstance(other, GF1234577Field):
+            return NotImplemented
+        self._value = (self._value + other._value) % self.CHARACTERISTIC
+        return self
+
+    def __isub__(self, other: object) -> "GF1234577Field":
+        if not isinstance(other, GF1234577Field):
+            return NotImplemented
+        self._value = (self._value - other._value) % self.CHARACTERISTIC
+        if self._value < 0:
+            self._value += self.CHARACTERISTIC
+        return self
+
+    def __imul__(self, other: object) -> "GF1234577Field":
+        if not isinstance(other, GF1234577Field):
+            return NotImplemented
+        self._value = (self._value * other._value) % self.CHARACTERISTIC
+        return self
+
+    def __itruediv__(self, other: object) -> "GF1234577Field":
+        if not isinstance(other, GF1234577Field):
+            return NotImplemented
+        if other._value == 0:
+            raise ValueError("Division by 0!")
+        inverse = self._get_multiplicative_inverse(other._value)
+        self._value = (self._value * inverse) % self.CHARACTERISTIC
+        return self
+
+    def __str__(self) -> str:
+        return str(self._value)
+
+    def __repr__(self) -> str:
+        return f"GF1234577Field({self._value})"
+
+    def __int__(self) -> int:
+        return self._value
+
+    def __float__(self) -> float:
+        return float(self._value)
+
+    def _get_multiplicative_inverse(self, number: int) -> int:
+        modulo = self.CHARACTERISTIC
+        original_modulo = modulo
+        inverse = 0
+        temp_result = 1
+
+        while number > 1:
+            quotient = number // modulo
+            temp = modulo
+            modulo = number % modulo
+            number = temp
+            temp = inverse
+            inverse = temp_result - quotient * inverse
+            temp_result = temp
+
+        if temp_result < 0:
+            temp_result += original_modulo
+
+        return temp_result

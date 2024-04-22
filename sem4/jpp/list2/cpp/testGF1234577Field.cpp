@@ -4,24 +4,17 @@
 #include <iostream>
 #include <sstream>
 
-// ******************************
-// This Code Uses C++ 20 Features
-// Compilation: g++-10 -std=c++20
-// ******************************
-
 const int CHARACTERISTIC = 1234577;
 
 // Initialization
 void testInitialization() {
     GF1234577Field field = GF1234577Field(10);
-    int expectedResult = 10;
-    assert(field.getValue() == expectedResult);
+    assert(field.getValue() == 10);
 }
 
 void testInitializationWithNegativeNumber() {
     GF1234577Field field = GF1234577Field(-10);
-    int expectedResult = CHARACTERISTIC - 10;
-    assert(field.getValue() == expectedResult);
+    assert(field.getValue() == CHARACTERISTIC - 10);
 }
 
 // Comparison operators
@@ -147,10 +140,10 @@ void testMultiplicationOperator() {
 }
 
 void testDivisionOperator() {
-    GF1234577Field field1 = GF1234577Field(10);
-    GF1234577Field field2 = GF1234577Field(5);
+    GF1234577Field field1 = GF1234577Field(1);
+    GF1234577Field field2 = GF1234577Field(2);
     GF1234577Field result = field1 / field2;
-    assert(result.getValue() == 2);
+    assert(result.getValue() == 617289);
 }
 
 // Assignment operators
@@ -190,14 +183,14 @@ void testAssignmentMultiplicationOperator() {
 }
 
 void testAssignmentDivisionOperator() {
-    GF1234577Field field1 = GF1234577Field(10);
-    GF1234577Field field2 = GF1234577Field(5);
+    GF1234577Field field1 = GF1234577Field(1);
+    GF1234577Field field2 = GF1234577Field(2);
     field1 /= field2;
-    assert(field1.getValue() == 2);
+    assert(field1.getValue() == 617289);
 }
 
-// Insertion operator
-void testInsertionOperator() {
+// Output stream operator
+void testOutputStreamOperator() {
     GF1234577Field field = GF1234577Field(10);
     std::stringstream out;
     out << field;
@@ -252,7 +245,7 @@ int main() {
     testAssignmentMultiplicationOperator();
     testAssignmentDivisionOperator();
 
-    testInsertionOperator();
+    testOutputStreamOperator();
 
     testIntOperator();
     testFloatOperator();
