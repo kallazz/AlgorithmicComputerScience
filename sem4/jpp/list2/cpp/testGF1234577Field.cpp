@@ -251,5 +251,5 @@ int main() {
     testFloatOperator();
     testDoubleOperator();
 
-    std::cout << "All tests passed!\n"; 
+    std::cout << "All tests passed!\n";
 }
