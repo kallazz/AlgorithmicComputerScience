@@ -76,16 +76,16 @@ tokenize(Char, InputStream, [TokensHead|TokensTail]) :-
     atom_chars(CombinedChars, [Char, SecondChar]),
     (
         is_separator(CombinedChars) ->
-            (
-                TokensHead = CombinedChars,
-                get_char(InputStream, ThirdChar),
-                tokenize(ThirdChar, InputStream, TokensTail)
-            )
-            ;
-            (
-                TokensHead = Char,
-                tokenize(SecondChar, InputStream, TokensTail)
-            )
+        (
+            TokensHead = CombinedChars,
+            get_char(InputStream, ThirdChar),
+            tokenize(ThirdChar, InputStream, TokensTail)
+        )
+        ;
+        (
+            TokensHead = Char,
+            tokenize(SecondChar, InputStream, TokensTail)
+        )
     ).
 
 tokenize(Char, InputStream, [Word|TokensTail]) :-
