@@ -1,3 +1,5 @@
+#include "utils.hpp"
+
 #include <algorithm>
 #include <iostream>
 #include <random>
@@ -26,13 +28,6 @@ std::vector<int> generateRandomDescendingVector(const int vectorSize) {
     std::vector<int> randomVector = generateRandomVector(vectorSize);
     std::sort(randomVector.begin(), randomVector.end(), std::greater<int>());
     return randomVector;
-}
-
-void printVector(const std::vector<int> &vec) {
-    for (int i = 0; i < vec.size() - 1; i++) {
-        std::cout << vec[i] << ", ";
-    }
-    std::cout << vec[vec.size() - 1];
 }
 
 enum GeneratorOption {

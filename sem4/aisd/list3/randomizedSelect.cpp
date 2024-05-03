@@ -1,40 +1,39 @@
+#include "utils.hpp"
 #include "randomizedSelect.hpp"
 
 #include <random>
-#include <vector>
 
-
-int partition(std::vector<int> &vec, int low, int high) {
-    int pivot = vec[high];
-    int i = low - 1;
-    for (int j = low; j <= high; j++) {
+int partition(std::vector<int> &vec, int left, int right) {
+    int pivot = vec[right];
+    int i = left - 1;
+    for (int j = left; j <= right; j++) {
         if (vec[j] < pivot) {
             i += 1;
             std::swap(vec[i], vec[j]);
         }
     }
 
-    std::swap(vec[i + 1], vec[high]);
+    std::swap(vec[i + 1], vec[right]);
+    const std::string text = "After partition: "; 
+    // printInfo(text, vec);
     return i + 1;
 }
 
-int randomizedPartition(std::vector<int> &vec, int low, int high) {
-    int randomIndex = rand() % high + 1; 
-    std::swap(vec[randomIndex], vec[high]);
-    return partition(vec, low, high);
+int randomizedPartition(std::vector<int> &vec, int left, int right) {
+    int randomIndex = rand() % right + 1; 
+    std::swap(vec[randomIndex], vec[right]);
+    return partition(vec, left, right);
 }
 
-int randomizedSelect(std::vector<int> &vec, int low, int high, int i) {
-    if (low == high) return vec[low];
-    int pivot = randomizedPartition(vec, low, high);
-    int k = pivot - low + 1;
-    if (i == k) {
-       return vec[pivot];
-    }
-    else if (i < k) {
-        return randomizedSelect(vec, low, pivot - 1, i);
-    }
-    else {
-        return randomizedSelect(vec, pivot + 1, high, i - k);
+int randomizedSelect(std::vector<int> &vec, int left, int right, int i) {
+    if (left == right) return vec[left];
+    int globalPivotIndex = randomizedPartition(vec, left, right);
+    int localPivotIndex = globalPivotIndex - left + 1;
+    if (i == localPivotIndex) {
+       return vec[globalPivotIndex];
+    } else if (i < localPivotIndex) {
+        return randomizedSelect(vec, left, globalPivotIndex - 1, i);
+    } else {
+        return randomizedSelect(vec, globalPivotIndex + 1, right, i - localPivotIndex);
     }
 }
