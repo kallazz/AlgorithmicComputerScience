@@ -1,29 +1,34 @@
 #include "utils.hpp"
 #include "select.hpp"
 
-#include <iostream>
 #include <algorithm>
 #include <vector>
 
 int findMedian(std::vector<int> &vec, int left, int right) {
-    std::sort(vec.begin() + left, vec.begin() + right);
-    std::cout << left << " " << right << " Vec after sort:";
-    printVector(vec);
-    return vec[(right - left) / 2];
+    std::sort(vec.begin() + left, vec.begin() + right + 1);
+    return vec[left + (right - left) / 2];
 }
 
 int partition(std::vector<int> &vec, int left, int right, int pivot) {
-    int i = left - 1;
-    for (int j = left; j <= right; j++) {
-        if (vec[j] < pivot) {
-            i += 1;
+    int i;
+    for (i = left; i < right; i++) {
+        if (vec[i] == pivot) {
+            break;
+        }
+    }
+    std::swap(vec[i], vec[right]);
+
+    i = left;
+    for (int j = left; j <= right - 1; j++) {
+        if (vec[j] <= pivot) {
             std::swap(vec[i], vec[j]);
+            i += 1;
         }
     }
 
-    std::swap(vec[i + 1], vec[right]);
-    // printInfo("After partition: ", vec);
-    return i + 1;
+    std::swap(vec[i], vec[right]);
+    printInfo("After partition: ", vec);
+    return i;
 }
 
 int select(std::vector<int> &vec, int left, int right, int k) {
@@ -31,21 +36,15 @@ int select(std::vector<int> &vec, int left, int right, int k) {
     std::vector<int> medians((n + 4) / 5);
     int i = 0;
     while (i < n / 5) {
-        medians[i] = findMedian(vec, i * 5, i * 5 + 4); 
+        medians[i] = findMedian(vec, left + i * 5, left + i * 5 + 4); 
         i += 1;
     }
     if (i * 5 < n) {
-        medians[i] = findMedian(vec, i * 5, n - 1);
+        medians[i] = findMedian(vec, left + i * 5, left + i * 5 + (n % 5 - 1));
         i += 1;
     }
 
-std::cout << "The medians are" << medians[0] << " " << medians[1] << '\n';
-    int medianOfMedians;
-    if (i == 1) {
-        medianOfMedians = medians[0];
-    } else {
-        medianOfMedians = select(medians, 0, i - 1, i / 2);
-    }
+    int medianOfMedians = (i == 1) ? medians[0] : select(medians, 0, i - 1, i / 2);
 
     int pivotIndex = partition(vec, left, right, medianOfMedians);
     i = pivotIndex - left + 1;

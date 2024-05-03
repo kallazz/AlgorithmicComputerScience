@@ -10,7 +10,7 @@ void printVector(const std::vector<int> &vec) {
     std::cout << vec[vec.size() - 1];
 }
 
-void printInfo(const std::string text, const std::vector<int> &vec) {
+void printInfo(const std::string &text, const std::vector<int> &vec) {
     if (vec.size() < MAX_VECTOR_PRINT_SIZE) {
         std::cout << text;
         printVector(vec);
