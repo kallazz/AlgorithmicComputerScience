@@ -9,29 +9,34 @@ int findMedian(std::vector<int> &vec, int left, int right) {
     return vec[left + (right - left) / 2];
 }
 
-int partition(std::vector<int> &vec, int left, int right, int pivot) {
+int partition(std::vector<int> &vec, int left, int right, int pivot, int &comparisons, int &swaps) {
     int i;
     for (i = left; i < right; i++) {
+        comparisons++;
         if (vec[i] == pivot) {
             break;
         }
     }
     std::swap(vec[i], vec[right]);
+    swaps++;
 
     i = left;
     for (int j = left; j <= right - 1; j++) {
+        comparisons++;
         if (vec[j] <= pivot) {
             std::swap(vec[i], vec[j]);
+            swaps++;
             i += 1;
         }
     }
 
     std::swap(vec[i], vec[right]);
+    swaps++;
     printInfo("After partition: ", vec);
     return i;
 }
 
-int select(std::vector<int> &vec, int left, int right, int k) {
+int select(std::vector<int> &vec, int left, int right, int k, int &comparisons, int &swaps) {
     int n = right - left + 1;
     std::vector<int> medians((n + 4) / 5);
     int i = 0;
@@ -44,15 +49,15 @@ int select(std::vector<int> &vec, int left, int right, int k) {
         i += 1;
     }
 
-    int medianOfMedians = (i == 1) ? medians[0] : select(medians, 0, i - 1, i / 2);
+    int medianOfMedians = (i == 1) ? medians[0] : select(medians, 0, i - 1, i / 2, comparisons, swaps);
 
-    int pivotIndex = partition(vec, left, right, medianOfMedians);
+    int pivotIndex = partition(vec, left, right, medianOfMedians, comparisons, swaps);
     i = pivotIndex - left + 1;
     if (i == k) {
         return vec[pivotIndex]; 
     } else if (i > k) {
-        return select(vec, left, pivotIndex - 1, k);
+        return select(vec, left, pivotIndex - 1, k, comparisons, swaps);
     } else {
-        return select(vec, pivotIndex + 1, right, k - i);
+        return select(vec, pivotIndex + 1, right, k - i, comparisons, swaps);
     }
 }

@@ -58,6 +58,7 @@ int main(int argc, char *argv[]) {
         case GeneratorOption::Random:
             std::cout << vectorSize << " " << static_cast<int>(vectorSize /  2) << " ";
             printVector(generateRandomVector(vectorSize));
+            std::cout << '\n';
             break;
         case GeneratorOption::Ascending:
             std::cout << vectorSize << " " << static_cast<int>(vectorSize /  2) << " ";
