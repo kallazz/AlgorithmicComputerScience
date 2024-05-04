@@ -11,7 +11,7 @@
 # C, C++
 *.o
 *.out
-.gch
+*.gch
 
 # Gcov
 *.gcda
