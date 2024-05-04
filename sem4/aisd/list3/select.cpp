@@ -4,8 +4,35 @@
 #include <algorithm>
 #include <vector>
 
-int findMedian(std::vector<int> &vec, int left, int right) {
-    std::sort(vec.begin() + left, vec.begin() + right + 1);
+int quickSortPartition(std::vector<int> &vec, int left, int right, int &comparisons, int &swaps) {
+    int pivot = vec[right];
+    int i = left;
+    for (int j = left; j <= right - 1; j++) {
+        if (vec[j] <= pivot) {
+            std::swap(vec[i], vec[j]);
+            i += 1;
+        }
+        comparisons++;
+        swaps++;
+    }
+
+    std::swap(vec[i], vec[right]);
+    swaps++;
+    return i;
+}
+
+void quickSort(std::vector<int> &vec, int left, int right, int &comparisons, int &swaps) {
+    if (left >= right) {
+        return;
+    }
+
+    int pivotIndex = quickSortPartition(vec, left, right, comparisons, swaps);
+    quickSort(vec, left, pivotIndex - 1, comparisons, swaps);
+    quickSort(vec, pivotIndex + 1, right, comparisons, swaps);
+}
+
+int findMedian(std::vector<int> &vec, int left, int right, int &comparisons, int &swaps) {
+    quickSort(vec, left, right, comparisons, swaps);
     return vec[left + (right - left) / 2];
 }
 
@@ -41,11 +68,11 @@ int select(std::vector<int> &vec, int left, int right, int k, int &comparisons, 
     std::vector<int> medians((n + 4) / 5);
     int i = 0;
     while (i < n / 5) {
-        medians[i] = findMedian(vec, left + i * 5, left + i * 5 + 4); 
+        medians[i] = findMedian(vec, left + i * 5, left + i * 5 + 4, comparisons, swaps); 
         i += 1;
     }
     if (i * 5 < n) {
-        medians[i] = findMedian(vec, left + i * 5, left + i * 5 + (n % 5 - 1));
+        medians[i] = findMedian(vec, left + i * 5, left + i * 5 + (n % 5 - 1), comparisons, swaps);
         i += 1;
     }
 

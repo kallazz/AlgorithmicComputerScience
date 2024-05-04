@@ -8,15 +8,16 @@
 int main() {
     const std::vector<int> vec = {7, 8, 3, 2, 4, 1, 12, 10};
     const std::vector<int> expectedResults = {1, 2, 3, 4, 7, 8, 10, 12};
+    int comparisons, swaps;
     for (int i = 0; i < vec.size(); i++) {
         std::vector<int> vecCopy = vec;
-        assert(randomizedSelect(vecCopy, 0, vec.size() - 1, i + 1) == expectedResults[i]);
+        assert(randomizedSelect(vecCopy, 0, vec.size() - 1, i + 1, comparisons, swaps) == expectedResults[i]);
     }
     std::cout << "Randomized Select Tests Passed!\n";
 
     for (int i = 0; i < vec.size(); i++) {
         std::vector<int> vecCopy = vec;
-        assert(select(vecCopy, 0, vec.size() - 1, i + 1) == expectedResults[i]);
+        assert(select(vecCopy, 0, vec.size() - 1, i + 1, comparisons, swaps) == expectedResults[i]);
     }
     std::cout << "Select Tests Passed!\n";
 }

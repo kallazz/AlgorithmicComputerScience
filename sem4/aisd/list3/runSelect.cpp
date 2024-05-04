@@ -1,4 +1,4 @@
-#include "randomizedSelect.hpp"
+#include "select.hpp"
 
 #include <iostream>
 #include <vector>
@@ -16,7 +16,7 @@ int main() {
     int comparisons = 0;
     int swaps = 0;
 
-    randomizedSelect(inputVector, 0, inputVector.size() - 1, statisticOrder, comparisons, swaps);
+    select(inputVector, 0, inputVector.size() - 1, statisticOrder, comparisons, swaps);
 
     std::cout << "Comparisons: " << comparisons << "\n";
     std::cout << "Swaps: " << swaps << "\n";

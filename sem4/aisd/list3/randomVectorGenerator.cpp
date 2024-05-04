@@ -12,7 +12,11 @@ std::vector<int> generateRandomVector(const int vectorSize) {
     std::vector<int> randomVector(vectorSize);
 
     for (int i = 0; i < vectorSize; i++) {
-        randomVector[i] = dist(generator);
+        int randomNumber = dist(generator);
+        while (!randomVector.empty() && std::find(randomVector.begin(), randomVector.end(), randomNumber) != randomVector.end()) {
+            randomNumber = dist(generator);
+        }
+        randomVector[i] = randomNumber;
     }
 
     return randomVector;
@@ -63,10 +67,12 @@ int main(int argc, char *argv[]) {
         case GeneratorOption::Ascending:
             std::cout << vectorSize << " " << static_cast<int>(vectorSize /  2) << " ";
             printVector(generateRandomAscendingVector(vectorSize));
+            std::cout << '\n';
             break;
         case GeneratorOption::Descending:
             std::cout << vectorSize << " " << static_cast<int>(vectorSize /  2) << " ";
             printVector(generateRandomDescendingVector(vectorSize));
+            std::cout << '\n';
             break;
         default:
             std::cerr << "Invalid generator type!\n";
