@@ -3,17 +3,13 @@
 #include <stdexcept>
 #include <iostream>
 
-GF1234577Field::GF1234577Field(const int value) : value_(value % getCharacteristic()) {
+GF1234577Field::GF1234577Field(const long long value) : value_(value % getCharacteristic()) {
     if (value_ < 0) {
         value_ += getCharacteristic();
     }
 }
 
-int GF1234577Field::getCharacteristic() const {
-    return CHARACTERISTIC_;
-}
-
-int GF1234577Field::getValue() const {
+long long GF1234577Field::getValue() const {
     return value_;
 }
 
@@ -41,7 +37,7 @@ GF1234577Field GF1234577Field::operator/(const GF1234577Field& other) const {
     if (other.value_ == 0) {
         throw std::invalid_argument("Division by 0!");
     }
-    const int inverse = getModularInverse(other.value_);
+    const long long inverse = getModularInverse(other.value_);
     return GF1234577Field((value_ * inverse) % getCharacteristic());
 }
 
@@ -72,7 +68,7 @@ GF1234577Field& GF1234577Field::operator/=(const GF1234577Field& other) {
     if (other.value_ == 0) {
         throw std::invalid_argument("Division by 0!");
     }
-    const int inverse = getModularInverse(other.value_);
+    const long long inverse = getModularInverse(other.value_);
     value_ = (value_ * inverse) % getCharacteristic();
     return *this;
 }
@@ -82,7 +78,7 @@ std::ostream& operator<<(std::ostream& outputStream, const GF1234577Field& field
 }
 
 GF1234577Field::operator int() const {
-    return value_;
+    return static_cast<int>(value_);
 }
 
 GF1234577Field::operator float() const {
@@ -93,15 +89,15 @@ GF1234577Field::operator double() const {
     return static_cast<double>(value_);
 }
 
-int GF1234577Field::getModularInverse(int number) const {
-    int modulo = getCharacteristic();
-    const int originalModulo = modulo;
-    int inverse = 0;
-    int tempResult = 1;
+long long GF1234577Field::getModularInverse(long long number) const {
+    long long modulo = getCharacteristic();
+    const long long originalModulo = modulo;
+    long long inverse = 0;
+    long long tempResult = 1;
 
     while (number > 1) {
-        int quotient = number / modulo;
-        int temp = modulo;
+        long long quotient = number / modulo;
+        long long temp = modulo;
         modulo = number % modulo;
         number = temp;
         temp = inverse;

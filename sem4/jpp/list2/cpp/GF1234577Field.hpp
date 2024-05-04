@@ -6,10 +6,10 @@
 
 class GF1234577Field {
 public:
-    GF1234577Field(const int value = 0);
+    GF1234577Field(const long long value = 0);
 
-    int getCharacteristic() const;
-    int getValue() const;
+    static int getCharacteristic() { return CHARACTERISTIC_; }
+    long long getValue() const;
 
     bool operator==(const GF1234577Field& other) const;
     std::strong_ordering operator<=>(const GF1234577Field& other) const;
@@ -32,9 +32,9 @@ public:
     operator double() const;
 private:
     static constexpr int CHARACTERISTIC_ = 1234577;
-    int value_;
+    long long value_;
 
-    int getModularInverse(int number) const;
+    long long getModularInverse(long long number) const;
 };
 
 #endif // GF_1234577_FIELD_HPP

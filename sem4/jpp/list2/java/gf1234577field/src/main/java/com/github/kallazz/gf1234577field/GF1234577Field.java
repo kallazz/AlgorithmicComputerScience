@@ -2,7 +2,14 @@ package com.github.kallazz.gf1234577field;
 
 public class GF1234577Field {
     private static final int CHARACTERISTIC = 1234577;
-    private int value;
+    private long value;
+
+    public GF1234577Field(final long value) {
+        this.value = value % CHARACTERISTIC;
+        if (this.value < 0) {
+            this.value += CHARACTERISTIC;
+        }
+    }
 
     public GF1234577Field(final int value) {
         this.value = value % CHARACTERISTIC;
@@ -15,19 +22,19 @@ public class GF1234577Field {
         return CHARACTERISTIC;
     }
 
-    public int getValue() {
+    public long getValue() {
         return value;
     }
 
-    private int getModularInverse(int number) {
-        int modulo = getCharacteristic();
-        final int originalModulo = modulo;
-        int inverse = 0;
-        int tempResult = 1;
+    private long getModularInverse(long number) {
+        long modulo = getCharacteristic();
+        final long originalModulo = modulo;
+        long inverse = 0;
+        long tempResult = 1;
 
         while (number > 1) {
-            int quotient = number / modulo;
-            int temp = modulo;
+            long quotient = number / modulo;
+            long temp = modulo;
             modulo = number % modulo;
             number = temp;
             temp = inverse;
@@ -81,7 +88,7 @@ public class GF1234577Field {
         if (other.value == 0) {
             throw new IllegalArgumentException("Division by 0!");
         }
-        final int inverse = getModularInverse(other.value);
+        final long inverse = getModularInverse(other.value);
         return new GF1234577Field((value * inverse) % getCharacteristic());
     }
 
@@ -112,7 +119,7 @@ public class GF1234577Field {
         if (other.value == 0) {
             throw new IllegalArgumentException("Divison by 0!");
         }
-        final int inverse = getModularInverse(other.value);
+        final long inverse = getModularInverse(other.value);
         value = (value * inverse) % getCharacteristic();
         return this;
     }
@@ -123,7 +130,7 @@ public class GF1234577Field {
     }
 
     public int intValue() {
-        return value;
+        return (int) value;
     }
 
     public float floatValue() {
