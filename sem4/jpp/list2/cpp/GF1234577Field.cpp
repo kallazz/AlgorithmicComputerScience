@@ -3,14 +3,14 @@
 #include <stdexcept>
 #include <iostream>
 
-int GF1234577Field::getCharacteristic() const {
-    return CHARACTERISTIC;
-}
-
 GF1234577Field::GF1234577Field(const int value) : value_(value % getCharacteristic()) {
     if (value_ < 0) {
         value_ += getCharacteristic();
     }
+}
+
+int GF1234577Field::getCharacteristic() const {
+    return CHARACTERISTIC_;
 }
 
 int GF1234577Field::getValue() const {

@@ -1,7 +1,7 @@
 package com.github.kallazz.gf1234577field;
 
 public class GF1234577Field {
-    public static final int CHARACTERISTIC = 1234577;
+    private static final int CHARACTERISTIC = 1234577;
     private int value;
 
     public GF1234577Field(final int value) {

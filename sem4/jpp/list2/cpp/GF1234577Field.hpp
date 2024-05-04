@@ -6,11 +6,10 @@
 
 class GF1234577Field {
 public:
-    static const int CHARACTERISTIC = 1234577;
+    GF1234577Field(const int value = 0);
+
     int getCharacteristic() const;
     int getValue() const;
-
-    GF1234577Field(const int value = 0);
 
     bool operator==(const GF1234577Field& other) const;
     std::strong_ordering operator<=>(const GF1234577Field& other) const;
@@ -32,6 +31,7 @@ public:
     operator float() const;
     operator double() const;
 private:
+    static constexpr int CHARACTERISTIC_ = 1234577;
     int value_;
 
     int getModularInverse(int number) const;
