@@ -11,7 +11,7 @@ public class DHSetup<T extends AlgebraicField<T>> {
     private final T one;
 
     @FunctionalInterface
-    interface AlgebraicFieldConstructor<T extends AlgebraicField<T>> {
+    public interface AlgebraicFieldConstructor<T extends AlgebraicField<T>> {
         T createInstance(long value);
     }
 
