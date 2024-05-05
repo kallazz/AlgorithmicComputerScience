@@ -9,15 +9,15 @@ int partition(std::vector<int> &vec, int left, int right, int &comparisons, int 
     for (int j = left; j <= right - 1; j++) {
         if (vec[j] <= pivot) {
             std::swap(vec[i], vec[j]);
+            swaps++;
             i += 1;
         }
         comparisons++;
-        swaps++;
     }
 
     std::swap(vec[i], vec[right]);
     swaps++;
-    printInfo("After partition:", vec);
+    // printInfo("After partition:", vec);
     return i;
 }
 

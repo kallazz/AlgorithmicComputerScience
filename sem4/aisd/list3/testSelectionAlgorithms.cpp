@@ -6,8 +6,8 @@
 #include <vector>
 
 int main() {
-    const std::vector<int> vec = {7, 8, 3, 2, 4, 1, 12, 10};
-    const std::vector<int> expectedResults = {1, 2, 3, 4, 7, 8, 10, 12};
+    const std::vector<int> vec = {2, 7, 12, 8, 3, 2, 4, 4, 4, 1, 12, 10};
+    const std::vector<int> expectedResults = {1, 2, 2, 3, 4, 4, 4, 7, 8, 10, 12, 12};
     int comparisons, swaps;
     for (int i = 0; i < vec.size(); i++) {
         std::vector<int> vecCopy = vec;

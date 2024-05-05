@@ -59,7 +59,7 @@ int partition(std::vector<int> &vec, int left, int right, int pivot, int &compar
 
     std::swap(vec[i], vec[right]);
     swaps++;
-    printInfo("After partition: ", vec);
+    // printInfo("After partition: ", vec);
     return i;
 }
 
