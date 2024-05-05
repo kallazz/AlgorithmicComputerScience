@@ -1,10 +1,14 @@
 class GF1234577Field:
-    CHARACTERISTIC = 1234577
+    _CHARACTERISTIC = 1234577
 
     def __init__(self, value: int = 0) -> None:
-        self._value = value % self.CHARACTERISTIC
+        self._value = value % self._CHARACTERISTIC
         if self._value < 0:
-            self._value += self.CHARACTERISTIC
+            self._value += self._CHARACTERISTIC
+
+    @property
+    def CHARACTERISTIC(self) -> int:
+        return self._CHARACTERISTIC
 
     @property
     def value(self) -> int:
@@ -43,22 +47,22 @@ class GF1234577Field:
     def __add__(self, other: object) -> "GF1234577Field":
         if not isinstance(other, GF1234577Field):
             return NotImplemented
-        return GF1234577Field((self._value + other._value) % self.CHARACTERISTIC)
+        return GF1234577Field((self._value + other._value) % self._CHARACTERISTIC)
 
     def __add__(self, other: object) -> "GF1234577Field":
         if not isinstance(other, GF1234577Field):
             return NotImplemented
-        return GF1234577Field((self._value + other._value) % self.CHARACTERISTIC)
+        return GF1234577Field((self._value + other._value) % self._CHARACTERISTIC)
 
     def __sub__(self, other: object) -> "GF1234577Field":
         if not isinstance(other, GF1234577Field):
             return NotImplemented
-        return GF1234577Field((self._value - other._value) % self.CHARACTERISTIC)
+        return GF1234577Field((self._value - other._value) % self._CHARACTERISTIC)
 
     def __mul__(self, other: object) -> "GF1234577Field":
         if not isinstance(other, GF1234577Field):
             return NotImplemented
-        return GF1234577Field((self._value * other._value) % self.CHARACTERISTIC)
+        return GF1234577Field((self._value * other._value) % self._CHARACTERISTIC)
 
     def __truediv__(self, other: object) -> "GF1234577Field":
         if not isinstance(other, GF1234577Field):
@@ -66,26 +70,26 @@ class GF1234577Field:
         if other._value == 0:
             raise ValueError("Division by 0!")
         inverse = self._get_modular_inverse(other._value)
-        return GF1234577Field((self._value * inverse) % self.CHARACTERISTIC)
+        return GF1234577Field((self._value * inverse) % self._CHARACTERISTIC)
 
     def __iadd__(self, other: object) -> "GF1234577Field":
         if not isinstance(other, GF1234577Field):
             return NotImplemented
-        self._value = (self._value + other._value) % self.CHARACTERISTIC
+        self._value = (self._value + other._value) % self._CHARACTERISTIC
         return self
 
     def __isub__(self, other: object) -> "GF1234577Field":
         if not isinstance(other, GF1234577Field):
             return NotImplemented
-        self._value = (self._value - other._value) % self.CHARACTERISTIC
+        self._value = (self._value - other._value) % self._CHARACTERISTIC
         if self._value < 0:
-            self._value += self.CHARACTERISTIC
+            self._value += self._CHARACTERISTIC
         return self
 
     def __imul__(self, other: object) -> "GF1234577Field":
         if not isinstance(other, GF1234577Field):
             return NotImplemented
-        self._value = (self._value * other._value) % self.CHARACTERISTIC
+        self._value = (self._value * other._value) % self._CHARACTERISTIC
         return self
 
     def __itruediv__(self, other: object) -> "GF1234577Field":
@@ -94,7 +98,7 @@ class GF1234577Field:
         if other._value == 0:
             raise ValueError("Division by 0!")
         inverse = self._get_modular_inverse(other._value)
-        self._value = (self._value * inverse) % self.CHARACTERISTIC
+        self._value = (self._value * inverse) % self._CHARACTERISTIC
         return self
 
     def __str__(self) -> str:
@@ -110,7 +114,7 @@ class GF1234577Field:
         return float(self._value)
 
     def _get_modular_inverse(self, number: int) -> int:
-        modulo = self.CHARACTERISTIC
+        modulo = self._CHARACTERISTIC
         original_modulo = modulo
         inverse = 0
         temp_result = 1
