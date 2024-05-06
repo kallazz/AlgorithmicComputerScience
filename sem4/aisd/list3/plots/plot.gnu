@@ -78,3 +78,32 @@ plot "arraySizesDurations.txt" using 1:2 with lines title "Select with 3-element
      "arraySizesDurations.txt" using 1:3 with lines title "Select with 5-element arrays", \
      "arraySizesDurations.txt" using 1:4 with lines title "Select with 7-element arrays", \
      "arraySizesDurations.txt" using 1:5 with lines title "Select with 9-element arrays"
+
+# Comparisons for binary search
+set title "Average Comparisons with 50 Repeats for Binary Search"
+set xlabel "Array Size(n)"
+set ylabel "Number of Comparisons"
+set key bottom right
+set output './binarySearchComparisons.png'
+
+set datafile separator " "
+plot "binarySearchComparisons.txt" using 1:2 with lines title "Left element", \
+     "binarySearchComparisons.txt" using 1:3 with lines title "Middle element", \
+     "binarySearchComparisons.txt" using 1:4 with lines title "Right element", \
+     "binarySearchComparisons.txt" using 1:5 with lines title "Out of array element", \
+     "binarySearchComparisons.txt" using 1:6 with lines title "Random Element", \
+     "binarySearchComparisons.txt" using 1:7 with lines title "Master Theorem Approximation"
+
+# Durations for binary search
+set title "Average Durations with 50 Repeats for Binary Search"
+set xlabel "Array Size(n)"
+set ylabel "Duration in nanoseconds"
+set key bottom right
+set output './binarySearchDurations.png'
+
+set datafile separator " "
+plot "binarySearchDurations.txt" using 1:2 with lines title "Left element", \
+     "binarySearchDurations.txt" using 1:3 with lines title "Middle element", \
+     "binarySearchDurations.txt" using 1:4 with lines title "Right element", \
+     "binarySearchDurations.txt" using 1:5 with lines title "Out of array element", \
+     "binarySearchDurations.txt" using 1:6 with lines title "Random Element"

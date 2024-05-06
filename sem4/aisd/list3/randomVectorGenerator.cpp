@@ -23,6 +23,7 @@ std::vector<int> generateRandomAscendingVector(const int vectorSize) {
     return randomVector;
 }
 
+
 std::vector<int> generateRandomDescendingVector(const int vectorSize) {
     std::vector<int> randomVector = generateRandomVector(vectorSize);
     std::sort(randomVector.begin(), randomVector.end(), std::greater<int>());

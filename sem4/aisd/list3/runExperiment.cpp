@@ -1,5 +1,6 @@
-// g++ runExperiment.cpp select.cpp randomVectorGenerator.cpp randomizedSelect.cpp utils.cpp -O3
+// g++ runExperiment.cpp select.cpp randomVectorGenerator.cpp randomizedSelect.cpp utils.cpp binarySearch.cpp -O3
 
+#include "binarySearch.hpp"
 #include "randomizedSelect.hpp"
 #include "select.hpp"
 #include "randomVectorGenerator.hpp"
@@ -7,6 +8,7 @@
 #include <chrono>
 #include <fstream>
 #include <iostream>
+#include <cmath>
 #include <random>
 #include <vector>
 
@@ -134,10 +136,71 @@ void runSecondExperiment() {
     durationsFile.close();
 }
 
+void runThirdExpertiment() {
+    const int scenariosToCheck = 5;
+
+    std::ofstream comparisonsFile("plots/binarySearchComparisons.txt");
+    std::ofstream durationsFile("plots/binarySearchDurations.txt");
+
+    std::vector<float> totalComparisons = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
+    std::vector<std::chrono::nanoseconds> totalDurations = {
+        std::chrono::nanoseconds(0), std::chrono::nanoseconds(0), std::chrono::nanoseconds(0), std::chrono::nanoseconds(0), std::chrono::nanoseconds(0)
+    };
+
+    int comparisons;
+    std::mt19937 generator(std::random_device{}());
+
+    for (int currentN = 1000; currentN <= 100000; currentN += 1000) {
+        std::cout << "Current N: " << currentN << '\n';
+
+        std::uniform_int_distribution<int> dist(0, currentN - 1);
+
+        const int closeFactor = currentN / 10;
+        for (int i = 0; i < EXPERIMENT_REPEATS; i++) {
+            const std::vector<int> randomVector = generateRandomAscendingVector(currentN);
+            const int closeLeftElement = randomVector[closeFactor];
+            const int closeMiddleElement = randomVector[randomVector.size() / 2 + closeFactor];
+            const int closeRightElement = randomVector[randomVector.size() - closeFactor];
+            const int notInVectorElement = randomVector[randomVector.size() - 1] + 1;
+            const int randomElement = randomVector[dist(generator)];
+            const int elementsToCheck[scenariosToCheck] = {closeLeftElement, closeMiddleElement, closeRightElement, notInVectorElement, randomElement};
+
+            for (int j = 0; j < scenariosToCheck; j++) {
+                comparisons = 0;
+
+                auto startTime = std::chrono::steady_clock::now();
+                binarySearch(randomVector, 0, currentN - 1, elementsToCheck[j], comparisons);
+                auto endTime = std::chrono::steady_clock::now();
+
+                totalComparisons[j] += comparisons;
+                totalDurations[j] = std::chrono::duration_cast<std::chrono::nanoseconds>(endTime - startTime);
+            }
+        }
+
+        for (int i = 0; i < scenariosToCheck; i++) {
+            totalComparisons[i] /= EXPERIMENT_REPEATS;
+            totalDurations[i] /= EXPERIMENT_REPEATS;
+        }
+
+        comparisonsFile << currentN << " ";
+        durationsFile << currentN << " ";
+        for (int i = 0; i < scenariosToCheck; i++) {
+            comparisonsFile << totalComparisons[i] << " ";
+            durationsFile << totalDurations[i].count() << " ";
+        }
+        const float masterTheoremApproximation = log10(currentN);
+        comparisonsFile << masterTheoremApproximation << "\n";
+        durationsFile << "\n";
+    }
+
+    comparisonsFile.close();
+    durationsFile.close();
+}
 
 int main() {
     runFirstExperiment();
     runSecondExperiment();
+    runThirdExpertiment();
 
     return 0;
 }
