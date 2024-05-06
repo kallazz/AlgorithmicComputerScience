@@ -1,9 +1,10 @@
-// g++ runExperiment.cpp select.cpp randomVectorGenerator.cpp randomizedSelect.cpp utils.cpp -O2
+// g++ runExperiment.cpp select.cpp randomVectorGenerator.cpp randomizedSelect.cpp utils.cpp -O3
 
 #include "randomizedSelect.hpp"
 #include "select.hpp"
 #include "randomVectorGenerator.hpp"
 
+#include <chrono>
 #include <fstream>
 #include <iostream>
 #include <random>
@@ -11,7 +12,7 @@
 
 constexpr int EXPERIMENT_REPEATS = 50;
 
-int main() {
+void runFirstExperiment() {
     std::ofstream comparisonsFile("plots/comparisons.txt");
     std::ofstream swapsFile("plots/swaps.txt");
     std::ofstream comparisonsOverNFile("plots/comparisonsOverN.txt");
@@ -34,7 +35,7 @@ int main() {
         randomizedSelectComparisons = 0;
         randomizedSelectSwaps = 0;
 
-        for (int j = 0; j < EXPERIMENT_REPEATS; j++) {
+        for (int i = 0; i < EXPERIMENT_REPEATS; i++) {
             const int randomOrderStatistic = dist(generator);
             std::vector<int> randomVector = generateRandomVector(currentN);
             std::vector<int> randomVectorCopy = randomVector;
@@ -67,6 +68,76 @@ int main() {
     swapsFile.close();
     comparisonsOverNFile.close();
     swapsOverNFile.close();
+
+}
+
+void runSecondExperiment() {
+    std::ofstream comparisonsFile("plots/arraySizesComparisons.txt");
+    std::ofstream swapsFile("plots/arraySizesSwaps.txt");
+    std::ofstream durationsFile("plots/arraySizesDurations.txt");
+
+    const std::vector<int> arraySizesToCheck = {3, 5, 7, 9};
+    std::vector<float> totalComparisons = {0.0f, 0.0f, 0.0f, 0.0f};
+    std::vector<float> totalSwaps = {0.0f, 0.0f, 0.0f, 0.0f};
+    std::vector<std::chrono::nanoseconds> totalDurations = {
+        std::chrono::nanoseconds(0), std::chrono::nanoseconds(0), std::chrono::nanoseconds(0), std::chrono::nanoseconds(0)
+    };
+
+    int comparisons, swaps;
+    std::mt19937 generator(std::random_device{}());
+
+    for (int currentN = 100; currentN <= 50000; currentN += 100) {
+        std::cout << "Current N: " << currentN << '\n';
+
+        std::uniform_int_distribution<int> dist(1, currentN);
+
+        for (int i = 0; i < EXPERIMENT_REPEATS; i++) {
+            const int randomOrderStatistic = dist(generator);
+            std::vector<int> randomVector = generateRandomVector(currentN);
+
+            for (int j = 0; j < arraySizesToCheck.size(); j++) {
+                std::vector<int> randomVectorCopy = randomVector;
+                comparisons = 0;
+                swaps = 0;
+
+                auto startTime = std::chrono::steady_clock::now();
+                select(randomVectorCopy, 0, currentN - 1, randomOrderStatistic, comparisons, swaps, arraySizesToCheck[j]);
+                auto endTime = std::chrono::steady_clock::now();
+
+                totalComparisons[j] += comparisons;
+                totalSwaps[j] += swaps;
+                totalDurations[j] = std::chrono::duration_cast<std::chrono::nanoseconds>(endTime - startTime);
+            }
+        }
+
+        for (int i = 0; i < arraySizesToCheck.size(); i++) {
+            totalComparisons[i] /= EXPERIMENT_REPEATS;
+            totalSwaps[i] /= EXPERIMENT_REPEATS;
+            totalDurations[i] /= EXPERIMENT_REPEATS;
+        }
+
+        comparisonsFile << currentN << " ";
+        swapsFile << currentN << " ";
+        durationsFile << currentN << " ";
+        for (int i = 0; i < arraySizesToCheck.size(); i++) {
+            comparisonsFile << totalComparisons[i] << " ";
+            swapsFile << totalSwaps[i] << " ";
+            durationsFile << totalDurations[i].count() << " ";
+        }
+        comparisonsFile << "\n";
+        swapsFile << "\n";
+        durationsFile << "\n";
+    }
+
+    comparisonsFile.close();
+    swapsFile.close();
+    durationsFile.close();
+}
+
+
+int main() {
+    runFirstExperiment();
+    runSecondExperiment();
 
     return 0;
 }

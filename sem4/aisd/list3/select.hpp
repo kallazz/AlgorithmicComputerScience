@@ -5,6 +5,6 @@
 
 int partition(std::vector<int> &vec, int left, int right, int pivot, int &comparisons, int &swaps);
 int findMedian(std::vector<int> &vec, int left, int right);
-int select(std::vector<int> &vec, int left, int right, int i, int &comparisons, int &swaps);
+int select(std::vector<int> &vec, int left, int right, int i, int &comparisons, int &swaps, int mediansArraySize = 5);
 
 #endif // SELECT_KTH_SMALLEST_HPP 
