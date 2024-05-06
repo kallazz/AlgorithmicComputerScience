@@ -2,12 +2,13 @@
 #include "utils.hpp"
 
 #include <iostream>
+#include <random>
 
 enum GeneratorOption {
     Invalid,
     Random,
     Ascending,
-    Descending 
+    Descending
 };
 
 GeneratorOption resolveOption(const std::string &input) {
@@ -26,19 +27,23 @@ int main(int argc, char *argv[]) {
     const GeneratorOption generatorType = resolveOption(argv[1]);
     const int vectorSize = std::stoi(argv[2]);
 
+    std::mt19937 generator(std::random_device{}());
+    std::uniform_int_distribution<int> dist(1, vectorSize);
+    const int randomOrderStatistic = dist(generator);
+
     switch (generatorType) {
         case GeneratorOption::Random:
-            std::cout << vectorSize << " " << static_cast<int>(vectorSize /  2) << " ";
+            std::cout << vectorSize << " " << randomOrderStatistic  << " ";
             printVector(generateRandomVector(vectorSize));
             std::cout << '\n';
             break;
         case GeneratorOption::Ascending:
-            std::cout << vectorSize << " " << static_cast<int>(vectorSize /  2) << " ";
+            std::cout << vectorSize << " " << randomOrderStatistic << " ";
             printVector(generateRandomAscendingVector(vectorSize));
             std::cout << '\n';
             break;
         case GeneratorOption::Descending:
-            std::cout << vectorSize << " " << static_cast<int>(vectorSize /  2) << " ";
+            std::cout << vectorSize << " " << randomOrderStatistic << " ";
             printVector(generateRandomDescendingVector(vectorSize));
             std::cout << '\n';
             break;

@@ -17,7 +17,6 @@ int partition(std::vector<int> &vec, int left, int right, int &comparisons, int 
 
     std::swap(vec[i], vec[right]);
     swaps++;
-    // printInfo("After partition:", vec);
     return i;
 }
 
@@ -30,6 +29,7 @@ int randomizedPartition(std::vector<int> &vec, int left, int right, int &compari
 }
 
 int randomizedSelect(std::vector<int> &vec, int left, int right, int i, int &comparisons, int &swaps) {
+    printInfo("Array after entering function: ", vec);
     if (left == right) return vec[left];
     int globalPivotIndex = randomizedPartition(vec, left, right, comparisons, swaps);
     int localPivotIndex = globalPivotIndex - left + 1;

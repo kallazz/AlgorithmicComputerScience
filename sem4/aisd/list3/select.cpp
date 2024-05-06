@@ -59,11 +59,11 @@ int partition(std::vector<int> &vec, int left, int right, int pivot, int &compar
 
     std::swap(vec[i], vec[right]);
     swaps++;
-    // printInfo("After partition: ", vec);
     return i;
 }
 
 int select(std::vector<int> &vec, int left, int right, int k, int &comparisons, int &swaps, int mediansArraySize) {
+    printInfo("Array after entering function: ", vec);
     int n = right - left + 1;
     std::vector<int> medians((n + mediansArraySize - 1) / mediansArraySize);
     int i = 0;

@@ -155,12 +155,11 @@ void runThirdExpertiment() {
 
         std::uniform_int_distribution<int> dist(0, currentN - 1);
 
-        const int closeFactor = currentN / 10;
         for (int i = 0; i < EXPERIMENT_REPEATS; i++) {
             const std::vector<int> randomVector = generateRandomAscendingVector(currentN);
-            const int closeLeftElement = randomVector[closeFactor];
-            const int closeMiddleElement = randomVector[randomVector.size() / 2 + closeFactor];
-            const int closeRightElement = randomVector[randomVector.size() - closeFactor];
+            const int closeLeftElement = randomVector[1];
+            const int closeMiddleElement = randomVector[randomVector.size() / 2];
+            const int closeRightElement = randomVector[randomVector.size() - 1];
             const int notInVectorElement = randomVector[randomVector.size() - 1] + 1;
             const int randomElement = randomVector[dist(generator)];
             const int elementsToCheck[scenariosToCheck] = {closeLeftElement, closeMiddleElement, closeRightElement, notInVectorElement, randomElement};
@@ -188,7 +187,7 @@ void runThirdExpertiment() {
             comparisonsFile << totalComparisons[i] << " ";
             durationsFile << totalDurations[i].count() << " ";
         }
-        const float masterTheoremApproximation = log10(currentN);
+        const float masterTheoremApproximation = log10(currentN) * 7;
         comparisonsFile << masterTheoremApproximation << "\n";
         durationsFile << "\n";
     }

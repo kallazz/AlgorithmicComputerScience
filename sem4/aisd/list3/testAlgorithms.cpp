@@ -1,4 +1,4 @@
-// g++ testAlgorithms.cpp binarySearch.cpp randomizedSelect.cpp select.cpp
+// g++ testAlgorithms.cpp binarySearch.cpp randomizedSelect.cpp select.cpp utils.cpp
 #include "binarySearch.hpp"
 #include "randomizedSelect.hpp"
 #include "select.hpp"
