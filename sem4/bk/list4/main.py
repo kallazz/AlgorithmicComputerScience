@@ -42,7 +42,7 @@ def main() -> None:
     print(f"B Keys: {public_key_b, private_key_b}")
 
     calculated_private_key = crack_private_key(
-        n, public_key_a[1], public_key_b[1], public_key_b[1]
+        n, private_key_a[1], public_key_a[1], public_key_b[1]
     )
     print(f"Calculated private key: {calculated_private_key}")
 
