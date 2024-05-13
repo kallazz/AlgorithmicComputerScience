@@ -4,10 +4,7 @@ SIZE = 1000
 
 
 def generate_random_bit_sequence(length: int) -> str:
-    bit_sequence = ""
-    for _ in range(length):
-        bit_sequence += str(random.randint(0, 1))
-    return bit_sequence
+    return "".join([str(random.randint(0, 1)) for _ in range(length)])
 
 
 def main() -> None:

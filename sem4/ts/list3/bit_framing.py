@@ -43,13 +43,3 @@ def decode(bits: str) -> str:
             raise RuntimeError("Invalid CRC!")
         output += frame_without_crc
     return output
-
-
-"""
-output = ""
-frames = split_bits_into_frames(bits, FRAME_SIZE)
-for frame in frames:
-    encoded_frame = stuff_bits(frame + calculate_crc(frame), ONES_RUN_LENGTH)
-    output += FLAG_BYTE + encoded_frame + FLAG_BYTE
-return output
-"""
