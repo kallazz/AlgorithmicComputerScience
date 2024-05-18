@@ -3,47 +3,47 @@
 #include <iostream>
 #include <thread>
 
-Philosopher::Philosopher(const int index, std::mutex &leftChopstick, std::mutex &rightChopstick, const int mealsLimit, std::mutex &printingMutex)
-    : index_(index)
+Philosopher::Philosopher(const int id, std::mutex &leftChopstick, std::mutex &rightChopstick, const int mealLimit, std::mutex &printingMutex)
+    : id_(id)
     , leftChopstick_(leftChopstick)
     , rightChopstick_(rightChopstick)
-    , mealsLimit_(mealsLimit)
+    , mealLimit_(mealLimit)
     , printingMutex_(printingMutex)
 {
     std::srand(std::time(nullptr));
 }
 
 void Philosopher::operator()() const {
-    for (int i = 0; i < mealsLimit_; i++) {
+    for (int i = 0; i < mealLimit_; i++) {
         think();
         pickUpChopstick(leftChopstick_);
         pickUpChopstick(rightChopstick_);
         eat();
-        putDownChopstick(rightChopstick_);
         putDownChopstick(leftChopstick_);
+        putDownChopstick(rightChopstick_);
     }
 }
 
 void Philosopher::think() const {
-    print("Philosopher " + std::to_string(index_) + " is thinking.");
-    std::this_thread::sleep_for(generateRandomDuration());
+    print("Philosopher " + std::to_string(id_) + " is thinking.");
+    sleepRandomDuration();
+    print("Philosopher " + std::to_string(id_) + " stopped thinking.");
 }
 
 void Philosopher::eat() const {
-    print("Philosopher " + std::to_string(index_) + " is eating.");
-    std::this_thread::sleep_for(generateRandomDuration());
+    print("Philosopher " + std::to_string(id_) + " is eating.");
+    sleepRandomDuration();
+    print("Philosopher " + std::to_string(id_) + " stopped eating.");
 }
 
 void Philosopher::pickUpChopstick(std::mutex &chopstick) const {
-    std::this_thread::sleep_for(generateRandomDuration());
+    sleepRandomDuration();
     chopstick.lock();
-    print("Philosopher " + std::to_string(index_) + " picked up a chopstick.");
 }
 
 void Philosopher::putDownChopstick(std::mutex &chopstick) const {
-    std::this_thread::sleep_for(generateRandomDuration());
+    sleepRandomDuration();
     chopstick.unlock();
-    print("Philosopher " + std::to_string(index_) + " put down a chopstick.");
 }
 
 void Philosopher::print(const std::string &text) const {
@@ -52,9 +52,9 @@ void Philosopher::print(const std::string &text) const {
     printingMutex_.unlock();
 }
 
-std::chrono::milliseconds Philosopher::generateRandomDuration() const {
-    const int lowerLimit = 10;
-    const int upperLimit = 20;
-    const int randomDuration = rand() % upperLimit + lowerLimit + 1;
-    return std::chrono::milliseconds{randomDuration};
+void Philosopher::sleepRandomDuration() const {
+    const auto randomDuration = std::chrono::milliseconds(
+        rand() % lowerDurationBoundMilliseconds_ + upperDurationBoundMilliseconds_ + 1
+    );
+    std::this_thread::sleep_for(randomDuration);
 }
