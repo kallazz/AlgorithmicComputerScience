@@ -1,5 +1,7 @@
 from typing import List
 
+ASCII_BIGGEST_INDEX = 127
+CORRECTNESS_THRESHOLD = 0.95
 MOD = 256
 
 
@@ -40,10 +42,14 @@ def RC4(text: str, key: str) -> List[int]:
     return "".join([chr(p ^ k) for p, k in zip(text, keystream)])
 
 
-def were_texts_encrypted_using_the_same_key(ciphertext1: str, ciphertext2: str) -> bool:
+def is_the_same_key(ciphertext1: str, ciphertext2: str) -> bool:
     ciphertext1 = [ord(char) for char in ciphertext1]
     ciphertext2 = [ord(char) for char in ciphertext2]
-    for i in range(min(len(ciphertext1), len(ciphertext2))):
-        if ciphertext1[i] ^ ciphertext2[i] >= 128:
-            return False
-    return True
+    length = min(len(ciphertext1), len(ciphertext2))
+    correct_counter = 0
+    for i in range(length):
+        if ciphertext1[i] ^ ciphertext2[i] <= ASCII_BIGGEST_INDEX:
+            correct_counter += 1
+
+    correctness = correct_counter / length
+    return correctness > CORRECTNESS_THRESHOLD
