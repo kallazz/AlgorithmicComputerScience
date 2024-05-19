@@ -1,3 +1,3 @@
-module philosophers
+module dining-philosophers
 
 go 1.22.3

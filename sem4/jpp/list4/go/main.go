@@ -1,7 +1,7 @@
 package main
 
 import (
-	"philosophers/philosopher"
+	"dining-philosophers/philosopher"
 	"sync"
 )
 
@@ -18,7 +18,7 @@ func main() {
 		var leftChopstick = &chopsticks[i]
 		var rightChopstick = &chopsticks[(i+1)%numberOfPhilosophers]
 		var phil *philosopher.Philosopher
-		if i == numberOfPhilosophers-1 {
+		if i%2 == 0 {
 			phil = philosopher.NewPhilosopher(i, rightChopstick, leftChopstick, mealLimit, &waitGroup)
 		} else {
 			phil = philosopher.NewPhilosopher(i, leftChopstick, rightChopstick, mealLimit, &waitGroup)

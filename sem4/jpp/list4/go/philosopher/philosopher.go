@@ -16,18 +16,17 @@ const (
 var rng = rand.New(rand.NewSource(time.Now().UnixNano()))
 
 type Philosopher struct {
-	id             int
-	leftChopstick  *sync.Mutex
-	rightChopstick *sync.Mutex
-	mealsLimit     int
-	waitGroup      *sync.WaitGroup
+	id                            int
+	leftChopstick, rightChopstick *sync.Mutex
+	mealsLimit                    int
+	waitGroup                     *sync.WaitGroup
 }
 
 func NewPhilosopher(id int, leftChopstick *sync.Mutex, rightChopstick *sync.Mutex, mealsLimit int, waitGroup *sync.WaitGroup) *Philosopher {
 	return &Philosopher{id, leftChopstick, rightChopstick, mealsLimit, waitGroup}
 }
 
-func (p Philosopher) Dine() {
+func (p *Philosopher) Dine() {
 	for i := 0; i < p.mealsLimit; i++ {
 		p.think()
 		p.pickUpChopstick(p.leftChopstick)
@@ -36,32 +35,32 @@ func (p Philosopher) Dine() {
 		p.putDownChopstick(p.leftChopstick)
 		p.putDownChopstick(p.rightChopstick)
 	}
-	p.waitGroup.Done()
+	defer p.waitGroup.Done()
 }
 
-func (p Philosopher) think() {
+func (p *Philosopher) think() {
 	fmt.Printf("Philosopher %v is thinking.\n", p.id)
 	p.sleepRandomDuration()
 	fmt.Printf("Philosopher %v stopped thinking.\n", p.id)
 }
 
-func (p Philosopher) eat() {
+func (p *Philosopher) eat() {
 	fmt.Printf("Philosopher %v is eating.\n", p.id)
 	p.sleepRandomDuration()
 	fmt.Printf("Philosopher %v stopped eating.\n", p.id)
 }
 
-func (p Philosopher) pickUpChopstick(chopstick *sync.Mutex) {
+func (p *Philosopher) pickUpChopstick(chopstick *sync.Mutex) {
 	p.sleepRandomDuration()
 	chopstick.Lock()
 }
 
-func (p Philosopher) putDownChopstick(chopstick *sync.Mutex) {
+func (p *Philosopher) putDownChopstick(chopstick *sync.Mutex) {
 	p.sleepRandomDuration()
 	chopstick.Unlock()
 }
 
-func (p Philosopher) sleepRandomDuration() {
+func (p *Philosopher) sleepRandomDuration() {
 	var randomDuration = time.Duration(rng.Intn(lowerDurationBound) + upperDurationBound)
 	time.Sleep(randomDuration * durationUnit)
 }
