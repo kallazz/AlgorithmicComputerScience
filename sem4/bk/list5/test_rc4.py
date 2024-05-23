@@ -2,7 +2,6 @@ import random
 import string
 
 import pytest
-
 from rc4 import RC4, is_the_same_key
 
 TEST_REPEATS = 100
@@ -41,5 +40,5 @@ class TestRC4:
             ciphertext3 = RC4(text3, key2)
 
             assert is_the_same_key(ciphertext1, ciphertext2) == True
-            assert is_the_same_key(ciphertext1, ciphertext3) == False
-            assert is_the_same_key(ciphertext2, ciphertext3) == False
+            assert is_the_same_key(ciphertext1, ciphertext3) == False  # False positives are possible
+            assert is_the_same_key(ciphertext2, ciphertext3) == False  # False positives are possible

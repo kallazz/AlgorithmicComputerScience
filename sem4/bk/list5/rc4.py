@@ -1,11 +1,10 @@
 from typing import List
 
 ASCII_BIGGEST_INDEX = 127
-CORRECTNESS_THRESHOLD = 0.95
 MOD = 256
 
 
-def KSA(key: List[int]) -> List[int]:
+def _KSA(key: List[int]) -> List[int]:
     key_length = len(key)
     key = [key[i % key_length] for i in range(MOD)]
     S = list(range(MOD))
@@ -18,7 +17,7 @@ def KSA(key: List[int]) -> List[int]:
     return S
 
 
-def PRGA(S: List[int], text_length: int) -> List[int]:
+def _PRGA(S: List[int], text_length: int) -> List[int]:
     keystream = []
     i = 0
     j = 0
@@ -32,24 +31,22 @@ def PRGA(S: List[int], text_length: int) -> List[int]:
     return keystream
 
 
-def RC4(text: str, key: str) -> List[int]:
-    text = [ord(char) for char in text]
-    key = [ord(char) for char in key]
+def RC4(text: str, key: str) -> str:
+    text_codes = [ord(char) for char in text]
+    key_codes = [ord(char) for char in key]
 
-    S = KSA(key)
-    keystream = PRGA(S, len(text))
+    S = _KSA(key_codes)
+    keystream = _PRGA(S, len(text))
 
-    return "".join([chr(p ^ k) for p, k in zip(text, keystream)])
+    return "".join([chr(p ^ k) for p, k in zip(text_codes, keystream)])
 
 
 def is_the_same_key(ciphertext1: str, ciphertext2: str) -> bool:
-    ciphertext1 = [ord(char) for char in ciphertext1]
-    ciphertext2 = [ord(char) for char in ciphertext2]
+    ciphertext1_codes = [ord(char) for char in ciphertext1]
+    ciphertext2_codes = [ord(char) for char in ciphertext2]
     length = min(len(ciphertext1), len(ciphertext2))
-    correct_counter = 0
     for i in range(length):
-        if ciphertext1[i] ^ ciphertext2[i] <= ASCII_BIGGEST_INDEX:
-            correct_counter += 1
+        if ciphertext1_codes[i] ^ ciphertext2_codes[i] > ASCII_BIGGEST_INDEX:
+            return False
 
-    correctness = correct_counter / length
-    return correctness > CORRECTNESS_THRESHOLD
+    return True
