@@ -4,7 +4,7 @@ intSquareRoot :: Int -> Int
 intSquareRoot n = floor (sqrt (fromIntegral n))
 
 -- 1.
-binomial :: Int -> Int -> Int -- faster than second version
+binomial :: Int -> Int -> Int -- faster than the second version
 binomial n k
   | n < 0 || k < 0 || k > n = -1
   | k == 0 || n == k = 1
@@ -61,7 +61,7 @@ primeFactors n
     firstFactor = take 1 [x | x <- [2 .. intSquareRoot n], n `mod` x == 0]
 
 -- 6.
-totient :: Int -> Int -- slower than second version
+totient :: Int -> Int -- slower than the second version
 totient n = 1 + length [x | x <- [2 .. n - 1], gcd n x == 1]
 
 -- 7.
