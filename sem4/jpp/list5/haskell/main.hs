@@ -1,3 +1,5 @@
+-- ghci -> :l main.hs
+
 import Data.List
 
 intSquareRoot :: Int -> Int

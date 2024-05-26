@@ -1,3 +1,5 @@
+;;;; sbcl --load main.lisp
+
 ; 1.
 (defun binomial (n k) ; slower than the second version
     (if (or (= k 0) (= n k))
@@ -28,7 +30,7 @@
           (t (merge-lists (merge-sort (subseq list 0 (ceiling len 2))) (merge-sort (subseq list (ceiling len 2))))))))
 
 ; 4.
-(defun gcd-extended (a b)
+(defun gcd-extended (a b) ; returns (gcd, x, y)
     (if (= a 0)
         (values b 0 1)
         (multiple-value-bind (g x1 y1) (gcd-extended (mod b a) a)
@@ -56,12 +58,12 @@
                 (list n)))))
 
 ; 6.
-(defun is-co-prime (a b)
+(defun are-co-prime (a b)
     (= (gcd a b) 1))
 
 (defun totient(n &optional (i 2) (counter 1)) ; slower than the second version
     (cond ((> i n) counter)
-          ((is-co-prime n i) (totient n (+ i 1) (+ counter 1)))
+          ((are-co-prime n i) (totient n (+ i 1) (+ counter 1)))
           (t (totient n (+ i 1) counter))))
 
 ; 7.
