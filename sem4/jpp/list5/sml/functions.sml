@@ -1,4 +1,4 @@
-(* sml -> use "main.sml"; *)
+(* sml -> use "functions.sml"; *)
 
 (* 1. *)
 fun binomial(n : int, k : int) : int = (* slower than the second version *)

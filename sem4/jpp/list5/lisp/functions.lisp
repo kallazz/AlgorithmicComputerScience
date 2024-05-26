@@ -1,4 +1,4 @@
-;;;; sbcl --load main.lisp
+;;;; sbcl --load functions.lisp
 
 ; 1.
 (defun binomial (n k) ; slower than the second version

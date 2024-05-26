@@ -1,4 +1,4 @@
--- ghci -> :l main.hs
+-- ghci -> :l functions.hs
 
 import Data.List
 
