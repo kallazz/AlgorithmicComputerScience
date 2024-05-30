@@ -3,47 +3,48 @@
 #include <iostream>
 
 RedBlackTree::RedBlackTree()
-    : NIL_NODE_(new RedBlackNode(0, 0, nullptr, nullptr, nullptr)), root_(NIL_NODE_), keyComparisons_(0), pointerOperations_(0) {}
+    : NIL_NODE_(new RedBlackNode(0, 0, nullptr, nullptr, nullptr)), root_(NIL_NODE_), keyComparisons_(0),
+      pointerOperations_(0), printFlag_(false) {}
 
 RedBlackTree::~RedBlackTree() {
     destroyTree(root_);
     delete NIL_NODE_;
 }
 
-void RedBlackTree::insertNode(const int key, const bool printFlag) {
-    printIfFlagSet("insert " + std::to_string(key) + '\n', printFlag);
+void RedBlackTree::insertNode(const int key) {
+    printIfFlagSet("insert " + std::to_string(key) + '\n');
 
     pointerOperations_++;
-    RedBlackNode *currentRedBlackNode = root_;
-    RedBlackNode *currentRedBlackNodeParent = nullptr;
+    RedBlackNode *currentNode = root_;
+    RedBlackNode *currentNodeParent = nullptr;
 
-    while (currentRedBlackNode != NIL_NODE_) {
-        currentRedBlackNodeParent = currentRedBlackNode;
-        if (key < currentRedBlackNode->key) {
+    while (currentNode != NIL_NODE_) {
+        currentNodeParent = currentNode;
+        if (key < currentNode->key) {
             keyComparisons_++;
             pointerOperations_++;
-            currentRedBlackNode = currentRedBlackNode->left;
-        } else if (key > currentRedBlackNode->key) {
+            currentNode = currentNode->left;
+        } else if (key > currentNode->key) {
             keyComparisons_++;
             pointerOperations_++;
-            currentRedBlackNode = currentRedBlackNode->right;
+            currentNode = currentNode->right;
         } else {
             keyComparisons_++;
-            printIfFlagSet("Key " + std::to_string(key) + " already exists in the tree.\n", printFlag);
+            printIfFlagSet("Key " + std::to_string(key) + " already exists in the tree.\n");
             return;
         }
     }
 
-    RedBlackNode *newRedBlackNode = new RedBlackNode(key, 1, currentRedBlackNodeParent, NIL_NODE_, NIL_NODE_);
+    RedBlackNode *newRedBlackNode = new RedBlackNode(key, 1, currentNodeParent, NIL_NODE_, NIL_NODE_);
     pointerOperations_++;
-    if (currentRedBlackNodeParent == nullptr) {
+    if (currentNodeParent == nullptr) {
         root_ = newRedBlackNode;
-    } else if (key < currentRedBlackNodeParent->key) {
+    } else if (key < currentNodeParent->key) {
         keyComparisons_++;
-        currentRedBlackNodeParent->left = newRedBlackNode;
+        currentNodeParent->left = newRedBlackNode;
     } else {
         keyComparisons_++;
-        currentRedBlackNodeParent->right = newRedBlackNode;
+        currentNodeParent->right = newRedBlackNode;
     }
 
     if (newRedBlackNode->parent == nullptr) {
@@ -112,52 +113,52 @@ void RedBlackTree::insertFixup(RedBlackNode *node) {
 
 void RedBlackTree::leftRotate(RedBlackNode *node) {
     pointerOperations_ += 6;
-    RedBlackNode *rightRedBlackNode = node->right;
-    node->right = rightRedBlackNode->left;
-    if (rightRedBlackNode->left != NIL_NODE_) {
+    RedBlackNode *rightNode = node->right;
+    node->right = rightNode->left;
+    if (rightNode->left != NIL_NODE_) {
         pointerOperations_++;
-        rightRedBlackNode->left->parent = node;
+        rightNode->left->parent = node;
     }
-    rightRedBlackNode->parent = node->parent;
+    rightNode->parent = node->parent;
     if (node->parent == nullptr) {
-        root_ = rightRedBlackNode;
+        root_ = rightNode;
     } else if (node == node->parent->left) {
-        node->parent->left = rightRedBlackNode;
+        node->parent->left = rightNode;
     } else {
-        node->parent->right = rightRedBlackNode;
+        node->parent->right = rightNode;
     }
-    rightRedBlackNode->left = node;
-    node->parent = rightRedBlackNode;
+    rightNode->left = node;
+    node->parent = rightNode;
 }
 
 void RedBlackTree::rightRotate(RedBlackNode *node) {
     pointerOperations_ += 6;
-    RedBlackNode *leftRedBlackNode = node->left;
-    node->left = leftRedBlackNode->right;
-    if (leftRedBlackNode->right != NIL_NODE_) {
+    RedBlackNode *leftNode = node->left;
+    node->left = leftNode->right;
+    if (leftNode->right != NIL_NODE_) {
         pointerOperations_++;
-        leftRedBlackNode->right->parent = node;
+        leftNode->right->parent = node;
     }
-    leftRedBlackNode->parent = node->parent;
+    leftNode->parent = node->parent;
     if (node->parent == nullptr) {
-        root_ = leftRedBlackNode;
+        root_ = leftNode;
     } else if (node == node->parent->right) {
-        node->parent->right = leftRedBlackNode;
+        node->parent->right = leftNode;
     } else {
-        node->parent->left = leftRedBlackNode;
+        node->parent->left = leftNode;
     }
-    leftRedBlackNode->right = node;
-    node->parent = leftRedBlackNode;
+    leftNode->right = node;
+    node->parent = leftNode;
 }
 
-void RedBlackTree::deleteNode(const int key, const bool printFlag) {
-    printIfFlagSet("delete " + std::to_string(key) + '\n', printFlag);
+void RedBlackTree::deleteNode(const int key) {
+    printIfFlagSet("delete " + std::to_string(key) + '\n');
 
     pointerOperations_++;
     RedBlackNode *nodeToDelete = search(key);
 
     if (nodeToDelete == NIL_NODE_) {
-        printIfFlagSet("Key " + std::to_string(key) + " was not found in the tree\n", printFlag);
+        printIfFlagSet("Key " + std::to_string(key) + " was not found in the tree\n");
         return;
     }
 
@@ -202,19 +203,19 @@ void RedBlackTree::deleteNode(const int key, const bool printFlag) {
 
 RedBlackNode *RedBlackTree::search(const int key) {
     pointerOperations_++;
-    RedBlackNode *currentRedBlackNode = root_;
+    RedBlackNode *currentNode = root_;
 
-    while (currentRedBlackNode != NIL_NODE_ && key != currentRedBlackNode->key) {
+    while (currentNode != NIL_NODE_ && key != currentNode->key) {
         keyComparisons_ += 2;
         pointerOperations_++;
-        if (key < currentRedBlackNode->key) {
-            currentRedBlackNode = currentRedBlackNode->left;
+        if (key < currentNode->key) {
+            currentNode = currentNode->left;
         } else {
-            currentRedBlackNode = currentRedBlackNode->right;
+            currentNode = currentNode->right;
         }
     }
 
-    return currentRedBlackNode;
+    return currentNode;
 }
 
 RedBlackNode *RedBlackTree::findMinValueNode(RedBlackNode *node) {
@@ -282,7 +283,6 @@ void RedBlackTree::deleteFixup(RedBlackNode *node) {
                     sibling = node->parent->left;
                 }
 
-
                 pointerOperations_++;
                 sibling->color = node->parent->color;
                 node->parent->color = 0;
@@ -316,7 +316,6 @@ int RedBlackTree::height(const RedBlackNode *root) const {
     if (root == nullptr) {
         return 0;
     }
-
     return 1 + std::max(height(root->left), height(root->right));
 }
 
@@ -328,13 +327,18 @@ long long RedBlackTree::getPointerOperations() const {
     return pointerOperations_;
 }
 
+void RedBlackTree::setPrintFlag(const bool value) {
+    printFlag_ = value;
+}
+
 void RedBlackTree::print() const {
     std::string leftTrace(1000, ' ');
     std::string rightTrace(1000, ' ');
     printTree(root_, 10, '-', leftTrace, rightTrace);
 }
 
-void RedBlackTree::printTree(const RedBlackNode *root, const int depth, const char prefix, std::string &leftTrace, std::string &rightTrace) const {
+void RedBlackTree::printTree(const RedBlackNode *root, const int depth, const char prefix, std::string &leftTrace,
+                             std::string &rightTrace) const {
     if (root == nullptr)
         return;
 
@@ -379,8 +383,8 @@ void RedBlackTree::printTree(const RedBlackNode *root, const int depth, const ch
     }
 }
 
-void RedBlackTree::printIfFlagSet(const std::string &text, const bool printFlag) const {
-    if (printFlag) {
+void RedBlackTree::printIfFlagSet(const std::string &text) const {
+    if (printFlag_) {
         std::cout << text;
     }
 }

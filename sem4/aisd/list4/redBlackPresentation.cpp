@@ -1,4 +1,4 @@
-#include "BinarySearchTree.hpp"
+#include "RedBlackTree.hpp"
 #include "randomVectorGenerator.hpp"
 
 #include <iostream>
@@ -9,30 +9,31 @@ int main() {
     std::cout << "Random ascending inserts, random deletes\n";
     std::vector<int> keysToInsert = generateRandomAscendingVector(VECTOR_SIZE);
     std::vector<int> keysToDelete = generateRandomVector(VECTOR_SIZE);
-    BinarySearchTree firstBST;
-    long long keyComparisons, pointerOperations;
+    RedBlackTree firstRBT;
+    firstRBT.setPrintFlag(true);
 
     for (const auto &key : keysToInsert) {
-        firstBST.insertNode(key, true);
-        firstBST.print();
+        firstRBT.insertNode(key);
+        firstRBT.print();
     }
     for (const auto &key : keysToDelete) {
-        firstBST.deleteNode(key, true);
-        firstBST.print();
+        firstRBT.deleteNode(key);
+        firstRBT.print();
     }
 
     std::cout << "Random inserts, random deletes\n";
     keysToInsert = generateRandomVector(VECTOR_SIZE);
     keysToDelete = generateRandomVector(VECTOR_SIZE);
-    BinarySearchTree secondBST;
+    RedBlackTree secondRBT;
+    secondRBT.setPrintFlag(true);
 
     for (const auto &key : keysToInsert) {
-        secondBST.insertNode(key, true);
-        secondBST.print();
+        secondRBT.insertNode(key);
+        secondRBT.print();
     }
     for (const auto &key : keysToDelete) {
-        secondBST.deleteNode(key, true);
-        secondBST.print();
+        secondRBT.deleteNode(key);
+        secondRBT.print();
     }
 
     return 0;

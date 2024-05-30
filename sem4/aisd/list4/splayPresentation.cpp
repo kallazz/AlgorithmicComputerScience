@@ -1,4 +1,5 @@
-#include "RedBlackTree.hpp"
+
+#include "SplayTree.hpp"
 #include "randomVectorGenerator.hpp"
 
 #include <iostream>
@@ -9,31 +10,34 @@ int main() {
     std::cout << "Random ascending inserts, random deletes\n";
     std::vector<int> keysToInsert = generateRandomAscendingVector(VECTOR_SIZE);
     std::vector<int> keysToDelete = generateRandomVector(VECTOR_SIZE);
-    RedBlackTree firstRBT;
-    long long keyComparisons, pointerOperations;
+    SplayTree firstSplayTree;
+    firstSplayTree.setPrintFlag(true);
 
     for (const auto &key : keysToInsert) {
-        firstRBT.insertNode(key, true);
-        firstRBT.print();
+        firstSplayTree.insertNode(key);
+        firstSplayTree.print();
     }
     for (const auto &key : keysToDelete) {
-        firstRBT.deleteNode(key, true);
-        firstRBT.print();
+        firstSplayTree.deleteNode(key);
+        firstSplayTree.print();
     }
 
     std::cout << "Random inserts, random deletes\n";
     keysToInsert = generateRandomVector(VECTOR_SIZE);
     keysToDelete = generateRandomVector(VECTOR_SIZE);
-    RedBlackTree secondRBT;
+    SplayTree secondSplayTree;
+    secondSplayTree.setPrintFlag(true);
 
     for (const auto &key : keysToInsert) {
-        secondRBT.insertNode(key, true);
-        secondRBT.print();
+        secondSplayTree.insertNode(key);
+        secondSplayTree.print();
     }
     for (const auto &key : keysToDelete) {
-        secondRBT.deleteNode(key, true);
-        secondRBT.print();
+        secondSplayTree.deleteNode(key);
+        secondSplayTree.print();
     }
 
     return 0;
 }
+
+

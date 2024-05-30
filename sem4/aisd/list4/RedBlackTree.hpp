@@ -22,19 +22,20 @@ public:
     RedBlackTree();
     ~RedBlackTree();
 
-    void insertNode(const int key, const bool printFlag = false) override;
-    void deleteNode(const int key, const bool printFlag = false) override;
+    void insertNode(const int key) override;
+    void deleteNode(const int key) override;
     int height() const override;
     void print() const override;
-
     long long getKeyComparisons() const override;
     long long getPointerOperations() const override;
+    void setPrintFlag(const bool value);
 
 private:
     RedBlackNode *NIL_NODE_;
     RedBlackNode *root_;
     long long keyComparisons_;
     long long pointerOperations_;
+    bool printFlag_;
 
     void insertFixup(RedBlackNode *node);
     void deleteFixup(RedBlackNode *node);
@@ -47,7 +48,7 @@ private:
 
     void printTree(const RedBlackNode *root, const int depth, const char prefix, std::string &leftTrace,
                    std::string &rightTrace) const;
-    void printIfFlagSet(const std::string &text, const bool printFlag) const;
+    void printIfFlagSet(const std::string &text) const;
     void destroyTree(RedBlackNode *root);
 };
 

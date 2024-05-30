@@ -17,24 +17,27 @@ public:
     BinarySearchTree();
     ~BinarySearchTree();
 
-    void insertNode(const int key, const bool printFlag = false) override;
-    void deleteNode(const int key, const bool printFlag = false) override;
+    void insertNode(const int key) override;
+    void deleteNode(const int key) override;
     int height() const override;
     void print() const override;
     long long getKeyComparisons() const override;
     long long getPointerOperations() const override;
+    void setPrintFlag(const bool value);
 
 private:
     Node *root_;
     long long keyComparisons_;
     long long pointerOperations_;
+    bool printFlag_;
 
-    void insertNode(Node *&root, const int key, const bool printFlag);
-    void deleteNode(Node *&root, const int key, const bool printFlag);
+    void insertNode(Node *&root, const int key);
+    void deleteNode(Node *&root, const int key);
     Node *&findMinValueNode(Node *&root);
     int height(const Node *root) const;
+
     void printTree(const Node *root, const int depth, const char prefix, std::string &leftTrace, std::string &rightTrace) const;
-    void printIfFlagSet(const std::string &text, const bool printFlag) const;
+    void printIfFlagSet(const std::string &text) const;
     void destroyTree(Node *root);
 };
 

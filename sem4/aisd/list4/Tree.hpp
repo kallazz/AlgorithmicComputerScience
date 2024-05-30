@@ -3,8 +3,8 @@
 
 class Tree {
 public:
-    virtual void insertNode(const int key, const bool printFlag) = 0;
-    virtual void deleteNode(const int key, const bool printFlag) = 0;
+    virtual void insertNode(const int key) = 0;
+    virtual void deleteNode(const int key) = 0;
     virtual int height() const = 0;
     virtual void print() const = 0;
     virtual long long getKeyComparisons() const = 0;
