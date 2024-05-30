@@ -1,0 +1,50 @@
+10000:
+	(BST, RBT, ST)
+	Max Comparisons: 542966 431853 598548
+	Max Pointer Operations: 548518 510119 1908516
+	Max Heights: 34 17 42
+20000:
+	(BST, RBT, ST)
+	Max Comparisons: 1158051 935847 1303907
+	Max Pointer Operations: 1158719 1082861 4186768
+	Max Heights: 35 18 43
+30000:
+	(BST, RBT, ST)
+	Max Comparisons: 1736192 1469646 2048487
+	Max Pointer Operations: 1887594 1678943 6555940
+	Max Heights: 37 19 43
+40000:
+	(BST, RBT, ST)
+	Max Comparisons: 2371590 2011379 2820919
+	Max Pointer Operations: 2484898 2285772 9047545
+	Max Heights: 37 19 46
+50000:
+	(BST, RBT, ST)
+	Max Comparisons: 3085639 2585359 3612819
+	Max Pointer Operations: 3178715 2909991 11576012
+	Max Heights: 40 20 49
+60000:
+	(BST, RBT, ST)
+	Max Comparisons: 4044606 3150652 4418955
+	Max Pointer Operations: 4153282 3541440 14197251
+	Max Heights: 42 20 46
+70000:
+	(BST, RBT, ST)
+	Max Comparisons: 4337278 3734980 5242647
+	Max Pointer Operations: 4561661 4175604 16814704
+	Max Heights: 43 21 46
+80000:
+	(BST, RBT, ST)
+	Max Comparisons: 5287777 4316697 6073104
+	Max Pointer Operations: 5345476 4812959 19470835
+	Max Heights: 41 20 47
+90000:
+	(BST, RBT, ST)
+	Max Comparisons: 5717112 4928810 6909533
+	Max Pointer Operations: 6044400 5475005 22128712
+	Max Heights: 41 21 52
+100000:
+	(BST, RBT, ST)
+	Max Comparisons: 6512183 5513094 7762084
+	Max Pointer Operations: 6791816 6125461 24899691
+	Max Heights: 40 21 50

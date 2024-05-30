@@ -1,2 +1,4 @@
 *.txt
+!plots/maxes.txt
+!plots/maxesAscending.txt
 
