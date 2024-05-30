@@ -31,9 +31,8 @@ private:
     long long pointerOperations_;
     bool printFlag_;
 
-    void insertNode(Node *&root, const int key);
-    void deleteNode(Node *&root, const int key);
-    Node *&findMinValueNode(Node *&root);
+    Node* deleteNode(Node *root, const int key);
+    Node *findMinValueNode(Node *node);
     int height(const Node *root) const;
 
     void printTree(const Node *root, const int depth, const char prefix, std::string &leftTrace, std::string &rightTrace) const;

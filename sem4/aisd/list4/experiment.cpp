@@ -55,8 +55,8 @@ void runFirstExperiment(const std::function<std::vector<int>(int)> &generateVect
             }
 
             keyComparisons[0] += bst.getKeyComparisons();
-            keyComparisons[1] += redBlackTree.getPointerOperations();
-            keyComparisons[2] += splayTree.getPointerOperations();
+            keyComparisons[1] += redBlackTree.getKeyComparisons();
+            keyComparisons[2] += splayTree.getKeyComparisons();
             pointerOperations[0] += bst.getPointerOperations();
             pointerOperations[1] += redBlackTree.getPointerOperations();
             pointerOperations[2] += splayTree.getPointerOperations();
@@ -87,10 +87,11 @@ void runFirstExperiment(const std::function<std::vector<int>(int)> &generateVect
                               << pointerOperations[2] << '\n';
         heightsFile << currentN << " " << heights[0] << " " << heights[1] << " " << heights[2] << '\n';
 
-        maxesFile << currentN << ":" << "    " << maxKeyComparisons[0] << " " << maxKeyComparisons[1] << " "
-                  << maxKeyComparisons[2] << "\n\t" << maxPointerOperations[0] << " " << maxPointerOperations[1] << " "
-                  << maxPointerOperations[2] << "\n\t" << maxHeights[0] << " " << maxHeights[1] << " " << maxHeights[2]
-                  << "\n\t";
+        maxesFile << currentN << ":\n\t(BST, RBT, ST)\n\tMax Comparisons: " << maxKeyComparisons[0] << " "
+                  << maxKeyComparisons[1] << " " << maxKeyComparisons[2]
+                  << "\n\tMax Pointer Operations: " << maxPointerOperations[0] << " " << maxPointerOperations[1] << " "
+                  << maxPointerOperations[2] << "\n\tMax Heights: " << maxHeights[0] << " " << maxHeights[1] << " "
+                  << maxHeights[2] << '\n';
     }
 
     keyComparisonsFile.close();

@@ -1,4 +1,3 @@
-
 #include "SplayTree.hpp"
 #include "randomVectorGenerator.hpp"
 
@@ -39,5 +38,3 @@ int main() {
 
     return 0;
 }
-
-

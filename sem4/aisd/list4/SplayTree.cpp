@@ -16,6 +16,7 @@ void SplayTree::insertNode(const int key) {
     SplayNode *currentNodeParent = nullptr;
 
     while (currentNode != nullptr) {
+        pointerOperations_++;
         currentNodeParent = currentNode;
         keyComparisons_++;
         if (key < currentNode->key) {
@@ -26,6 +27,7 @@ void SplayTree::insertNode(const int key) {
             pointerOperations_++;
             currentNode = currentNode->right;
         } else {
+            keyComparisons_++;
             printIfFlagSet("Key " + std::to_string(key) + " already exists in the tree.\n");
             return;
         }
@@ -33,9 +35,10 @@ void SplayTree::insertNode(const int key) {
 
     currentNode = new SplayNode(key);
     currentNode->parent = currentNodeParent;
-    pointerOperations_++;
+    pointerOperations_ += 2;
     if (currentNodeParent == nullptr) {
         root_ = currentNode;
+        return;
     } else if (key < currentNodeParent->key) {
         keyComparisons_++;
         currentNodeParent->left = currentNode;
@@ -82,34 +85,38 @@ void SplayTree::deleteNode(const int key) {
 
     pointerOperations_++;
     SplayNode *nodeToDelete = search(key);
-    SplayNode *leftSubtree, *rightSubtree;
 
     if (nodeToDelete == nullptr) {
-        printIfFlagSet("Key " + std::to_string(key) + " was not found in the tree\n");
+        printIfFlagSet("value " + std::to_string(key) + " not found in the tree\n");
         return;
     }
 
+    SplayNode *leftSubtree, *rightSubtree;
     split(nodeToDelete, leftSubtree, rightSubtree);
+
     if (leftSubtree->left != nullptr) {
         pointerOperations_++;
         leftSubtree->left->parent = nullptr;
     }
     root_ = join(leftSubtree->left, rightSubtree);
-    pointerOperations_++;
     delete leftSubtree;
     leftSubtree = nullptr;
+    pointerOperations_ += 2;
 }
 
 void SplayTree::split(SplayNode *&node, SplayNode *&leftSubtree, SplayNode *&rightSubtree) {
     splay(node);
 
-    pointerOperations_ += 3;
     if (node->right != nullptr) {
+        pointerOperations_ += 2;
         rightSubtree = node->right;
         rightSubtree->parent = nullptr;
     } else {
+        pointerOperations_++;
         rightSubtree = nullptr;
     }
+
+    pointerOperations_ += 3;
     leftSubtree = node;
     leftSubtree->right = nullptr;
     node = nullptr;
@@ -124,14 +131,22 @@ SplayNode *SplayTree::join(SplayNode *leftSubtree, SplayNode *rightSubtree) {
     }
 
     pointerOperations_ += 3;
-    SplayNode *maxNodeFromLeftSubtree = findMaxValueSplayNode(leftSubtree);
+    SplayNode *maxNodeFromLeftSubtree = findMaxValueNode(leftSubtree);
     splay(maxNodeFromLeftSubtree);
     maxNodeFromLeftSubtree->right = rightSubtree;
     rightSubtree->parent = maxNodeFromLeftSubtree;
     return maxNodeFromLeftSubtree;
 }
 
-SplayNode *SplayTree::findMaxValueSplayNode(SplayNode *node) {
+SplayNode *SplayTree::findMinValueNode(SplayNode *node) {
+    while (node->left != nullptr) {
+        pointerOperations_++;
+        node = node->left;
+    }
+    return node;
+}
+
+SplayNode *SplayTree::findMaxValueNode(SplayNode *node) {
     while (node->right != nullptr) {
         pointerOperations_++;
         node = node->right;
@@ -275,6 +290,6 @@ void SplayTree::destroyTree(SplayNode *root) {
     if (root != nullptr) {
         destroyTree(root->left);
         destroyTree(root->right);
+        delete root;
     }
-    delete root;
 }

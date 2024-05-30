@@ -19,9 +19,10 @@ void RedBlackTree::insertNode(const int key) {
     RedBlackNode *currentNodeParent = nullptr;
 
     while (currentNode != NIL_NODE_) {
+        pointerOperations_++;
         currentNodeParent = currentNode;
+        keyComparisons_++;
         if (key < currentNode->key) {
-            keyComparisons_++;
             pointerOperations_++;
             currentNode = currentNode->left;
         } else if (key > currentNode->key) {
@@ -35,28 +36,29 @@ void RedBlackTree::insertNode(const int key) {
         }
     }
 
-    RedBlackNode *newRedBlackNode = new RedBlackNode(key, 1, currentNodeParent, NIL_NODE_, NIL_NODE_);
-    pointerOperations_++;
+    RedBlackNode *newNode = new RedBlackNode(key, 1, currentNodeParent, NIL_NODE_, NIL_NODE_);
+    pointerOperations_ += 2;
     if (currentNodeParent == nullptr) {
-        root_ = newRedBlackNode;
+        root_ = newNode;
     } else if (key < currentNodeParent->key) {
         keyComparisons_++;
-        currentNodeParent->left = newRedBlackNode;
+        currentNodeParent->left = newNode;
     } else {
         keyComparisons_++;
-        currentNodeParent->right = newRedBlackNode;
+        currentNodeParent->right = newNode;
     }
 
-    if (newRedBlackNode->parent == nullptr) {
-        newRedBlackNode->color = 0;
+    if (newNode->parent == nullptr) {
+        newNode->color = 0;
+        pointerOperations_++;
         return;
     }
 
-    if (newRedBlackNode->parent->parent == nullptr) {
+    if (newNode->parent->parent == nullptr) {
         return;
     }
 
-    insertFixup(newRedBlackNode);
+    insertFixup(newNode);
 }
 
 void RedBlackTree::insertFixup(RedBlackNode *node) {
@@ -69,8 +71,8 @@ void RedBlackTree::insertFixup(RedBlackNode *node) {
                 uncle->color = 0;
                 node->parent->color = 0;
                 node->parent->parent->color = 1;
-                pointerOperations_++;
                 node = node->parent->parent;
+                pointerOperations_ += 4;
             } else {
                 if (node == node->parent->right) {
                     pointerOperations_++;
@@ -79,6 +81,7 @@ void RedBlackTree::insertFixup(RedBlackNode *node) {
                 }
                 node->parent->color = 0;
                 node->parent->parent->color = 1;
+                pointerOperations_ += 2;
                 rightRotate(node->parent->parent);
             }
         } else {
@@ -89,8 +92,8 @@ void RedBlackTree::insertFixup(RedBlackNode *node) {
                 uncle->color = 0;
                 node->parent->color = 0;
                 node->parent->parent->color = 1;
-                pointerOperations_++;
                 node = node->parent->parent;
+                pointerOperations_ += 4;
             } else {
                 if (node == node->parent->left) {
                     pointerOperations_++;
@@ -99,6 +102,7 @@ void RedBlackTree::insertFixup(RedBlackNode *node) {
                 }
                 node->parent->color = 0;
                 node->parent->parent->color = 1;
+                pointerOperations_ += 2;
                 leftRotate(node->parent->parent);
             }
         }
@@ -108,6 +112,7 @@ void RedBlackTree::insertFixup(RedBlackNode *node) {
         }
     }
 
+    pointerOperations_++;
     root_->color = 0;
 }
 
@@ -158,42 +163,45 @@ void RedBlackTree::deleteNode(const int key) {
     RedBlackNode *nodeToDelete = search(key);
 
     if (nodeToDelete == NIL_NODE_) {
-        printIfFlagSet("Key " + std::to_string(key) + " was not found in the tree\n");
+        printIfFlagSet("value " + std::to_string(key) + " not found in the tree\n");
         return;
     }
 
+    pointerOperations_++;
     int originalColor = nodeToDelete->color;
     RedBlackNode *childRedBlackNode = nullptr;
 
-    pointerOperations_++;
     if (nodeToDelete->left == NIL_NODE_) {
+        pointerOperations_++;
         childRedBlackNode = nodeToDelete->right;
         transplant(nodeToDelete, nodeToDelete->right);
     } else if (nodeToDelete->right == NIL_NODE_) {
+        pointerOperations_++;
         childRedBlackNode = nodeToDelete->left;
         transplant(nodeToDelete, nodeToDelete->left);
     } else {
+        pointerOperations_ += 3;
         RedBlackNode *minRedBlackNode = findMinValueNode(nodeToDelete->right);
         originalColor = minRedBlackNode->color;
         childRedBlackNode = minRedBlackNode->right;
 
-        pointerOperations_++;
         if (minRedBlackNode->parent == nodeToDelete) {
+            pointerOperations_++;
             childRedBlackNode->parent = minRedBlackNode;
         } else {
             transplant(minRedBlackNode, minRedBlackNode->right);
+            pointerOperations_ += 2;
             minRedBlackNode->right = nodeToDelete->right;
             minRedBlackNode->right->parent = minRedBlackNode;
         }
 
-        pointerOperations_++;
         transplant(nodeToDelete, minRedBlackNode);
+        pointerOperations_ += 3;
         minRedBlackNode->left = nodeToDelete->left;
         minRedBlackNode->left->parent = minRedBlackNode;
         minRedBlackNode->color = nodeToDelete->color;
     }
 
-    pointerOperations_++;
     delete nodeToDelete;
 
     if (originalColor == 0) {
@@ -234,26 +242,27 @@ void RedBlackTree::deleteFixup(RedBlackNode *node) {
             pointerOperations_++;
             sibling = node->parent->right;
             if (sibling->color == 1) {
-                pointerOperations_++;
                 sibling->color = 0;
                 node->parent->color = 1;
                 leftRotate(node->parent);
                 sibling = node->parent->right;
+                pointerOperations_ += 3;
             }
 
-            pointerOperations_++;
             if (sibling->left->color == 0 && sibling->right->color == 0) {
                 sibling->color = 1;
                 node = node->parent;
+                pointerOperations_ += 2;
             } else {
                 if (sibling->right->color == 0) {
                     sibling->left->color = 0;
                     sibling->color = 1;
                     rightRotate(sibling);
                     sibling = node->parent->right;
+                    pointerOperations_ += 3;
                 }
 
-                pointerOperations_++;
+                pointerOperations_ += 4;
                 sibling->color = node->parent->color;
                 node->parent->color = 0;
                 sibling->right->color = 0;
@@ -264,26 +273,27 @@ void RedBlackTree::deleteFixup(RedBlackNode *node) {
             pointerOperations_++;
             sibling = node->parent->left;
             if (sibling->color == 1) {
-                pointerOperations_++;
                 sibling->color = 0;
                 node->parent->color = 1;
                 rightRotate(node->parent);
                 sibling = node->parent->left;
+                pointerOperations_ += 3;
             }
 
-            pointerOperations_++;
             if (sibling->left->color == 0 && sibling->right->color == 0) {
                 sibling->color = 1;
                 node = node->parent;
+                pointerOperations_ += 2;
             } else {
                 if (sibling->left->color == 0) {
                     sibling->right->color = 0;
                     sibling->color = 1;
                     leftRotate(sibling);
                     sibling = node->parent->left;
+                    pointerOperations_ += 3;
                 }
 
-                pointerOperations_++;
+                pointerOperations_ += 4;
                 sibling->color = node->parent->color;
                 node->parent->color = 0;
                 sibling->left->color = 0;
@@ -293,6 +303,7 @@ void RedBlackTree::deleteFixup(RedBlackNode *node) {
         }
     }
 
+    pointerOperations_++;
     node->color = 0;
 }
 

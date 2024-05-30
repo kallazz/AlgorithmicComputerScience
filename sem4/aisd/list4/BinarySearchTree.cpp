@@ -10,76 +10,88 @@ BinarySearchTree::~BinarySearchTree() {
 
 void BinarySearchTree::insertNode(const int key) {
     printIfFlagSet("insert " + std::to_string(key) + '\n');
-    insertNode(root_, key);
-}
 
-void BinarySearchTree::insertNode(Node *&root, const int key) {
-    if (root == nullptr) {
+    pointerOperations_++;
+    Node *currentNode = root_;
+    Node *currentNodeParent = nullptr;
+
+    while (currentNode != nullptr) {
         pointerOperations_++;
-        root = new Node(key);
-        return;
+        currentNodeParent = currentNode;
+        keyComparisons_++;
+        if (key < currentNode->key) {
+            pointerOperations_++;
+            currentNode = currentNode->left;
+        } else if (key > currentNode->key) {
+            keyComparisons_++;
+            pointerOperations_++;
+            currentNode = currentNode->right;
+        } else {
+            keyComparisons_++;
+            printIfFlagSet("Key " + std::to_string(key) + " already exists in the tree.\n");
+            return;
+        }
     }
 
-    keyComparisons_++;
-    if (key < root->key) {
-        insertNode(root->left, key);
-    } else if (key > root->key) {
+    Node *newNode = new Node(key);
+    pointerOperations_ += 2;
+    if (currentNodeParent == nullptr) {
+        root_ = newNode;
+    } else if (key < currentNodeParent->key) {
         keyComparisons_++;
-        insertNode(root->right, key);
+        currentNodeParent->left = newNode;
     } else {
         keyComparisons_++;
-        printIfFlagSet("Key " + std::to_string(key) + " already exists in the tree.\n");
+        currentNodeParent->right = newNode;
     }
 }
 
 void BinarySearchTree::deleteNode(const int key) {
     printIfFlagSet("delete " + std::to_string(key) + '\n');
-    deleteNode(root_, key);
+    root_ = deleteNode(root_, key);
 }
 
-void BinarySearchTree::deleteNode(Node *&root, const int key) {
-    pointerOperations_++;
+Node *BinarySearchTree::deleteNode(Node *root, const int key) {
     if (root == nullptr) {
-        printIfFlagSet("Key " + std::to_string(key) + " was not found in the tree\n");
-        return;
+        printIfFlagSet("value " + std::to_string(key) + " not found in the tree\n");
+        return root;
     }
 
     keyComparisons_++;
     if (key < root->key) {
-        deleteNode(root->left, key);
+        pointerOperations_++;
+        root->left = deleteNode(root->left, key);
     } else if (key > root->key) {
         keyComparisons_++;
-        deleteNode(root->right, key);
+        pointerOperations_++;
+        root->right = deleteNode(root->right, key);
     } else {
         if (root->left == nullptr) {
             pointerOperations_ += 2;
-            Node *nodeToRemove = root;
-            root = root->right;
-            delete nodeToRemove;
+            Node *temp = root->right;
+            delete root;
+            return temp;
         } else if (root->right == nullptr) {
             pointerOperations_ += 2;
-            Node *nodeToRemove = root;
-            root = root->left;
-            delete nodeToRemove;
-        } else {
-            pointerOperations_++;
-            Node *&minValueNode = findMinValueNode(root->right);
-            root->key = minValueNode->key;
-            deleteNode(minValueNode, minValueNode->key);
+            Node *temp = root->left;
+            delete root;
+            return temp;
         }
+
+        pointerOperations_ += 3;
+        Node *temp = findMinValueNode(root->right);
+        root->key = temp->key;
+        root->right = deleteNode(root->right, temp->key);
     }
+    return root;
 }
 
-Node *&BinarySearchTree::findMinValueNode(Node *&root) {
-    pointerOperations_++;
-    if (root == nullptr) {
-        std::cout << "Min value node not found.\n";
-        return root;
-    } else if (root->left == nullptr) {
-        return root;
-    } else {
-        return findMinValueNode(root->left);
+Node *BinarySearchTree::findMinValueNode(Node *node) {
+    while (node->left != nullptr) {
+        pointerOperations_++;
+        node = node->left;
     }
+    return node;
 }
 
 int BinarySearchTree::height() const {
@@ -111,7 +123,8 @@ void BinarySearchTree::print() const {
     printTree(root_, 10, '-', leftTrace, rightTrace);
 }
 
-void BinarySearchTree::printTree(const Node *root, const int depth, const char prefix, std::string &leftTrace, std::string &rightTrace) const {
+void BinarySearchTree::printTree(const Node *root, const int depth, const char prefix, std::string &leftTrace,
+                                 std::string &rightTrace) const {
     if (root == nullptr)
         return;
 
@@ -160,6 +173,6 @@ void BinarySearchTree::destroyTree(Node *root) {
     if (root != nullptr) {
         destroyTree(root->left);
         destroyTree(root->right);
+        delete root;
     }
-    delete root;
 }

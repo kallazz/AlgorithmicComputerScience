@@ -38,7 +38,8 @@ private:
     SplayNode *search(const int key);
     void split(SplayNode *&node, SplayNode *&leftSubtree, SplayNode *&rightSubtree);
     SplayNode *join(SplayNode *leftSubtree, SplayNode *rightSubtree);
-    SplayNode *findMaxValueSplayNode(SplayNode *node);
+    SplayNode *findMinValueNode(SplayNode *node);
+    SplayNode *findMaxValueNode(SplayNode *node);
     int height(const SplayNode *root) const;
 
     void printTree(const SplayNode *root, const int depth, const char prefix, std::string &leftTrace,
