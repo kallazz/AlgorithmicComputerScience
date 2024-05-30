@@ -1,69 +1,93 @@
 #include "BinarySearchTree.hpp"
+#include "RedBlackTree.hpp"
+#include "Tree.hpp"
 #include "randomVectorGenerator.hpp"
 
+#include <chrono>
 #include <fstream>
+#include <functional>
 #include <iostream>
 #include <thread>
 #include <vector>
 
 constexpr int EXPERIMENT_REPEATS = 20;
 
-void runFirstExperiment() {
-    std::ofstream keyComparisonsFile("plots/keyComparisons.txt");
-    std::ofstream pointerOperationsFile("plots/pointerOperations.txt");
-    std::ofstream heightsFile("plots/heights.txt");
+void runFirstExperiment(const std::function<std::vector<int>(int)> &generateVector, const std::string &additionalText) {
+    std::string prefix;
+    std::ofstream keyComparisonsAscendingFile("plots/keyComparisons" + additionalText + ".txt");
+    std::ofstream pointerOperationsAscendingFile("plots/pointerOperations" + additionalText + ".txt");
+    std::ofstream heightsAscendingFile("plots/heights" + additionalText + ".txt");
 
-    int keyComparisons, pointerOperations, heights, maxKeyComparisons, maxPointerOperations, maxHeights;
+    long long BSTKeyComparisons, BSTPointerOperations, BSTHeights, maxKeyComparisons, maxPointerOperations, maxHeights;
+    long long RSTKeyComparisons, RSTPointerOperations, RSTHeights;
 
-    for (int currentN = 10000; currentN <= 100000; currentN += 10000) {
-        std::cout << "Current N: " << currentN << '\n';
+    for (int currentN = 10000; currentN <= 40000; currentN += 10000) {
+        std::cout << prefix + " current " + additionalText + " N: " << currentN << '\n';
 
-        keyComparisons = 0;
-        pointerOperations = 0;
-        heights = 0;
+        BSTKeyComparisons = 0;
+        BSTPointerOperations = 0;
+        BSTHeights = 0;
+        RSTKeyComparisons = 0;
+        RSTPointerOperations = 0;
+        RSTHeights = 0;
         maxKeyComparisons = 0;
         maxPointerOperations = 0;
         maxHeights = 0;
 
         for (int j = 0; j < EXPERIMENT_REPEATS; j++) {
-            int keyComparisonsBefore = keyComparisons;
-            int pointerOperationsBefore = pointerOperations;
-            std::vector<int> keysToInsert = generateRandomAscendingVector(currentN);
+            std::vector<int> keysToInsert = generateVector(currentN);
             std::vector<int> keysToDelete = generateRandomVector(currentN);
             BinarySearchTree bst;
+            RedBlackTree rst;
 
             for (const auto &key : keysToInsert) {
-                bst.insertNode(key, keyComparisons, pointerOperations);
+                bst.insertNode(key);
+                rst.insertNode(key);
             }
             for (const auto &key : keysToDelete) {
-                bst.deleteNode(key, keyComparisons, pointerOperations);
+                bst.deleteNode(key);
+                rst.deleteNode(key);
             }
 
-            int currentHeight = bst.height();
-            heights += currentHeight;
+            BSTKeyComparisons += bst.getKeyComparisons();
+            BSTPointerOperations += bst.getPointerOperations();
+            RSTKeyComparisons += rst.getKeyComparisons();
+            RSTPointerOperations += rst.getPointerOperations();
 
-            maxKeyComparisons = std::max(maxKeyComparisons, keyComparisons - keyComparisonsBefore);
-            maxPointerOperations = std::max(maxPointerOperations, pointerOperations - pointerOperationsBefore);
-            maxHeights = std::max(maxHeights, currentHeight);
+            int currentBSTHeight = bst.height();
+            int currentRSTHeight = rst.height();
+            BSTHeights += currentBSTHeight;
+            RSTHeights += currentRSTHeight;
+
+            maxKeyComparisons = std::max(maxKeyComparisons, bst.getKeyComparisons());
+            maxPointerOperations = std::max(maxPointerOperations, bst.getPointerOperations());
+            maxHeights = std::max(maxHeights, static_cast<long long>(currentBSTHeight));
         }
 
-        keyComparisons /= EXPERIMENT_REPEATS;
-        pointerOperations /= EXPERIMENT_REPEATS;
-        heights /= EXPERIMENT_REPEATS;
+        BSTKeyComparisons /= EXPERIMENT_REPEATS;
+        BSTPointerOperations /= EXPERIMENT_REPEATS;
+        BSTHeights /= EXPERIMENT_REPEATS;
+        RSTKeyComparisons /= EXPERIMENT_REPEATS;
+        RSTPointerOperations /= EXPERIMENT_REPEATS;
+        RSTHeights /= EXPERIMENT_REPEATS;
 
-        keyComparisonsFile << currentN << " " << keyComparisons << " " << maxKeyComparisons << '\n';
-        pointerOperationsFile << currentN << " " << pointerOperations << " " << maxPointerOperations << '\n';
-        heightsFile << currentN << " " << heights << " " << maxHeights << '\n';
+        keyComparisonsAscendingFile << currentN << " " << BSTKeyComparisons << " " << RSTKeyComparisons << '\n';
+        pointerOperationsAscendingFile << currentN << " " << BSTPointerOperations << " " << RSTPointerOperations << '\n';
+        heightsAscendingFile << currentN << " " << BSTHeights << " " << RSTHeights << '\n';
     }
 
-    keyComparisonsFile.close();
-    pointerOperationsFile.close();
-    heightsFile.close();
+    keyComparisonsAscendingFile.close();
+    pointerOperationsAscendingFile.close();
+    heightsAscendingFile.close();
 }
 
 int main() {
-    std::thread firstExperiment(runFirstExperiment);
-    firstExperiment.join();
+    std::function<std::vector<int>(int)> generateRandomAscendingVectorFunction = generateRandomAscendingVector;
+    std::function<std::vector<int>(int)> generateRandomVectorFunction = generateRandomVector;
+    std::thread firstExperimentAscending(runFirstExperiment, generateRandomAscendingVectorFunction, "Ascending");
+    std::thread firstExperimentRandom(runFirstExperiment, generateRandomVectorFunction, "");
+    firstExperimentAscending.join();
+    firstExperimentRandom.join();
 
     return 0;
 }

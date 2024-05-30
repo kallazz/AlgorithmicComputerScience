@@ -10,14 +10,14 @@ int main() {
     std::vector<int> keysToInsert = generateRandomAscendingVector(VECTOR_SIZE);
     std::vector<int> keysToDelete = generateRandomVector(VECTOR_SIZE);
     BinarySearchTree firstBST;
-    int keyComparisons, pointerOperations;
+    long long keyComparisons, pointerOperations;
 
-    for (const auto key : keysToInsert) {
-        firstBST.insertNode(key, keyComparisons, pointerOperations, true);
+    for (const auto &key : keysToInsert) {
+        firstBST.insertNode(key, true);
         firstBST.print();
     }
-    for (const auto key : keysToDelete) {
-        firstBST.deleteNode(key, keyComparisons, pointerOperations, true);
+    for (const auto &key : keysToDelete) {
+        firstBST.deleteNode(key, true);
         firstBST.print();
     }
 
@@ -26,12 +26,12 @@ int main() {
     keysToDelete = generateRandomVector(VECTOR_SIZE);
     BinarySearchTree secondBST;
 
-    for (const auto key : keysToInsert) {
-        secondBST.insertNode(key, keyComparisons, pointerOperations, true);
+    for (const auto &key : keysToInsert) {
+        secondBST.insertNode(key, true);
         secondBST.print();
     }
-    for (const auto key : keysToDelete) {
-        secondBST.deleteNode(key, keyComparisons, pointerOperations, true);
+    for (const auto &key : keysToDelete) {
+        secondBST.deleteNode(key, true);
         secondBST.print();
     }
 
