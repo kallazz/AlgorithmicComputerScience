@@ -32,6 +32,7 @@ class Device:
             self._resolve_collision()
 
     def _transmit(self) -> None:
+        # check if wire is free and send jam signal and set state to collision resolution
         self._signal_propagation_counter += 1
         if self._signal_propagation_counter == self._wire_max_distnace / 2:
             self._wire.remove_signal(self._position_in_wire, self._symbol)
