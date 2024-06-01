@@ -1,19 +1,46 @@
 import time
+from dataclasses import dataclass
+
 
 class Wire:
-    DEFAULT_SIGNAL = 0
+    @dataclass(frozen=True)
+    class Signal:
+        index: str
+        left_position: int
+        right_position: int
+        jam: bool = False
+
+    DEFAULT_SIGNAL_SYMBOL = "0"
+    JAM_SIGNAL_SYMBOL = "#"
     SIGNAL_LATENCY_MILLISECONDS = 10
 
-    def __init__(self, length: int) -> None:
-        self._wire = [0] * length
+    def __init__(self, length: int, tick_time_ms: int) -> None:
+        self._wire_segments = [0] * length
+        self._signals = set()
+        self._tick_time_ms = tick_time_ms
 
-    def set_signal(self, position: int, signal: int) -> None:
-        time.sleep(self.SIGNAL_LATENCY_MILLISECONDS)
-        self._wire[position] = signal
+    @property
+    def length(self) -> int:
+        return len(self._wire_segments)
 
-    def reset_signal(self, position: int) -> None:
-        time.sleep(self.SIGNAL_LATENCY_MILLISECONDS)
-        self._wire[position] = self.DEFAULT_SIGNAL
+    def tick(self) -> None:
+        for signal in self._signals:
+            self._wire_segments[signal.left_position] = signal.index
+            self._wire_segments[signal.right_position] = signal.index
+            signal.left_position += 1
+            signal.right_position += 1
 
-    def is_collision(self, position: int) -> bool:
-        return self._wire[position] != self.DEFAULT_SIGNAL
+    def add_signal(self, device_position: int, signal_symbol: str) -> None:
+        self._signals.add(self.Signal(signal_symbol, device_position, device_position))
+
+    def remove_signal(self, device_position: int, signal_symbol: str) -> None:
+        self._signals.remove(self.Signal(signal_symbol, device_position, device_position))
+
+    def add_jam_signal(self, device_position: int) -> None:
+        self._signals.add(self.Signal(self.JAM_SIGNAL_SYMBOL, device_position, device_position, True))
+
+    def remove_jam_signal(self, device_position: int) -> None:
+        self._signals.add(self.Signal(self.JAM_SIGNAL_SYMBOL, device_position, device_position, True))
+
+    def is_free(self, position: int, signal_symbol: str) -> bool:
+        return self._wire_segments[position] != self.DEFAULT_SIGNAL and self._wire_segments[position] != signal_symbol

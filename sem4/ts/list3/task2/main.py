@@ -1,9 +1,10 @@
 from device import Device
+from wire import Wire
+
 
 def main() -> None:
-    wire = [0] * 100
-    devices = [Device(wire, (i * 10) - 1) for i in range(10)]
+    pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
