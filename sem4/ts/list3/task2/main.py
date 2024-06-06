@@ -5,8 +5,9 @@ from wire import Wire
 
 WIRE_LENGTH = 30
 TRANSMITTION_PROBABILITY = 0.005
+TICKS = 2000
 
-FILENAME = "./output.txt"
+OUTPUT_FILENAME = "./output.txt"
 
 
 def main() -> None:
@@ -17,9 +18,9 @@ def main() -> None:
         Device("C", wire, 25),
     ]
 
-    output_file = open(FILENAME, "w")
+    output_file = open(OUTPUT_FILENAME, "w")
 
-    for _ in range(2000):
+    for _ in range(TICKS):
         for device in devices:
             if random.random() < TRANSMITTION_PROBABILITY:
                 device.send_packet()

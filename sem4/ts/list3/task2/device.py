@@ -17,7 +17,6 @@ class Device:
     def __init__(self, symbol: str, wire: Wire, position_in_wire: int) -> None:
         self._symbol = symbol
         self._wire = wire
-        wire.add_device_info(symbol, position_in_wire)
         self._position_in_wire = position_in_wire
 
         self._min_packet_time = 2 * wire.length
