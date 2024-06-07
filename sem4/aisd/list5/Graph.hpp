@@ -4,14 +4,12 @@
 #include <vector>
 
 struct Edge {
-    const int node1;
-    const int node2;
+    int node1;
+    int node2;
     double weight;
 
-    Edge(const int node1, const int node2, const double weight) : node1(node1), node2(node2), weight(weight) {} 
+    Edge(const int node1, const int node2, const double weight) : node1(node1), node2(node2), weight(weight) {}
 };
-
-// void sortEdges(std::vector<Edge> &edges) const;
 
 class Graph {
 public:
@@ -24,10 +22,13 @@ public:
     std::vector<Edge> getEdges() const;
     Graph getKruskalsMinimumSpanningTree() const;
     Graph getPrimsMinimumSpanningTree() const;
+
 private:
     const int size_;
     std::vector<Edge> edges_;
 
+    int find(const int node, std::vector<int> &parents) const;
+    void unite(const int node1, const int node2, std::vector<int> &parents, std::vector<int> &ranks) const;
     void sortEdges(std::vector<Edge> &edges) const;
     double generateRandomWeight() const;
 };
