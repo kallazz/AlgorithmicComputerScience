@@ -55,7 +55,7 @@ class Wire:
         self._signal_propagators = []
 
     @property
-    def signal_groups(self) -> List[str]:
+    def signal_groups(self) -> List[List[str]]:
         return self._signal_groups
 
     @property
