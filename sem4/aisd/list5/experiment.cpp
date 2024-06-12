@@ -5,9 +5,9 @@
 #include <iostream>
 
 constexpr int N_MIN = 10;
-constexpr int N_MAX = 500;
+constexpr int N_MAX = 1000;
 constexpr int STEP = 10;
-constexpr int EXPERIMENT_REPEATS = 20;
+constexpr int EXPERIMENT_REPEATS = 10;
 
 void runExperiment() {
     std::string result = "";
@@ -22,13 +22,13 @@ void runExperiment() {
         for (int i = 0; i < EXPERIMENT_REPEATS; i++) {
             Graph graph = Graph::generateRandomCompleteGraph(currentN);
 
-            auto kruskalStartTime = std::chrono::steady_clock::now();
+            const auto kruskalStartTime = std::chrono::steady_clock::now();
             graph.generateKruskalsMinimumSpanningTree();
-            auto kruskalEndTime = std::chrono::steady_clock::now();
+            const auto kruskalEndTime = std::chrono::steady_clock::now();
 
-            auto primStartTime = std::chrono::steady_clock::now();
+            const auto primStartTime = std::chrono::steady_clock::now();
             graph.generatePrimsMinimumSpanningTree();
-            auto primEndTime = std::chrono::steady_clock::now();
+            const auto primEndTime = std::chrono::steady_clock::now();
 
             kruskalDuration += std::chrono::duration_cast<std::chrono::nanoseconds>(kruskalEndTime - kruskalStartTime);
             primDuration += std::chrono::duration_cast<std::chrono::nanoseconds>(primEndTime - primStartTime);
