@@ -138,54 +138,67 @@ std::vector<Edge> Graph::getEdges() const {
     return edges_;
 }
 
-std::pair<std::vector<int>, int> Graph::findShortestInfoSpreadOrder(const int startNode) const {
-    std::vector<std::vector<int>> adjacencyList = createAdjacencyList();
-    std::vector<int> nodeRoundNumbers(size_, -1);
+std::pair<std::vector<std::vector<int>>, std::vector<int>> Graph::findShortestInfoSpreadOrder(
+    const int startNode) const {
+    std::vector<std::vector<int>> childrenLists = createChildrenLists(startNode);
+    std::vector<std::vector<int>> order(size_);
+    std::vector<int> roundsLeft(size_, 0);
+
+    findShortestInfoSpreadOrder(startNode, childrenLists, order, roundsLeft);
+
+    return std::make_pair(order, roundsLeft);
+}
+
+std::vector<std::vector<int>> Graph::createChildrenLists(const int startNode) const {
+    std::vector<std::vector<int>> childrenLists(size_);
+    std::vector<bool> visited(size_, false);
     std::queue<int> nodesToVisit;
 
     nodesToVisit.push(startNode);
-    nodeRoundNumbers[startNode] = 0;
-    int finalRoundNumber = 0;
+    visited[startNode] = true;
 
     while (!nodesToVisit.empty()) {
-        for (int i = 0; i < nodesToVisit.size(); i++) {
-            const int currentNode = nodesToVisit.front();
-            nodesToVisit.pop();
+        const int currentNode = nodesToVisit.front();
+        nodesToVisit.pop();
 
-            std::vector<int> unvisitedNeighbours;
-            for (const int neighbour : adjacencyList[currentNode]) {
-                if (nodeRoundNumbers[neighbour] == -1) {
-                    unvisitedNeighbours.push_back(neighbour);
-                }
-            }
-            std::sort(unvisitedNeighbours.begin(), unvisitedNeighbours.end(),
-                      [&](const int a, const int b) { return adjacencyList[a].size() > adjacencyList[b].size(); });
-            int currentRoundNumber = nodeRoundNumbers[currentNode] + 1;
-
-            for (const int neighbour : unvisitedNeighbours) {
-                if (nodeRoundNumbers[neighbour] == -1) {
-                    nodeRoundNumbers[neighbour] = currentRoundNumber;
-                    finalRoundNumber = std::max(finalRoundNumber, currentRoundNumber);
-                    nodesToVisit.push(neighbour);
-                    currentRoundNumber++;
-                }
+        for (int neighbour = 0; neighbour < size_; neighbour++) {
+            if (!visited[neighbour] && adjacencyMatrix_[currentNode][neighbour] != UNCONNECTED_WEIGHT_) {
+                childrenLists[currentNode].push_back(neighbour);
+                nodesToVisit.push(neighbour);
+                visited[neighbour] = true;
             }
         }
     }
 
-    return std::make_pair(nodeRoundNumbers, finalRoundNumber);
+    return childrenLists;
 }
 
-std::vector<std::vector<int>> Graph::createAdjacencyList() const {
-    std::vector<std::vector<int>> adjacencyList(size_);
-
-    for (int i = 0; i < size_; i++) {
-        for (int j = 0; j < size_; j++) {
-            if (adjacencyMatrix_[i][j] != UNCONNECTED_WEIGHT_) {
-                adjacencyList[i].push_back(j);
-            }
-        }
+void Graph::findShortestInfoSpreadOrder(const int startNode, const std::vector<std::vector<int>> &childrenLists,
+                                        std::vector<std::vector<int>> &order, std::vector<int> &roundsLeft) const {
+    if (isLeaf(startNode, childrenLists)) {
+        return;
     }
 
-    return adjacencyList;
+    const std::vector<int> &currentNodeChildren = childrenLists[startNode];
+
+    for (const auto &child : currentNodeChildren) {
+        findShortestInfoSpreadOrder(child, childrenLists, order, roundsLeft);
+    }
+
+    for (const auto child : currentNodeChildren) {
+        order[startNode].push_back(child);
+    }
+    std::sort(order[startNode].begin(), order[startNode].end(),
+              [&](const int a, const int b) { return roundsLeft[a] > roundsLeft[b]; });
+    roundsLeft[startNode] = roundsLeft[order[startNode][0]] + 1;
+
+    for (int i = 1; i < order[startNode].size(); i++) {
+        if (roundsLeft[startNode] < roundsLeft[order[startNode][i]] + i + 1) {
+            roundsLeft[startNode] = roundsLeft[order[startNode][i]] + i + 1;
+        }
+    }
+}
+
+bool Graph::isLeaf(const int node, const std::vector<std::vector<int>> &childrenLists) const {
+    return childrenLists[node].empty();
 }

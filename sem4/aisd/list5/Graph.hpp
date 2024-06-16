@@ -26,7 +26,7 @@ public:
     std::vector<std::vector<double>> getAdjecencyMatrix() const;
     std::vector<Edge> getEdges() const;
 
-    std::pair<std::vector<int>, int> findShortestInfoSpreadOrder(const int startNode) const;
+    std::pair<std::vector<std::vector<int>>, std::vector<int>> findShortestInfoSpreadOrder(const int startNode) const;
 
 private:
     const int UNCONNECTED_WEIGHT_{-1};
@@ -42,7 +42,10 @@ private:
 
     double generateRandomWeight() const;
 
-    std::vector<std::vector<int>> createAdjacencyList() const;
+    std::vector<std::vector<int>> createChildrenLists(const int startNode) const;
+    void findShortestInfoSpreadOrder(const int startNode, const std::vector<std::vector<int>> &childrenLists,
+                                     std::vector<std::vector<int>> &order, std::vector<int> &roundsLeft) const;
+    bool isLeaf(const int node, const std::vector<std::vector<int>> &childrenLists) const;
 };
 
 #endif  // GRAPH_HPP

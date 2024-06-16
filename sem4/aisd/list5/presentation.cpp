@@ -17,7 +17,7 @@ void printAdjacencyMatrix(const std::vector<std::vector<double>> &adjacencyMatri
 int main() {
     Graph graph = Graph::generateRandomCompleteGraph(GRAPH_SIZE);
 
-    std::cout << "Random complete graph:\n";
+    std::cout << "Radom complete graph:\n";
     printAdjacencyMatrix(graph.getAdjecencyMatrix());
 
     std::cout << "\nKruskal's minimum spanning tree:\n";
@@ -26,9 +26,13 @@ int main() {
     std::cout << "\nPrim's minimum spanning tree:\n";
     printAdjacencyMatrix(graph.generatePrimsMinimumSpanningTree().getAdjecencyMatrix());
 
-    std::cout << "\nOrder of shortest information spread:\n";
-    const auto [nodeRoundNumbers, _] = graph.generatePrimsMinimumSpanningTree().findShortestInfoSpreadOrder(0);
+    std::cout << "\nOrder of shortest information spread starting from node 0:\n";
+    const auto [order, roundsLeft] = graph.generatePrimsMinimumSpanningTree().findShortestInfoSpreadOrder(0);
     for (int i = 0; i < GRAPH_SIZE; i++) {
-        std::cout << "Node " << i << ": " << nodeRoundNumbers[i] << '\n';
+        std::cout << "Node " << i << " -> next nodes: [ ";
+        for (const auto node : order[i]) {
+            std::cout << node << ' ';
+        }
+        std::cout << "], rounds left: " << roundsLeft[i] << '\n';
     }
 }

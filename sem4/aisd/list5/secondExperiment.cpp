@@ -26,7 +26,8 @@ void runExperiment() {
             long long currentMax = std::numeric_limits<long long>::min();
 
             for (int node = 0; node < currentN; node++) {
-                const auto [_, rounds] = graph.findShortestInfoSpreadOrder(node);
+                const auto [_, roundsLeft] = graph.findShortestInfoSpreadOrder(node);
+                const int rounds = roundsLeft[node];
 
                 averageRounds += rounds;
                 currentMin = std::min(currentMin, static_cast<long long>(rounds));
