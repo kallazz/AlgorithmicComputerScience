@@ -2,10 +2,12 @@
 
 #include <algorithm>
 #include <iostream>
+#include <queue>
 #include <random>
 
 Graph::Graph(const int size)
-    : size_(size), adjacencyMatrix_(std::vector<std::vector<double>>(size, std::vector<double>(size, 0.0))) {}
+    : size_(size),
+      adjacencyMatrix_(std::vector<std::vector<double>>(size, std::vector<double>(size, UNCONNECTED_WEIGHT_))) {}
 
 Graph Graph::generateRandomCompleteGraph(const int size) {
     Graph graph(size);
@@ -98,7 +100,7 @@ Graph Graph::generatePrimsMinimumSpanningTree() const {
         visited[minNode] = true;
 
         for (int neighbourNode = 0; neighbourNode < size_; neighbourNode++) {
-            if (!visited[neighbourNode] && adjacencyMatrix_[minNode][neighbourNode] != 0 &&
+            if (!visited[neighbourNode] && adjacencyMatrix_[minNode][neighbourNode] != UNCONNECTED_WEIGHT_ &&
                 adjacencyMatrix_[minNode][neighbourNode] < cost[neighbourNode]) {
                 cost[neighbourNode] = adjacencyMatrix_[minNode][neighbourNode];
                 previous[neighbourNode] = minNode;
@@ -134,4 +136,56 @@ std::vector<std::vector<double>> Graph::getAdjecencyMatrix() const {
 
 std::vector<Edge> Graph::getEdges() const {
     return edges_;
+}
+
+std::pair<std::vector<int>, int> Graph::findShortestInfoSpreadOrder(const int startNode) const {
+    std::vector<std::vector<int>> adjacencyList = createAdjacencyList();
+    std::vector<int> nodeRoundNumbers(size_, -1);
+    std::queue<int> nodesToVisit;
+
+    nodesToVisit.push(startNode);
+    nodeRoundNumbers[startNode] = 0;
+    int finalRoundNumber = 0;
+
+    while (!nodesToVisit.empty()) {
+        for (int i = 0; i < nodesToVisit.size(); i++) {
+            const int currentNode = nodesToVisit.front();
+            nodesToVisit.pop();
+
+            std::vector<int> unvisitedNeighbours;
+            for (const int neighbour : adjacencyList[currentNode]) {
+                if (nodeRoundNumbers[neighbour] == -1) {
+                    unvisitedNeighbours.push_back(neighbour);
+                }
+            }
+            std::sort(unvisitedNeighbours.begin(), unvisitedNeighbours.end(),
+                      [&](const int a, const int b) { return adjacencyList[a].size() > adjacencyList[b].size(); });
+            int currentRoundNumber = nodeRoundNumbers[currentNode] + 1;
+
+            for (const int neighbour : unvisitedNeighbours) {
+                if (nodeRoundNumbers[neighbour] == -1) {
+                    nodeRoundNumbers[neighbour] = currentRoundNumber;
+                    finalRoundNumber = std::max(finalRoundNumber, currentRoundNumber);
+                    nodesToVisit.push(neighbour);
+                    currentRoundNumber++;
+                }
+            }
+        }
+    }
+
+    return std::make_pair(nodeRoundNumbers, finalRoundNumber);
+}
+
+std::vector<std::vector<int>> Graph::createAdjacencyList() const {
+    std::vector<std::vector<int>> adjacencyList(size_);
+
+    for (int i = 0; i < size_; i++) {
+        for (int j = 0; j < size_; j++) {
+            if (adjacencyMatrix_[i][j] != UNCONNECTED_WEIGHT_) {
+                adjacencyList[i].push_back(j);
+            }
+        }
+    }
+
+    return adjacencyList;
 }

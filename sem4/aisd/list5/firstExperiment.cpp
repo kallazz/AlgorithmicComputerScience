@@ -1,8 +1,8 @@
-#include "Graph.hpp"
-
 #include <chrono>
 #include <fstream>
 #include <iostream>
+
+#include "Graph.hpp"
 
 constexpr int N_MIN = 10;
 constexpr int N_MAX = 1000;
@@ -10,7 +10,6 @@ constexpr int STEP = 10;
 constexpr int EXPERIMENT_REPEATS = 10;
 
 void runExperiment() {
-    std::string result = "";
     std::ofstream outputFile("plots/durations.txt");
 
     for (int currentN = N_MIN; currentN <= N_MAX; currentN += STEP) {

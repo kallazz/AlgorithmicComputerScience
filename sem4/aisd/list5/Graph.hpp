@@ -26,7 +26,10 @@ public:
     std::vector<std::vector<double>> getAdjecencyMatrix() const;
     std::vector<Edge> getEdges() const;
 
+    std::pair<std::vector<int>, int> findShortestInfoSpreadOrder(const int startNode) const;
+
 private:
+    const int UNCONNECTED_WEIGHT_{-1};
     int size_;
     std::vector<std::vector<double>> adjacencyMatrix_;
     std::vector<Edge> edges_;
@@ -38,6 +41,8 @@ private:
     int findMinNode(const std::vector<double> &costs, const std::vector<bool> &visited) const;
 
     double generateRandomWeight() const;
+
+    std::vector<std::vector<int>> createAdjacencyList() const;
 };
 
-#endif // GRAPH_HPP
+#endif  // GRAPH_HPP
