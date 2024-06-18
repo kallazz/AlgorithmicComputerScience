@@ -1,5 +1,5 @@
-from typing import List
 from dataclasses import dataclass
+from enum import Enum
 
 
 class Wire:
@@ -7,73 +7,62 @@ class Wire:
     OVERLAPPING_SIGNAL_SYMBOL = "#"
     JAM_SIGNAL_SYMBOL = "!"
 
+    class SignalDirection(Enum):
+        LEFT = 0
+        RIGHT = 1
+        BOTH = 2
+
     @dataclass
     class Signal:
         symbol: str
         ticks_left: int
+        direction: "Wire.SignalDirection"
+        ticks_to_propagate: int = 1
 
         def tick(self) -> None:
             self.ticks_left -= 1
+            self.ticks_to_propagate -= 1
 
+        @property
         def is_active(self) -> bool:
-            return self.ticks_left > 0
+            return self.ticks_left >= 0
 
-    class SignalPropagator:
-        def __init__(self, symbol: str, position: int, tick_lifetime: int, wire: "Wire") -> None:
-            self._symbol = symbol
-            self._left_position = position
-            self._right_position = position
-            self._tick_lifetime = tick_lifetime
-            self._tick_counter = tick_lifetime
-            self._wire = wire
-
-        def _propagate_signal(self, position: int) -> None:
-            if self._is_position_valid(position):
-                self._wire.signal_groups[position].append(self._wire.Signal(self._symbol, self._tick_lifetime))
-
-        def _is_position_valid(self, position: int) -> bool:
-            return 0 <= position <= self._wire.length - 1
-
-        def is_active(self) -> bool:
-            return self._tick_counter > 0
-
-        def tick(self) -> None:
-            self._tick_counter -= 1
-
-            if self._left_position == self._right_position:
-                self._propagate_signal(self._left_position)
-            else:
-                self._propagate_signal(self._left_position)
-                self._propagate_signal(self._right_position)
-            self._left_position -= 1
-            self._right_position += 1
+        @property
+        def is_ready_to_propagate(self) -> bool:
+            return self.ticks_to_propagate == 0
 
     def __init__(self, length: int) -> None:
         self._length = length
         self._symbols = [self.DEFAULT_SIGNAL_SYMBOL] * length
-        self._signal_groups = [[]] * length
-        self._signal_propagators = []
-
-    @property
-    def signal_groups(self) -> List[List[str]]:
-        return self._signal_groups
+        self._signal_groups = [[] for _ in range(length)]
 
     @property
     def length(self) -> int:
         return len(self._symbols)
 
-    def tick(self) -> None:
-        self._signal_propagators = [
-            signal_propagator
-            for signal_propagator in self._signal_propagators
-            if signal_propagator.tick() or signal_propagator.is_active()
-        ]
+    def is_position_valid(self, position: int) -> bool:
+        return 0 <= position <= self.length - 1
 
-        self._signal_groups = [
-            [signal for signal in signals if signal.tick() or signal.is_active()] for signals in self._signal_groups
-        ]
+    def tick(self) -> None:
+        self._spread_signals()
+
+        self._signal_groups = [[signal for signal in signals if signal.tick() or signal.is_active] for signals in self._signal_groups]
 
         self._update_segment_symbols()
+
+    def _spread_signals(self) -> None:
+        new_signals = []
+
+        for position, signal_group in enumerate(self._signal_groups):
+            for signal in signal_group:
+                if signal.is_ready_to_propagate:
+                    if (signal.direction == self.SignalDirection.LEFT or signal.direction == self.SignalDirection.BOTH) and self.is_position_valid(position - 1):
+                        new_signals.append((self.Signal(signal.symbol, signal.ticks_left + 1, self.SignalDirection.LEFT), position - 1))
+                    if (signal.direction == self.SignalDirection.RIGHT or signal.direction == self.SignalDirection.BOTH) and self.is_position_valid(position + 1):
+                        new_signals.append((self.Signal(signal.symbol, signal.ticks_left + 1, self.SignalDirection.RIGHT), position + 1))
+
+        for new_signal, position in new_signals:
+            self._signal_groups[position].append(new_signal)
 
     def _update_segment_symbols(self) -> None:
         for index, signals in enumerate(self._signal_groups):
@@ -86,13 +75,11 @@ class Wire:
             else:
                 self._symbols[index] = self.OVERLAPPING_SIGNAL_SYMBOL
 
-    def add_signal(self, device_position: int, signal_symbol: str, tick_lifetime: int) -> None:
-        self._signal_propagators.append(self.SignalPropagator(signal_symbol, device_position, tick_lifetime, self))
+    def send_signal(self, device_position: int, signal_symbol: str, tick_lifetime: int) -> None:
+        self._signal_groups[device_position].append(self.Signal(signal_symbol, tick_lifetime, self.SignalDirection.BOTH))
 
-    def add_jam_signal(self, device_position: int, tick_lifetime: int) -> None:
-        self._signal_propagators.append(
-            self.SignalPropagator(self.JAM_SIGNAL_SYMBOL, device_position, tick_lifetime, self)
-        )
+    def send_jam_signal(self, device_position: int, tick_lifetime: int) -> None:
+        self._signal_groups[device_position].append(self.Signal(self.JAM_SIGNAL_SYMBOL, tick_lifetime, self.SignalDirection.BOTH))
 
     def is_free(self, position: int, signal_symbol: str) -> bool:
         return self._symbols[position] == self.DEFAULT_SIGNAL_SYMBOL or self._symbols[position] == signal_symbol
