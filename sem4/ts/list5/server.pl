@@ -23,11 +23,7 @@ while (my $connection = $daemon->accept) {
             $response->content("Your request's header is:\n\n" . $headers);
             $connection->send_response($response);
         } else {
-            if ($uri->path eq "/") {
-                $uri = "/index";
-            }
-
-            my $filename = "websites" . $uri . ".html";
+            my $filename = $uri->path eq "/" ? "websites/index.html" : "websites" . $uri . ".html";
             $connection->send_file_response($filename);
         }
     }
