@@ -1,3 +1,3 @@
-🇺🇸 Programming environment
+🇺🇸 Programming Environment
 
-🇵🇱 Środowisko Programisty
+🇵🇱 Środowisko programisty
