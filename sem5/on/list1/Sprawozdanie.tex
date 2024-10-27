@@ -1,0 +1,397 @@
+\documentclass{article}
+\usepackage{polski}
+\usepackage{float}
+\usepackage{adjustbox}
+\usepackage[shortlabels]{enumitem}
+% \usepackage[center]{caption}
+
+\title{Sprawozdanie 1 - Obliczenia Naukowe}
+\author{Michał Kallas}
+
+\begin{document}
+
+\maketitle
+
+\section{Zadanie 1}
+\subsection{Opis problemu}
+Wyznaczyć iteracyjnie wartości dla typów zmiennopozycyjnych \texttt{Float16}, \texttt{Float32} oraz \texttt{Float64}:
+
+\begin{itemize}
+    \item epsilon maszynowy $macheps$, gdzie $macheps > 0$ to najmniejsza liczba, taka że $fl(1.0 + macheps) > 1.0$ i
+    $fl(1.0 + macheps) = 1.0 + macheps$
+
+    \item liczba maszynowa $eta$, gdzie $eta > 0$ to najmniejsza liczba możliwa do reprezentacji w danym typie zmiennopozycyjnym
+
+    \item liczba $MAX$, gdzie $MAX$ to największa liczba możliwa do reprezentacji w danym typie zmiennopozycyjnym
+\end{itemize}
+
+\subsection{Rozwiązanie}
+Liczby $macheps$ oraz $eta$ można łatwo wyznaczyć dzieląc jedynkę przez 2, aż do osiągnięcia danego warunku. W przypadku
+$MAX$, zamiast tego mnożymy przez 2.
+
+\subsection{Wyniki}
+\begin{table}[H]
+\begin{adjustbox}{center}
+\begin{tabular}{|c|c|c|c|c|}
+    \hline
+    Typ & Wyliczony $macheps$ & Wartość $eps()$ & Wartość z pliku \texttt{float.h} & Wartość $\epsilon$\\
+    \hline
+    Float16 & 0.000977 & 0.000977 & - & 0.0004883\\
+    \hline
+    Float32 & 1.1920929e-7 & 1.1920929e-7 & 1.19209290e-7 & 5.9604645e-8\\
+    \hline
+    Float64 & 2.220446049250313e-16 & 2.220446049250313e-16 & 2.2204460492503131e-16 & 1.1102230246251565e-16\\
+    \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Porównanie eksperymentalnie wyznaczonego $macheps$ z wynikiem funkcji $eps()$ z języka Julia, wartościami w
+pliku nagłówkowym \texttt{float.h} z języka C oraz \textit{precyzją arytmetyki}.}
+\end{table}
+
+
+\begin{table}[H]
+\begin{adjustbox}{center}
+\begin{tabular}{|c|c|c|c|}
+    \hline
+    Typ & Wyliczona $eta$ & Wartość $nextfloat(0.0)$ & Wartość $MIN_{sub}$\\
+    \hline
+    Float16 & 6.0e-8 & 6.0e-8 & 6.0e-8\\
+    \hline
+    Float32 & 1.0e-45 & 1.0e-45 & 1.0e-45\\
+    \hline
+    Float64 & 5.0e-324 & 5.0e-324 & 5.0e-324\\
+    \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Porównanie eksperymentalnie wyznaczonego $eta$ z wynikiem funkcji $nextfloat(0.0)$ z języka Julia oraz $MIN_{sub}$.}
+\end{table}
+
+\begin{table}[H]
+\begin{adjustbox}{center}
+\begin{tabular}{|c|c|c|c|}
+    \hline
+    Typ & Wyliczony $MAX$ & Wartość $floatmax()$ & Wartość z pliku \texttt{float.h}\\
+    \hline
+    Float16 & 6.55e4 & 6.55e4 & -\\
+    \hline
+    Float32 & 3.4028235e38 & 3.4028235e38 & 3.40282347e38\\
+    \hline
+    Float64 & 1.7976931348623157e308 & 1.7976931348623157e308 & 1.7976931348623157e308\\
+    \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Porównanie eksperymentalnie wyznaczonego $MAX$ z wynikiem funkcji $floatmax()$ z języka Julia oraz wartościami w pliku nagłówkowym \texttt{float.h} z języka C.}
+\end{table}
+
+\begin{table}[H]
+\begin{adjustbox}{center}
+\begin{tabular}{|c|c|c|}
+    \hline
+    Typ & Wartość $floatmin()$ & Wartość $MIN_{nor}$\\
+    \hline
+    Float32 & 1.1754944e-38 & 1.1754944e-38\\
+    \hline
+    Float64 & 2.2250738585072014e-308 & 2.2250738585072014e-308\\
+    \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Porównanie wyników funkcji $floatmin()$ z języka Julia z wartościami $MIN_{nor}$.}
+\end{table}
+
+\subsection{Obserwacje i wnioski}
+\begin{itemize}
+    \item Eksperymentalnie wyznaczone $macheps$, $eta$ oraz $MAX$ pokrywają się z wartościami z funkcji bibliotecznych
+    Julii oraz pliku nagłówkowego \texttt{float.h} języka C. Wynika to z tego, że oba te języki korzystają ze standardu
+    \texttt{IEEE 754} do przedstawiania swoich typów zmiennopozycyjnych
+
+    \item $macheps = 2 * \epsilon$, gdzie $\epsilon$ to \textit{precyzja arytmetyki}
+
+    \item $eta = MIN_{sub}$, gdzie $MIN_{sub}$ to najmniejsza zdenormalizowana liczba reprezentowana w danym typie
+
+    \item Wartości zwracane przez funkcję $floatmin()$ są równe $MIN_{nor}$, gdzie $MIN_{nor}$ to najmniejsza
+    znormalizowana liczba reprezentowana w danym typie
+\end{itemize}
+
+\section{Zadanie 2}
+\subsection{Opis problemu}
+Wyznaczyć eksperymentalnie wartości $macheps$ dla typów \texttt{Float16}, \texttt{Float32}, \texttt{Float64} za pomocą
+wzoru Kahana:
+$$macheps = 3(4/3 - 1) - 1$$
+Zweryfikować poprawność tego wzoru.
+
+\subsection{Wyniki}
+\begin{table}[H]
+\begin{adjustbox}{center}
+\begin{tabular}{|c|c|c|c|}
+    \hline
+    Typ & Wzór Kahana & $eps()$\\
+    \hline
+    Float16 & -0.000977 & 0.000977\\
+    \hline
+    Float32 & 1.1920929e-7 & 1.1920929e-7\\
+    \hline
+    Float64 & -2.220446049250313e-16 & 2.220446049250313e-16\\
+    \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Porównanie eksperymentalnie wyznaczonego $macheps$ ze wzoru Kahana z wynikiem $eps()$ z Julii.}
+\end{table}
+
+\subsection{Obserwacje i wnioski}
+Wyniki ze wzoru Kahana są poprawne po zastosowaniu wartości bezwzględnej. Dla \texttt{Float32} wynik jest poprawny, a
+dla \texttt{Float16} i \texttt{Float64} ma przeciwny znak. Jest to spowodowane tym, że liczba $4/3$ ma rozwinięcie
+okresowe, co prowadzi do innych ostatnich cyfr mantysy dla różnych typów. Ta ostatnia cyfra jest wykorzystywana do
+zaokrąglania liczby.
+
+\section{Zadanie 3}
+\subsection{Opis problemu}
+Sprawdzić eksperymentalnie, że w arytmetyce \texttt{Float64} liczby są równomiernie rozmieszczone w przedziale $[1, 2]$
+z krokiem $\delta = 2^{-52}$. Sprawdzić jak są rozmieszczone liczby w przedziałach $[\frac{1}{2}, 1]$ i $[2, 4]$.
+
+\subsection{Rozwiązanie}
+Porównywałem wartości powstające na skutek dodania/odjęcia kroku $\delta$ z kolejnymi wartościami zwracanymi przez
+$nextfloat()$ oraz $prevfloat()$. Ze względu na dużą ilość liczb w przedziałach sprawdzałem tylko wartości w okolicy
+ich początków i końców. Testy wykonałem dla wszystkich 3 przedziałów.
+
+Dla przedziałów $[\frac{1}{2}, 1]$ i $[2, 4]$ krok wyznaczyłem
+w taki sposób: $\delta = nextfloat(s) - s$, gdzie $s$ to początek przedziału.
+
+\subsection{Wyniki}
+\begin{description}
+    \item Krok znaleziony dla przedziału $[\frac{1}{2}, 1]$: $\delta = 1.1102230246251565e-16 = 2^{-53}$
+    \item Krok znaleziony dla przedziału $[2, 4]$: $\delta = 4.440892098500626e-16 = 2^{-51}$
+\end{description}
+
+\begin{table}[H]
+\begin{adjustbox}{center}
+\begin{tabular}{|c|c|}
+    \hline
+    Liczba & $bitstring(Liczba)$\\
+    \hline
+    1.0 & 0011111111110000000000000000000000000000000000000000000000000000\\
+    \hline
+    $1.0 + \delta$ & 0011111111110000000000000000000000000000000000000000000000000001\\
+    \hline
+    $1.0 + 2\delta$ & 0011111111110000000000000000000000000000000000000000000000000010\\
+    \hline
+    $1.0 + 3\delta$ & 0011111111110000000000000000000000000000000000000000000000000011\\
+    \hline
+    $1.0 + 4\delta$ & 0011111111110000000000000000000000000000000000000000000000000100\\
+    \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Porównanie liczb z początku przedziału $[1, 2]$ zwiększanych o $\delta = 2^{-52}$ z ich zapisem binarnym w standardzie \texttt{IEEE 754}.}
+\end{table}
+
+\begin{table}[H]
+\begin{adjustbox}{center}
+\begin{tabular}{|c|c|}
+    \hline
+    Liczba & $bitstring(Liczba)$\\
+    \hline
+    0.5 & 0011111111100000000000000000000000000000000000000000000000000000\\
+    \hline
+    $0.5 + \delta$ & 0011111111100000000000000000000000000000000000000000000000000001\\
+    \hline
+    $0.5 + 2\delta$ & 0011111111100000000000000000000000000000000000000000000000000010\\
+    \hline
+    $0.5 + 3\delta$ & 0011111111100000000000000000000000000000000000000000000000000011\\
+    \hline
+    $0.5 + 4\delta$ & 0011111111100000000000000000000000000000000000000000000000000100\\
+    \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Porównanie liczb z początku przedziału $[\frac{1}{2}, 1]$ zwiększanych o $\delta = 2^{-53}$ z ich zapisem binarnym w standardzie \texttt{IEEE 754}.}
+\end{table}
+
+\begin{table}[H]
+\begin{adjustbox}{center}
+\begin{tabular}{|c|c|}
+    \hline
+    Liczba & $bitstring(Liczba)$\\
+    \hline
+    2.0 & 0100000000000000000000000000000000000000000000000000000000000000\\
+    \hline
+    $2.0 + \delta$ & 0100000000000000000000000000000000000000000000000000000000000001\\
+    \hline
+    $2.0 + 2\delta$ & 0100000000000000000000000000000000000000000000000000000000000010\\
+    \hline
+    $2.0 + 3\delta$ & 0100000000000000000000000000000000000000000000000000000000000011\\
+    \hline
+    $2.0 + 4\delta$ & 0100000000000000000000000000000000000000000000000000000000000100\\
+    \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Porównanie liczb z początku przedziału $[2, 4]$ zwiększanych o $\delta = 2^{-51}$ z ich zapisem binarnym w standardzie \texttt{IEEE 754}.}
+\end{table}
+
+\subsection{Obserwacje i wnioski}
+W zadanych przedziałach liczby zmiennopozycyjne są rozmieszczone równomiernie z danymi krokami:
+\begin{itemize}
+    \item $\delta = 2^{-52}$ w przedziale $[1, 2]$
+    \item $\delta = 2^{-53}$ w przedziale $[\frac{1}{2}, 1]$
+    \item $\delta = 2^{-51}$ w przedziale $[2, 4]$
+\end{itemize}
+Widzimy to po tym, że mantysy w reprezentacji binarnej zwiększają się o jeden, a więc faktycznie nie może istnieć żadna
+liczba między kolejnymi ich wartościami.
+
+\section{Zadanie 4}
+\subsection{Opis problemu}
+Znaleźć eksperymentalnie w arytmetyce \texttt{Float64} najmniejszą liczbę $x$ w przedziale $1 < x < 2$, taką że
+$x * (1/x) \neq 1$, tj. $fl(xfl(1/x)) \neq 1$.
+
+\subsection{Rozwiązanie}
+Taką liczbę możemy znaleźć sprawdzając wartości kolejnych liczb zmiennopozycyjnych, zaczynająć od $x = 1.0$. Kolejne
+liczby dostarczy nam funkcja $nextfloat()$ z Julii. Sprawdzamy aż do momentu gdy $x * (1/x) \neq 1$.
+
+\subsection{Wyniki}
+Znaleziona liczba to $1.000000057228997$.
+
+\subsection{Obserwacje i wnioski}
+W standardzie \texttt{IEEE 754} nie mamy gwarancji, że odwrotność liczby będzie poprawna. Nawet przy tak podstawowych
+operacjach matematycznych na liczbach zmiennopozycyjnych trzeba uważać.
+
+\section{Zadanie 5}
+\subsection{Opis problemu}
+Napisać program obliczający w arytmetyce \texttt{Float32} i \texttt{Float64} iloczyn skalarny dwóch wektorów:
+\begin{description}
+    \item $x = [2.718281828, -3.141592654, 1.414213562, 0.5772156649, 0.3010299957]$
+    \item $y = [1486.2497, 878366.9879, -22.37492, 4773714.647, 0.000185049]$
+\end{description}
+Suma powinna być wyliczona na 4 różne sposoby, gdzie $n=5$:
+\begin{enumerate}[(a)]
+    \item "w przód", czyli $\sum_{i=1}^n x_i y_i$
+    \item "w tył", czyli $\sum_{i=n}^1 x_i y_i$
+    \item od największego do najmniejszego, czyli tworząc sumy częściowe dodatnie(dodawane w kolejności malejącej) i
+    ujemne(dodawane w kolejności rosnącej), a następnie je dodając
+    \item od najmniejszego do największego, czyli przeciwnie do metody (c)
+\end{enumerate}
+
+\subsection{Wyniki}
+Poprawny wynik to $-1.00657107000000 * 10^{-11}$. Poniżej otrzymane wyniki eksperymentalne:
+\begin{table}[H]
+\begin{adjustbox}{center}
+\begin{tabular}{|c|c|c|c|c|}
+    \hline
+    Typ & Metoda a & Metoda b & Metoda c & Metoda d\\
+    \hline
+    Float32 & -0.4999443 & -0.4543457 & -0.5 & -0.5\\
+    \hline
+    Float64 & 1.0251881368296672e-10 & -1.5643308870494366e-10 & 0.0 & 0.0\\
+    \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Porównanie 4 algorytmów do obliczenia iloczynu skalarnego dla wektorów $x$ i $y$.}
+\end{table}
+
+\subsection{Obserwacje i wnioski}
+Zarówno dla typu \texttt{Float32}, jak i \texttt{Float64}, żadna z metod nie pozwoliła uzyskać nam poprawnej wartości.
+Wyniki jasno pokazują nam, że kolejność sumowania ma znaczenie w arytmetyce zmiennopozycyjnej.
+
+\section{Zadanie 6}
+\subsection{Opis problemu}
+Napisać program obliczający w arytmetyce \texttt{Float64} wartość funkcji:
+\begin{description}
+    \item $f(x) = \sqrt{x^2 + 1} - 1$
+    \item $g(x) = x^2/(\sqrt{x^2 + 1} + 1$)
+\end{description}
+dla kolejnych wartości argumentu $x = 8^{-1}, 8^{-2}, 8^{-3}, ...$.
+\\\\
+$f$ i $g$ to matematycznie te same funkcje.
+
+\subsection{Wyniki}
+\begin{table}[H]
+\begin{adjustbox}{center}
+\begin{tabular}{|c|c|c|c|c|}
+    \hline
+    $x$ & $f(x)$ & $g(x)$\\
+    \hline
+    $8^{-1}$ & 0.0077822185373186414 & 0.0077822185373187065\\
+    \hline
+    $8^{-2}$ & 0.00012206286282867573 & 0.00012206286282875901\\
+    \hline
+    $8^{-3}$ & 1.9073468138230965e-6 & 1.907346813826566e-6\\
+    \hline
+    $8^{-4}$ & 2.9802321943606103e-8 & 2.9802321943606116e-8\\
+    \hline
+    $8^{-5}$ & 4.656612873077393e-10 & 4.6566128719931904e-10\\
+    \hline
+    $8^{-6}$ & 7.275957614183426e-12 & 7.275957614156956e-12\\
+    \hline
+    $8^{-7}$ & 1.1368683772161603e-13 & 1.1368683772160957e-13\\
+    \hline
+    $8^{-8}$ & 1.7763568394002505e-15 & 1.7763568394002489e-15\\
+    \hline
+    $8^{-9}$ & 0.0 & 2.7755575615628914e-17\\
+    \hline
+    ... & ... & ...\\
+    \hline
+    $8^{-178}$ & 0.0 & 1.6e-322\\
+    \hline
+    $8^{-179}$ & 0.0 & 0.0\\
+    \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Porównanie wartości funkcji $f(x)$ i $g(x)$ dla kolejnych ujemnych potęg 8 w arytmetyce \texttt{Float64}.}
+\end{table}
+
+\subsection{Obserwacje i wnioski}
+Mimo tego że $f = g$, funkcje zwracają różne wyniki. Bardziej wiarygodne są wartości $g(x)$. Pomimo początkowego zbliżenia
+wyników, $f(x)$ osiąga wartość 0 już dla $x = 8^{-9}$, a $g(x)$ dopiero dla $x = 8^{-179}$. Wynika to z tego, że w
+$f(x)$ odejmujemy bardzo bliskie sobie liczby, jako że $\sqrt{x^2 + 1} \approx 1$ dla małych wartości $x$,
+a odejmujemy od tej liczby 1. Odejmowanie bliskich liczb prowadzi do dużych błędów przez utratę cyfr znaczących. Ten
+problem nie występuje w $g(x)$, jako że tam nie korzystamy z odejmowania.
+
+\section{Zadanie 7}
+\subsection{Opis problemu}
+Skorzystać ze wzoru na przybliżoną wartość pochodnej:
+$$ f'(x_0) \approx \tilde{f}'(x_0) = \frac{f(x_0 + h) - f(x_0)}{h} $$
+aby wyliczyć w arytmetyce \texttt{Float64} wartość dla $f(x) = \sin(x) + \cos(3x)$ w punkcie $x_0 = 1$ oraz błędy
+$|f'(x_0) - \tilde{f}'(x_0)|$ dla $h = 2^{-n} (n = 0, 1, 2, ..., 54)$.
+
+\subsection{Rozwiązanie}
+W każdej iteracji pętli dla $(n = 0, 1, 2, ..., 54)$ wyznaczałem przybliżoną wartość pochodnej z podanego wzoru oraz
+dokładną wartość z $f'(x) = \cos(x) - 3\sin(3x)$.
+
+\subsection{Wyniki}
+\begin{table}[H]
+\begin{adjustbox}{center}
+\begin{tabular}{|c|c|c|c|c|}
+    \hline
+    $h$ & $h + 1$ & $\tilde{f}'(x_0)$ & $|f'(x_0) - \tilde{f}'(x_0)|$\\
+    \hline
+    $2^{-0}$ & 2.0 & 2.0179892252685967 & 1.9010469435800585\\
+    \hline
+    $2^{-1}$ & 1.5 & 1.8704413979316472 & 1.753499116243109\\
+    \hline
+    $2^{-2}$ & 1.25 & 1.1077870952342974 & 0.9908448135457593\\
+    \hline
+    ... & ... & ... & ...\\
+    \hline
+    $2^{-27}$ & 1.0000000074505806 & 0.11694231629371643 & 3.460517827846843e-8\\
+    \hline
+    $2^{-28}$ & 1.0000000037252903 & 0.11694228649139404 & 4.802855890773117e-9\\
+    \hline
+    $2^{-29}$ & 1.0000000018626451 & 0.11694222688674927 & 5.480178888461751e-8\\
+    \hline
+    ... & ... & ... & ...\\
+    \hline
+    $2^{-52}$ & 1.0000000000000002 & -0.5 & 0.6169422816885382\\
+    \hline
+    $2^{-53}$ & 1.0 & 0.0 & 0.11694228168853815\\
+    \hline
+    $2^{-54}$ & 1.0 & 0.0 & 0.11694228168853815\\
+    \hline
+\end{tabular}
+\end{adjustbox}
+\caption{Porównanie wartości $h$, $h + 1$, przybliżenia pochodnej oraz błędu.}
+\end{table}
+
+\subsection{Obserwacje i wnioski}
+Mimo tego że w matematyce wartości $h$ bliższe zeru zawsze prowadzą do lepszego przybliżenia, to w arytmetyce
+zmiennopozycyjnej tak nie jest. Dla typu \texttt{Float64} zmniejszanie $h$ poprawia przybliżenie wartości pochodnej aż
+do $h = 2^{-28}$. Następnie wielkość błędu rośnie. Jest to spowodowane odejmowaniem od siebie zbliżonych liczb, jako że
+$f(x_0 + h) \approx f(x_0)$ dla małych wartości $h$.
+
+
+\end{document}
