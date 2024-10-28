@@ -8,16 +8,19 @@
 
 \title{Sprawozdanie 1 - Algorytmy Optymalizacji Dyskretnej}
 \author{Michał Kallas}
+\date{Październik 2024}
 
 \begin{document}
 
 \maketitle
 
-
-
-
-
 \section{Zadanie 1}
+\subsection{Opis i rozwiązanie}
+W zadaniu należało zaimplementować algorymty BFS i DFS z możliwością wyświetlania kolejności przejścia po grafie oraz
+drzew przeszukań.
+
+Zaimplementowałem iteracyjne wersje tych algorytmów z kolejką i stosem. Ich złożoność to $O(|V| + |E|)$.
+
 \subsection{Grafy}
 \begin{figure}[H]
 \centering
@@ -29,28 +32,32 @@
 \centering
 \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
 \node[main] (1) {1};
-\node[main] (2) [right of=1] {2};
-\node[main] (3) [above right of=2] {3};
-\node[main] (4) [right of=2] {4};
-\node[main] (5) [below right of=2] {5};
-\node[main] (6) [right of=4] {6};
-\node[main] (7) [above right of=6] {7};
-\node[main] (8) [right of=6] {8};
-\node[main] (9) [below right of=6] {9};
-\node[main] (10) [right of=8] {10};
-\draw[->] (1) -- (2);
+\node[main] (2) [above of=1] {2};
+\node[main] (10) [above of=2] {10};
+\node[main] (3) [above right of=1] {3};
+\node[main] (4) [right of=1] {4};
+\node[main] (5) [below right of=1] {5};
+\node[main] (6) [below of=1] {6};
+\node[main] (7) [below left of=1] {7};
+\node[main] (8) [left of=1] {8};
+\node[main] (9) [above left of=1] {9};
 \draw[->] (2) -- (3);
-\draw[->] (2) -- (4);
-\draw[->] (2) -- (5);
-\draw[->] (3) -- (6);
-\draw[->] (4) -- (6);
+\draw[->] (2) -- (10);
+\draw[->] (3) -- (4);
+\draw[->] (4) -- (5);
 \draw[->] (5) -- (6);
 \draw[->] (6) -- (7);
-\draw[->] (6) -- (8);
-\draw[->] (6) -- (9);
-\draw[->] (7) -- (10);
-\draw[->] (8) -- (10);
-\draw[->] (9) -- (10);
+\draw[->] (7) -- (8);
+\draw[->] (8) -- (9);
+\draw[->] (9) -- (2);
+\draw[->] (1) -- (2);
+\draw[->] (1) -- (3);
+\draw[->] (1) -- (4);
+\draw[->] (1) -- (5);
+\draw[->] (1) -- (6);
+\draw[->] (1) -- (7);
+\draw[->] (1) -- (8);
+\draw[->] (1) -- (9);
 \end{tikzpicture}
 \caption{Mój graf testowy - graf nr 4.}
 \end{figure}
@@ -62,61 +69,97 @@
     \hline
     Graf & Skierowany & Kolejność BFS & Kolejność DFS\\
     \hline
-    1 & NIE & [1 2 3 4 5 6] & [1 3 6 5 4 2]\\
+    1 & NIE & [1 3 2 5 6 4] & [1 2 4 5 6 3]\\
     \hline
     2 & NIE & [1 2 4 5 3 6 8 7] & [1 5 6 7 8 4 3 2]\\
     \hline
     3 & NIE & [1 2 3 5 4 6 7 8 9] & [1 5 7 9 8 4 2 6 3]\\
     \hline
-    4 & NIE & [1 2 3 4 5 6 7 8 9 10] & [1 2 5 6 9 10 8 7 4 3]\\
+    4 & NIE & [1 2 3 4 5 6 7 8 9 10] & [1 9 2 3 4 5 6 7 8 10]\\
     \hline
-    1 & TAK & [1 2 3 4 5 6] & [1 3 6 5 2 4]\\
+    1 & TAK & [1 3 2 5 6 4] & [1 2 4 5 6 3]\\
     \hline
     2 & TAK & [1 2 4 3 6 8 5 7] & [1 4 8 7 3 2 6 5]\\
     \hline
     3 & TAK & [1 2 3 5 4 6 8 7 9] & [1 5 6 9 8 7 4 3 2]\\
     \hline
-    4 & TAK & [1 2 3 4 5 6 7 8 9 10] & [1 2 5 6 9 10 8 7 4 3]\\
+    4 & TAK & [1 2 3 4 5 6 7 8 9 10] & [1 9 2 3 4 5 6 7 8 10]\\
     \hline
 \end{tabular}
 \end{adjustbox}
 \caption{Porównanie kolejności przechodzenia wierzchołków przez BFS i DFS.}
 \end{table}
 
+\subsection{Grafy}
+
 \begin{figure}[H]
-\centering
-\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
-\node[main] (1) {1};
-\node[main] (2) [above right of=1] {2};
-\node[main] (3) [below right of=1] {3};
-\node[main] (4) [above right of=2] {4};
-\node[main] (5) [below right of=2] {5};
-\node[main] (6) [below right of=5] {6};
-\draw[->] (1) -- (2);
-\draw[->] (1) -- (3);
-\draw[->] (2) -- (4);
-\draw[->] (2) -- (5);
-\draw[->] (3) -- (6);
-\end{tikzpicture}
-\caption{Drzewo przeszukiwania BFS dla skierowanego grafu 1.}
+\begin{minipage}{0.45\textwidth} % Left side
+  \centering
+  \begin{tikzpicture}
+    \node {1}
+      child { node {3}
+        child { node {5} }
+        child { node {6} }
+      }
+      child { node {2}
+        child { node {4} }
+      };
+  \end{tikzpicture}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\textwidth} % Right side
+  \centering
+  \begin{tikzpicture}
+    \node {1}
+      child { node {2}
+        child { node {4}
+          child { node {5}
+            child { node {6} }
+          }
+        }
+        child { node {3} }
+      };
+  \end{tikzpicture}
+\end{minipage}
+\caption{Drzewo przeszukań BFS(po lewej) oraz DFS(po prawej) dla pierwszego grafu skierowanego.}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
-\node[main] (1) {1};
-\node[main] (2) [right of=1] {2};
-\node[main] (4) [right of=2] {4};
-\node[main] (3) [below of=4] {3};
-\node[main] (5) [right of=3] {5};
-\node[main] (6) [below of=5] {6};
-\draw[->] (1) -- (2);
-\draw[->] (1) -- (3);
-\draw[->] (2) -- (4);
-\draw[->] (3) -- (5);
-\draw[->] (3) -- (6);
-\end{tikzpicture}
-\caption{Drzewo przeszukiwania DFS dla skierowanego grafu 1.}
+  \begin{tikzpicture}
+    \node {1}
+      child { node {2}
+        child { node {10} }
+      }
+      child { node {3} }
+      child { node {4} }
+      child { node {5} }
+      child { node {6} }
+      child { node {7} }
+      child { node {8} }
+      child { node {9} };
+  \end{tikzpicture}
+\hfill
+  \begin{tikzpicture}
+    \node {1}
+      child { node {9}
+        child { node {2}
+          child { node {3}
+            child { node {4}
+              child { node {5}
+                child { node {6}
+                  child { node {7}
+                    child { node {8} }
+                  }
+                }
+              }
+            }
+          }
+        }
+        child { node {10} }
+      };
+  \end{tikzpicture}
+\caption{Drzewo przeszukań BFS(u góry) oraz DFS(na dole) dla mojego grafu skierowanego.}
 \end{figure}
 
 \subsection{Czasy}
@@ -145,6 +188,11 @@
 
 
 \section{Zadanie 2}
+\subsection{Opis i rozwiązanie}
+W zadaniu należało zaimplementować sortowanie topologiczne z możliwością wyświetlenia wierzchołków w posortowanej
+kolejności.
+
+Zastosowałem tutaj algorytm Kahna. Jego złożoność to $O(|V| + |E|)$.
 \subsection{Grafy}
 
 \begin{figure}[H]
@@ -252,6 +300,11 @@
 \end{table}
 
 \section{Zadanie 3}
+\subsection{Opis i rozwiązanie}
+W zadaniu należało zaimplementować algorytm zwracający rozkład grafu na silnie spójne składowe. Powinien także
+wypisywać ich ilość oraz ilość wierzchołków w każdej z nich.
+
+Skorzystałem tutaj z algorytmu Tarjana o złożoności $O(|V| + |E|)$.
 
 \subsection{Grafy}
 \begin{figure}[H]
@@ -360,6 +413,14 @@
 \end{table}
 
 \section{Zadanie 4}
+\subsection{Opis i rozwiązanie}
+W zadaniu należało zaimplementować algorytm sprawdzający czy graf jest dwudzielny. Powinien wypisywać rozbicie grafu
+na 2 zbiory wierzchołków, jeśli tak jest.
+
+Skorzystałem tutaj ze zmodyfikowanej wersji BFSa, która koloruje wierzchołki na dwa kolory. Jeśli graf można
+pokolorować w taki sposób, żeby sąsiednie wierzchołki nie miały tego samego koloru, to znaczy, że graf jest dwudzielny.
+Złożoność tego algorytmu to $O(|V| + |E|)$.
+
 \subsection{Grafy}
 
 \begin{figure}[H]
