@@ -26,6 +26,7 @@ int main() {
     stronglyConnectedComponents = getStronglyConnectedComponents(graphWithFourStronglyConnectedComponents);
     printStronglyConnectedComponents(stronglyConnectedComponents,
                                      graphWithFourStronglyConnectedComponents.getNumberOfVertices());
+    std::cout << '\n';
 
     for (int number = 1; number <= 6; number++) {
         std::string currentFilename = TEMPLATE_FILENAME;

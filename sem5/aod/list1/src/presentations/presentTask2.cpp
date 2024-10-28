@@ -17,7 +17,7 @@ int main() {
     topologicalSort(directedAcyclicGraph, true);
     std::cout << '\n';
     topologicalSort(directedCyclicGraph, true);
-    return 0;
+    std::cout << '\n';
 
     for (const auto letter : {'a', 'b'}) {
         for (int number = 1; number <= 6; number++) {

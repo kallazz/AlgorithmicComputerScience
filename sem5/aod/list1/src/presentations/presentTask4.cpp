@@ -21,9 +21,13 @@ int main() {
         {{1, 2}, {1, 3}, {2, 4}, {3, 4}, {4, 5}, {5, 6}, {7, 6}, {8, 7}, {9, 7}, {10, 8}, {10, 9}, {1, 4}, {10, 7}});
 
     isBipartite(undirectedBipartiteGraph, true);
+    std::cout << '\n';
     isBipartite(directedBipartiteGraph, true);
+    std::cout << '\n';
     isBipartite(undirectedNotBipartiteGraph, true);
+    std::cout << '\n';
     isBipartite(directedNotBipartiteGraph, true);
+    std::cout << '\n';
 
     for (const char directionality : {'d', 'u'}) {
         for (const char letter : {'a', 'b'}) {
