@@ -7,3 +7,4 @@ add_executable(Presentation1 src/presentations/presentTask1.cpp src/Graph.cpp sr
 add_executable(Presentation2 src/presentations/presentTask2.cpp src/Graph.cpp src/graphAlgorithms.cpp src/graphHelpers.cpp)
 add_executable(Presentation3 src/presentations/presentTask3.cpp src/Graph.cpp src/graphAlgorithms.cpp src/graphHelpers.cpp)
 add_executable(Presentation4 src/presentations/presentTask4.cpp src/Graph.cpp src/graphAlgorithms.cpp src/graphHelpers.cpp)
+add_executable(TimeMeasurement src/timeMeasurer.cpp src/Graph.cpp src/graphAlgorithms.cpp src/graphHelpers.cpp)

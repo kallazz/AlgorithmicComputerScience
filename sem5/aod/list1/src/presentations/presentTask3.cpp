@@ -12,9 +12,9 @@ const std::string TEMPLATE_FILENAME = TEST_CASES_DIRECTORY + "/g3-N.txt";
 
 int main() {
     const Graph graphWithOneStronglyConnectedComponent =
-        Graph(10, true, true, {{1, 2}, {2, 3}, {3, 4}, {4, 5}, {5, 6}, {6, 7}, {7, 8}, {8, 9}, {9, 10}, {10, 1}});
+        Graph(10, true, true, {{1, 2}, {2, 3}, {3, 4}, {3, 1}, {3, 10}, {4, 5}, {5, 6}, {6, 7}, {7, 8}, {8, 9}, {9, 2}, {9, 1}, {9, 10}, {10, 2}});
     const Graph graphWithFourStronglyConnectedComponents =
-        Graph(10, true, true, {{1, 2}, {2, 3}, {3, 1}, {4, 5}, {5, 6}, {6, 4}, {7, 8}, {8, 9}, {9, 7}});
+        Graph(11, true, true, {{1, 2}, {1, 3}, {2, 5}, {2, 6}, {3, 4}, {3, 6}, {4, 1}, {5, 1}, {6, 7}, {7, 8}, {7, 9}, {8, 7}, {9, 10}, {10, 11}, {11, 9}});
 
     std::cout << "Graph with one strongly connected component:\n";
     auto stronglyConnectedComponents = getStronglyConnectedComponents(graphWithOneStronglyConnectedComponent);

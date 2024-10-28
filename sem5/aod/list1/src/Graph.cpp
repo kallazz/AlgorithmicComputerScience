@@ -1,10 +1,11 @@
 #include "Graph.hpp"
 
 Graph::Graph(const int numberOfVertices, const bool isDirected, const bool isIndexedFromOne)
-    : numberOfVertices_(numberOfVertices), isDirected_(isDirected), isIndexedFromOne_(isIndexedFromOne),
-      adjacencyList_(std::vector<std::vector<int>>(numberOfVertices + 1)) {}
+    : numberOfVertices_(numberOfVertices), numberOfEdges_(0), isDirected_(isDirected),
+      isIndexedFromOne_(isIndexedFromOne), adjacencyList_(std::vector<std::vector<int>>(numberOfVertices + 1)) {}
 
-Graph::Graph(const int numberOfVertices, const bool isDirected, const bool isIndexedFromOne, const std::vector<std::pair<int, int>> &edges)
+Graph::Graph(const int numberOfVertices, const bool isDirected, const bool isIndexedFromOne,
+             const std::vector<std::pair<int, int>> &edges)
     : Graph(numberOfVertices, isDirected, isIndexedFromOne) {
 
     for (const auto &[vertex1, vertex2] : edges) {
@@ -13,6 +14,8 @@ Graph::Graph(const int numberOfVertices, const bool isDirected, const bool isInd
 }
 
 void Graph::addEdge(int vertex1, int vertex2) {
+    numberOfEdges_++;
+
     if (isIndexedFromOne_) {
         vertex1--;
         vertex2--;
@@ -37,6 +40,10 @@ bool Graph::isIndexedFromOne() const {
 
 int Graph::getNumberOfVertices() const {
     return numberOfVertices_;
+}
+
+int Graph::getNumberOfEdges() const {
+    return numberOfEdges_;
 }
 
 const std::vector<std::vector<int>> &Graph::getAdjacencyList() const {

@@ -7,18 +7,19 @@
 
 // add tree printing
 
-void bfs(const Graph &graph, const int startVertex, const bool printFlag) {
+void bfs(const Graph &graph, const int startVertex, const bool printFlag, const bool treeFlag) {
     const std::vector<std::vector<int>> &adjacencyList = graph.getAdjacencyList();
     std::vector<bool> visited(adjacencyList.size(), false);
     visited[startVertex] = true;
     std::queue<int> queue;
     queue.push(startVertex);
+    std::vector<int> parent(adjacencyList.size(), -1);
 
     while (!queue.empty()) {
         const int currentVertex = queue.front();
         queue.pop();
 
-        if (printFlag) {
+        if (printFlag && !treeFlag) {
             std::cout << currentVertex + 1 << " ";
         }
 
@@ -26,7 +27,18 @@ void bfs(const Graph &graph, const int startVertex, const bool printFlag) {
             if (!visited[adjacentVertex]) {
                 visited[adjacentVertex] = true;
                 queue.push(adjacentVertex);
+
+                parent[adjacentVertex] = currentVertex;
             }
+        }
+    }
+
+    if (printFlag && treeFlag) {
+        for (int i = 0; i < parent.size(); i++) {
+            if (parent[i] != -1) {
+                std::cout << parent[i] + 1 << " " << i + 1 << '\n';
+            }
+
         }
     }
 
@@ -35,11 +47,12 @@ void bfs(const Graph &graph, const int startVertex, const bool printFlag) {
     }
 }
 
-void dfs(const Graph &graph, const int startVertex, const bool printFlag) {
+void dfs(const Graph &graph, const int startVertex, const bool printFlag, const bool treeFlag) {
     const std::vector<std::vector<int>> &adjacencyList = graph.getAdjacencyList();
     std::vector<bool> visited(adjacencyList.size(), false);
     std::stack<int> stack;
     stack.push(startVertex);
+    std::vector<int> parent(adjacencyList.size(), -1);
 
     while (!stack.empty()) {
         const int currentVertex = stack.top();
@@ -47,7 +60,7 @@ void dfs(const Graph &graph, const int startVertex, const bool printFlag) {
 
         if (!visited[currentVertex]) {
             visited[currentVertex] = true;
-            if (printFlag) {
+            if (printFlag && !treeFlag) {
                 std::cout << currentVertex + 1 << " ";
             }
         }
@@ -55,7 +68,18 @@ void dfs(const Graph &graph, const int startVertex, const bool printFlag) {
         for (const int adjacentVertex : adjacencyList[currentVertex]) {
             if (!visited[adjacentVertex]) {
                 stack.push(adjacentVertex);
+
+                parent[adjacentVertex] = currentVertex;
             }
+        }
+    }
+
+    if (printFlag && treeFlag) {
+        for (int i = 0; i < parent.size(); i++) {
+            if (parent[i] != -1) {
+                std::cout << parent[i] + 1 << " " << i + 1 << '\n';
+            }
+
         }
     }
 

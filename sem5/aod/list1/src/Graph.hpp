@@ -6,16 +6,19 @@
 class Graph {
 public:
     Graph(const int numberOfVertices, const bool isDirected, const bool isIndexedFromOne);
-    Graph(const int numberOfVertices, const bool isDirected, const bool isIndexedFromOne, const std::vector<std::pair<int, int>> &edges);
+    Graph(const int numberOfVertices, const bool isDirected, const bool isIndexedFromOne,
+          const std::vector<std::pair<int, int>> &edges);
 
     void addEdge(const int vertex1, const int vertex2);
     bool isDirected() const;
     bool isIndexedFromOne() const;
     int getNumberOfVertices() const;
+    int getNumberOfEdges() const;
     const std::vector<std::vector<int>> &getAdjacencyList() const;
 
 private:
     const int numberOfVertices_;
+    int numberOfEdges_;
     const bool isDirected_;
     const bool isIndexedFromOne_;
     std::vector<std::vector<int>> adjacencyList_;

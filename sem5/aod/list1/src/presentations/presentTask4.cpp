@@ -8,19 +8,21 @@ const std::string TEST_CASES_DIRECTORY = "/home/kallas/workspace/ina/sem5/aod/li
 const std::string TEMPLATE_FILENAME = TEST_CASES_DIRECTORY + "/D4L-N.txt";
 
 int main() {
+    const Graph undirectedBipartiteGraph = Graph(
+        10, false, true, {{1, 2}, {1, 3}, {2, 4}, {3, 4}, {4, 5}, {5, 6}, {7, 6}, {8, 7}, {9, 7}, {10, 8}, {10, 9}});
+    const Graph directedBipartiteGraph = Graph(
+        10, true, true, {{1, 2}, {1, 3}, {2, 4}, {3, 4}, {4, 5}, {5, 6}, {7, 6}, {8, 7}, {9, 7}, {10, 8}, {10, 9}});
     const Graph undirectedNotBipartiteGraph = Graph(
-        11, false, true, {{1, 2}, {2, 3}, {3, 4}, {4, 5}, {5, 6}, {6, 7}, {7, 8}, {8, 9}, {9, 10}, {10, 11}, {11, 1}});
+        10, false, true,
+        {{1, 2}, {1, 3}, {2, 4}, {3, 4}, {4, 5}, {5, 6}, {7, 6}, {8, 7}, {9, 7}, {10, 8}, {10, 9}, {1, 4}, {10, 7}});
     const Graph directedNotBipartiteGraph = Graph(
-        11, true, true, {{1, 2}, {2, 3}, {3, 4}, {4, 5}, {5, 6}, {6, 7}, {7, 8}, {8, 9}, {9, 10}, {10, 11}, {11, 1}});
-    const Graph undirectedBipartiteGraph =
-        Graph(11, false, true, {{1, 2}, {2, 3}, {3, 4}, {4, 5}, {5, 6}, {6, 7}, {7, 8}, {8, 9}, {9, 10}, {10, 11}});
-    const Graph directedBipartiteGraph =
-        Graph(11, true, true, {{1, 2}, {2, 3}, {3, 4}, {4, 5}, {5, 6}, {6, 7}, {7, 8}, {8, 9}, {9, 10}, {10, 11}});
+        10, true, true,
+        {{1, 2}, {1, 3}, {2, 4}, {3, 4}, {4, 5}, {5, 6}, {7, 6}, {8, 7}, {9, 7}, {10, 8}, {10, 9}, {1, 4}, {10, 7}});
 
-    isBipartite(undirectedNotBipartiteGraph, true);
-    isBipartite(directedNotBipartiteGraph, true);
     isBipartite(undirectedBipartiteGraph, true);
     isBipartite(directedBipartiteGraph, true);
+    isBipartite(undirectedNotBipartiteGraph, true);
+    isBipartite(directedNotBipartiteGraph, true);
 
     for (const char directionality : {'d', 'u'}) {
         for (const char letter : {'a', 'b'}) {
