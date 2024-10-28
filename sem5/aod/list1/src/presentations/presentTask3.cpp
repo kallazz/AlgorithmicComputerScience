@@ -2,6 +2,7 @@
 #include "../graphAlgorithms.hpp"
 #include "../graphHelpers.hpp"
 
+#include <algorithm>
 #include <iostream>
 
 // Stack size needs to be increased for the largest test case

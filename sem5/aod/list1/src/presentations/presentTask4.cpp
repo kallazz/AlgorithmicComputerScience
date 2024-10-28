@@ -2,6 +2,7 @@
 #include "../graphAlgorithms.hpp"
 #include "../graphHelpers.hpp"
 
+#include <algorithm>
 #include <iostream>
 
 const std::string TEST_CASES_DIRECTORY = "/home/kallas/workspace/ina/sem5/aod/list1/testCases/4";

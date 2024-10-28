@@ -200,7 +200,7 @@ void strongconnect(const int vertex, int &currentIndex, std::vector<int> &index,
                           graph);
             lowLink[vertex] = std::min(lowLink[vertex], lowLink[adjacentVertex]);
         } else if (onStack[adjacentVertex]) {
-            lowLink[vertex] = std::min(lowLink[vertex], index[adjacentVertex]);
+            lowLink[vertex] = std::min(lowLink[vertex], lowLink[adjacentVertex]);
         }
     }
 
