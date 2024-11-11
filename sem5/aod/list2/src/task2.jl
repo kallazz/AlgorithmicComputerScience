@@ -13,23 +13,32 @@ function solve_production_problem(
 )
     model = Model(GLPK.Optimizer)
 
-    products_range = 1:length(product_profits)
-    machines_range = 1:length(machine_costs)
+    n = length(product_profits)
+    m = length(machine_costs)
+    products_range = 1:n
+    machines_range = 1:m
 
-    # x[p] is how many kg of product p was produced
+    machine_availibility_times_in_mins = machine_availibility_times * 60.0
+    machine_costs_per_minute = machine_costs / 60.0
+
+    # zyski - koszty materiałowe dla produktów
+    product_actual_profits = product_profits .- product_costs
+
+    # x[p] to ilość wyprodukowanych kg produktu p
     @variable(model, x[products_range] >= 0)
 
-    @constraint(model, [p in products_range], x[p] <= product_demands[p])
-    # entry will be created for each machine thanks to second arg [m in machines_range]
-    @constraint(model, [m in machines_range], sum(x[p] * machine_product_creation_times[p, m] for p in products_range) <= machine_availibility_times[m])
+    # maszyny produkują maksymalnie tyle ile można sprzedać
+    @constraint(model, x .<= product_demands)
+    # maszyny nie mogą pracować dłużej niż są dostępne
+    @constraint(model, [m in machines_range], sum(x[p] * machine_product_creation_times[p, m] for p in products_range) <= machine_availibility_times_in_mins[m])
 
+    # maksymalizujemy zysk = wyprodukowane produkty - koszty materiałowe - koszty maszyn
     @objective(model, Max,
-        sum(x[p] * product_profits[p] - product_costs[p] for p in products_range) -
-        sum(x[p] * machine_product_creation_times[p, m] * machine_costs[m] for p in products_range, m in machines_range))
-
+        sum(x .* product_actual_profits) - sum(sum(x[p] * machine_product_creation_times[p, m] for p in products_range) * machine_costs_per_minute[m] for m in machines_range))
     optimize!(model)
 
-    println(value.(x))
+    println("Amount of produced products: $(value.(x))")
+    println("Profit: $(objective_value(model))")
 end
 
 product_profits = [9, 7, 6, 5]
