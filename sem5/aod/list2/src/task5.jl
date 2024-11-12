@@ -3,7 +3,7 @@
 using JuMP;
 import GLPK;
 
-function solve_police_car_problem(min_police_cars_matrix , max_police_cars_matrix, min_police_cars_per_shift, min_police_cars_per_district)
+function solve_police_car_problem(min_police_cars_matrix::Matrix, max_police_cars_matrix::Matrix, min_police_cars_per_shift::Vector, min_police_cars_per_district::Vector)
     model = Model(GLPK.Optimizer)
 
     n, m = size(min_police_cars_matrix) # n - ilość dzielnic, m - ilość zmian
@@ -14,9 +14,9 @@ function solve_police_car_problem(min_police_cars_matrix , max_police_cars_matri
     # dla każdego [i, j] musi być >= radiowozów niż min i <= radiowozów niż max
     @constraint(model, min_police_cars_matrix .<= x .<= max_police_cars_matrix)
     # ilość radiowozów dla zmian musi być większa od min
-    @constraint(model, vec(sum(x, dims = 1)) .>= min_police_cars_per_shift)
+    @constraint(model, vec(sum(x, dims=1)) .>= min_police_cars_per_shift)
     # ilość radiowozów dla dzielnic musi być większa od min
-    @constraint(model, vec(sum(x, dims = 2)) .>= min_police_cars_per_district)
+    @constraint(model, vec(sum(x, dims=2)) .>= min_police_cars_per_district)
 
     # minimalizujemy liczbę radiowozów
     @objective(model, Min, sum(x))
@@ -30,15 +30,15 @@ end
 min_police_cars_matrix = [
     2 4 3;
     3 6 5;
-    5 7 6;
+    5 7 6
 ]
 max_police_cars_matrix = [
     3 7 5;
     5 7 12;
-    8 12 10;
+    8 12 10
 ]
 min_police_cars_per_shift = [10, 20, 18]
 min_police_cars_per_district = [10, 14, 13]
 
 
-solve_police_car_problem(min_police_cars_matrix , max_police_cars_matrix, min_police_cars_per_shift, min_police_cars_per_district)
+solve_police_car_problem(min_police_cars_matrix, max_police_cars_matrix, min_police_cars_per_shift, min_police_cars_per_district)

@@ -31,8 +31,6 @@ function solve_production_and_storage_problem(
 
     # magazyn na początku ma określoną ilość produktów
     @constraint(model, m[1] == initial_units_in_storage)
-    # magazyn na końcu zero produktów
-    @constraint(model, m[K + 1] == 0)
     # w magazynie nie można przechowywać za dużo produktów
     @constraint(model, m .<= max_units_in_storage)
 
