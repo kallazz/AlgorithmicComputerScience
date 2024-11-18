@@ -1,0 +1,2009 @@
+
+int main(int argc, char *argv[])
+{
+
+  if (argc != 2)
+  {
+    program_usage();
+    exit(EXIT_FAILURE);
+  }
+
+  {
+    int idx = atoi(argv[1]);
+    switch (idx)
+    {
+    case 0:
+      s0_podprogram(); // podprogram studenta o numerze indeksu 0
+      break;
+    case 999:
+      s999_podprogram(); // podprogram studenta o numerze indeksu 999
+      break;
+    case 272397:
+      s272397_podprogram(); // podprogram studenta o numerze indeksu 272397
+      break;
+    case 272354:
+      s272354_podprogram(); // podprogram studenta o numerze indeksu 272354
+      break;
+    case 272385:
+      s272385_podprogram(); // podprogram studenta o numerze indeksu 272385
+      break;
+    case 272369:
+      s272369_podprogram(); // podprogram studenta o numerze indeksu 272369
+      break;
+    case 272388:
+      s272388_podprogram(); // podprogram studenta o numerze indeksu 272388
+      break;
+    case 272355:
+      s272355_podprogram(); // podprogram studenta o numerze indeksu 272355
+      break;
+    case 272379:
+      s272379_podprogram(); // podprogram studenta o numerze indeksu 272379
+      break;
+    case 272383:
+      s272383_podprogram(); // podprogram studenta o numerze indeksu 272383
+      break;
+    case 272370:
+      s272370_podprogram(); // podprogram studenta o numerze indeksu 272370
+      break;
+    case 272402:
+      s272402_podprogram(); // podprogram studenta o numerze indeksu 272402
+      break;
+    case 272389:
+      s272389_podprogram(); // podprogram studenta o numerze indeksu 272389
+      break;
+    case 272392:
+      s272392_podprogram(); // podprogram studenta o numerze indeksu 272392
+      break;
+    case 272374:
+      s272374_podprogram(); // podprogram studenta o numerze indeksu 272374
+      break;
+    case 272362:
+      s272362_podprogram(); // podprogram studenta o numerze indeksu 272362
+      break;
+    case 272395:
+      s272395_podprogram(); // podprogram studenta o numerze indeksu 272395
+      break;
+    case 274037:
+      s274037_podprogram(); // podprogram studenta o numerze indeksu 274037
+      break;
+    case 276588:
+      s276588_podprogram(); // podprogram studenta o numerze indeksu 276588
+      break;
+    case 272382:
+      s272382_podprogram(); // podprogram studenta o numerze indeksu 272382
+      break;
+    case 272378:
+      s272378_podprogram(); // podprogram studenta o numerze indeksu 272378
+      break;
+    case 272359:
+      s272359_podprogram(); // podprogram studenta o numerze indeksu 272359
+      break;
+    case 272358:
+      s272358_podprogram(); // podprogram studenta o numerze indeksu 272358
+      break;
+    case 272380:
+      s272380_podprogram(); // podprogram studenta o numerze indeksu 272380
+      break;
+    case 272353:
+      s272353_podprogram(); // podprogram studenta o numerze indeksu 272353
+      break;
+    case 272360:
+      s272360_podprogram(); // podprogram studenta o numerze indeksu 272380
+      break;
+    case 272381:
+      s272381_podprogram(); // podprogram studenta o numerze indeksu 272381
+      break;
+
+    default:
+      printf("\nStudent o numerze indeksu %d nie wykonał jeszcze zadania\n\n",
+             idx);
+      break;
+    }
+  }
+  exit(EXIT_SUCCESS);
+}
+
+󰣛 kallas  …/list3/app_1/trunk   main ?    v13.3.1   23:25 
+ cd ..
+
+󰣛 kallas  …/sp/list3/app_1   main ?   23:25 
+ svn copy https://repo.cs.pwr.edu.pl/p-2/app_1/trunk https://repo.cs.pwr.edu.pl/p-2/app_1/branches/272398 -m "Utworzenie brancha dla 272398"
+Committing transaction...
+Committed revision 259.
+
+󰣛 kallas  …/sp/list3/app_1   main ?   23:26 
+ ls
+branches  tags  trunk
+
+󰣛 kallas  …/sp/list3/app_1   main ?   23:26 
+ cd branches/
+
+󰣛 kallas  …/list3/app_1/branches   main ?   23:26 
+ ls
+272359  999
+
+󰣛 kallas  …/list3/app_1/branches   main ?   23:26 
+ svn update
+Updating '.':
+A    272398
+A    272398/README
+A    272398/main.c
+A    272398/makefile
+A    272398/program.h
+A    272398/s272381_podprogram.c
+A    272398/s272353_podprogram.c
+A    272398/s272360_podprogram.c
+A    272398/s272355_podprogram.c
+A    272398/s272358_podprogram.c
+A    272398/s272359_podprogram.c
+A    272398/s272362_podprogram.c
+A    272398/s272370_podprogram.c
+A    272398/s272375_podprogram.c
+A    272398/s272378_podprogram.c
+A    272398/s272379_podprogram.c
+A    272398/s272380_podprogram.c
+A    272398/s272382_podprogram.c
+A    272398/s272383_podprogram.c
+A    272398/s272388_podprogram.c
+A    272398/s272389_podprogram.c
+A    272398/s272392_podprogram.c
+A    272398/s272402_podprogram.c
+A    272398/s274037_podprogram.c
+A    272398/s276588_podprogram.c
+A    272398/s272395_podprogram.c
+A    272398/s272374_podprogram.c
+A    272398/s272354_podprogram.c
+A    272398/s272369_podprogram.c
+A    272398/s272385_podprogram.c
+A    272398/s272397_podprogram.c
+A    272398/program_usage.c
+A    272398/s0_podprogram.c
+A    272398/s999_podprogram.c
+Updated to revision 259.
+
+󰣛 kallas  …/list3/app_1/branches   main ?   23:26 
+ ls
+272359  272398  999
+
+󰣛 kallas  …/list3/app_1/branches   main ?   23:26 
+ cd 272398/
+
+󰣛 kallas  …/app_1/branches/272398   main ?    v13.3.1   23:26 
+ ls
+README    program.h        s272353_podprogram.c  s272358_podprogram.c  s272362_podprogram.c  s272374_podprogram.c  s272379_podprogram.c  s272382_podprogram.c  s272388_podprogram.c  s272395_podprogram.c  s274037_podprogram.c
+main.c    program_usage.c  s272354_podprogram.c  s272359_podprogram.c  s272369_podprogram.c  s272375_podprogram.c  s272380_podprogram.c  s272383_podprogram.c  s272389_podprogram.c  s272397_podprogram.c  s276588_podprogram.c
+makefile  s0_podprogram.c  s272355_podprogram.c  s272360_podprogram.c  s272370_podprogram.c  s272378_podprogram.c  s272381_podprogram.c  s272385_podprogram.c  s272392_podprogram.c  s272402_podprogram.c  s999_podprogram.c
+
+󰣛 kallas  …/app_1/branches/272398   main ?    v13.3.1   23:26 
+ nvim .
+
+󰣛 kallas  …/app_1/branches/272398   main ?    v13.3.1   23:29 
+ svn status
+M       main.c
+M       makefile
+M       program.h
+?       s272398_podprogram.c
+
+󰣛 kallas  …/app_1/branches/272398   main ?    v13.3.1   23:29 
+ vi README
+
+󰣛 kallas  …/app_1/branches/272398   main ?    v13.3.1   23:30 
+ svn status
+M       README
+M       main.c
+M       makefile
+M       program.h
+?       s272398_podprogram.c
+
+󰣛 kallas  …/app_1/branches/272398   main ?    v13.3.1   23:30 
+ svn merge https://repo.cs.pwr.edu.pl/p-2/app_1/trunk
+--- Recording mergeinfo for merge of r259 into '.':
+ U   .
+
+󰣛 kallas  …/app_1/branches/272398   main ?    v13.3.1   23:30 
+ svn status
+ M      .
+M       README
+M       main.c
+M       makefile
+M       program.h
+?       s272398_podprogram.c
+
+󰣛 kallas  …/app_1/branches/272398   main ?    v13.3.1   23:30 
+  svn propset svn:mime-type 'text/plain;charset=utf-8' s272398_podprogram.c
+'s272398_podprogram.c' is not under version control
+svn: E155010: The node '/home/kallas/workspace/ina/sem5/sp/list3/app_1/branches/272398/s272398_podprogram.c' was not found.
+
+󰣛 kallas  …/app_1/branches/272398   main ?    v13.3.1   23:30 
+ svn add s272398_podprogram.c
+A         s272398_podprogram.c
+
+󰣛 kallas  …/app_1/branches/272398   main ?    v13.3.1   23:30 
+  svn propset svn:mime-type 'text/plain;charset=utf-8' s272398_podprogram.c
+property 'svn:mime-type' set on 's272398_podprogram.c'
+
+󰣛 kallas  …/app_1/branches/272398   main ?    v13.3.1   23:30 
+ svn status
+ M      .
+M       README
+M       main.c
+M       makefile
+M       program.h
+A       s272398_podprogram.c
+
+󰣛 kallas  …/app_1/branches/272398   main ?    v13.3.1   23:30 
+ svn commit -m "Dodanie zmian na branchu 272398"
+Sending        .
+Sending        README
+Sending        main.c
+Sending        makefile
+Sending        program.h
+Adding         s272398_podprogram.c
+Transmitting file data .....done
+Committing transaction...
+Committed revision 260.
+
+󰣛 kallas  …/app_1/branches/272398   main ?    v13.3.1   23:31 
+ cd ..
+
+󰣛 kallas  …/list3/app_1/branches   main ?   23:31 
+ cd ..
+
+󰣛 kallas  …/sp/list3/app_1   main ?   23:31 
+ ls
+branches  tags  trunk
+
+󰣛 kallas  …/sp/list3/app_1   main ?   23:31 
+ cd trunk/
+
+󰣛 kallas  …/list3/app_1/trunk   main ?    v13.3.1   23:31 
+ svn merge --reintegrate https://repo.cs.pwr.edu.pl/p-2/app_1/branches/272398
+--- Merging differences between repository URLs into '.':
+U    README
+U    main.c
+U    makefile
+U    program.h
+A    s272398_podprogram.c
+ U   .
+--- Recording mergeinfo for merge between repository URLs into '.':
+ U   .
+
+󰣛 kallas  …/list3/app_1/trunk   main ?    v13.3.1   23:31 
+ svn status
+ M      .
+M       README
+M       main.c
+M       makefile
+M       program.h
+A  +    s272398_podprogram.c
+
+󰣛 kallas  …/list3/app_1/trunk   main ?    v13.3.1   23:31 
+ svn commit -m "Reintegracja trunka z branchem 272398"
+Sending        .
+Sending        README
+Sending        main.c
+Sending        makefile
+Sending        program.h
+Adding         s272398_podprogram.c
+Transmitting file data ....done
+Committing transaction...
+Committed revision 261.
+
+󰣛 kallas  …/list3/app_1/trunk   main ?    v13.3.1   23:32 
+ svn delete https://repo.cs.pwr.edu.pl/p-2/app_1/branches/272398 -m "Usunięcie brancha 272398 po reintegracji"
+Committing transaction...
+Committed revision 262.
+
+󰣛 kallas  …/list3/app_1/trunk   main ?    v13.3.1   23:32 
+ svn copy https://repo.cs.pwr.edu.pl/p-2/app_1/trunk https://repo.cs.pwr.edu.pl/p-2/app_1/tags/v_272398 -m "Utworzenie taga z wersją v_272398"
+Committing transaction...
+Committed revision 263.
+
+󰣛 kallas  …/list3/app_1/trunk   main ?    v13.3.1   23:32 
+ ls
+README     program_usage.c       s272355_podprogram.c  s272362_podprogram.c  s272375_podprogram.c  s272381_podprogram.c  s272388_podprogram.c  s272397_podprogram.c  s276588_podprogram.c
+main.c     s0_podprogram.c       s272358_podprogram.c  s272369_podprogram.c  s272378_podprogram.c  s272382_podprogram.c  s272389_podprogram.c  s272398_podprogram.c  s999_podprogram.c
+makefile   s272353_podprogram.c  s272359_podprogram.c  s272370_podprogram.c  s272379_podprogram.c  s272383_podprogram.c  s272392_podprogram.c  s272402_podprogram.c
+program.h  s272354_podprogram.c  s272360_podprogram.c  s272374_podprogram.c  s272380_podprogram.c  s272385_podprogram.c  s272395_podprogram.c  s274037_podprogram.c
+
+󰣛 kallas  …/list3/app_1/trunk   main ?    v13.3.1   23:33 
+ make
+cc    -c -o main.o main.c
+cc    -c -o program_usage.o program_usage.c
+cc    -c -o s0_podprogram.o s0_podprogram.c
+cc    -c -o s999_podprogram.o s999_podprogram.c
+cc    -c -o s272397_podprogram.o s272397_podprogram.c
+cc    -c -o s272354_podprogram.o s272354_podprogram.c
+cc    -c -o s272385_podprogram.o s272385_podprogram.c
+cc    -c -o s272369_podprogram.o s272369_podprogram.c
+cc    -c -o s272355_podprogram.o s272355_podprogram.c
+cc    -c -o s272388_podprogram.o s272388_podprogram.c
+cc    -c -o s272379_podprogram.o s272379_podprogram.c
+cc    -c -o s272383_podprogram.o s272383_podprogram.c
+cc    -c -o s272370_podprogram.o s272370_podprogram.c
+cc    -c -o s272402_podprogram.o s272402_podprogram.c
+cc    -c -o s272389_podprogram.o s272389_podprogram.c
+cc    -c -o s272392_podprogram.o s272392_podprogram.c
+cc    -c -o s272374_podprogram.o s272374_podprogram.c
+cc    -c -o s272362_podprogram.o s272362_podprogram.c
+cc    -c -o s272395_podprogram.o s272395_podprogram.c
+cc    -c -o s274037_podprogram.o s274037_podprogram.c
+cc    -c -o s276588_podprogram.o s276588_podprogram.c
+cc    -c -o s272378_podprogram.o s272378_podprogram.c
+cc    -c -o s272382_podprogram.o s272382_podprogram.c
+cc    -c -o s272359_podprogram.o s272359_podprogram.c
+cc    -c -o s272358_podprogram.o s272358_podprogram.c
+cc    -c -o s272380_podprogram.o s272380_podprogram.c
+cc    -c -o s272360_podprogram.o s272360_podprogram.c
+cc    -c -o s272381_podprogram.o s272381_podprogram.c
+cc    -c -o s272353_podprogram.o s272353_podprogram.c
+cc    -c -o s272398_podprogram.o s272398_podprogram.c
+cc -o program main.o program_usage.o s0_podprogram.o s999_podprogram.o s272397_podprogram.o s272354_podprogram.o s272385_podprogram.o s272369_podprogram.o s272355_podprogram.o s272388_podprogram.o s272379_podprogram.o s272383_pod
+program.o s272370_podprogram.o s272402_podprogram.o s272389_podprogram.o s272392_podprogram.o s272374_podprogram.o s272362_podprogram.o s272395_podprogram.o s274037_podprogram.o s276588_podprogram.o s272378_podprogram.o s272382_p
+odprogram.o s272359_podprogram.o s272358_podprogram.o s272380_podprogram.o s272360_podprogram.o s272381_podprogram.o s272353_podprogram.o s272398_podprogram.o
+
+󰣛 kallas  …/list3/app_1/trunk   main ?    v13.3.1   23:33 
+ ls
+README           program_usage.o       s272355_podprogram.c  s272360_podprogram.o  s272374_podprogram.c  s272380_podprogram.c  s272383_podprogram.o  s272392_podprogram.c  s272398_podprogram.o  s999_podprogram.c
+main.c           s0_podprogram.c       s272355_podprogram.o  s272362_podprogram.c  s272374_podprogram.o  s272380_podprogram.o  s272385_podprogram.c  s272392_podprogram.o  s272402_podprogram.c  s999_podprogram.o
+main.o           s0_podprogram.o       s272358_podprogram.c  s272362_podprogram.o  s272375_podprogram.c  s272381_podprogram.c  s272385_podprogram.o  s272395_podprogram.c  s272402_podprogram.o
+makefile         s272353_podprogram.c  s272358_podprogram.o  s272369_podprogram.c  s272378_podprogram.c  s272381_podprogram.o  s272388_podprogram.c  s272395_podprogram.o  s274037_podprogram.c
+program          s272353_podprogram.o  s272359_podprogram.c  s272369_podprogram.o  s272378_podprogram.o  s272382_podprogram.c  s272388_podprogram.o  s272397_podprogram.c  s274037_podprogram.o
+program.h        s272354_podprogram.c  s272359_podprogram.o  s272370_podprogram.c  s272379_podprogram.c  s272382_podprogram.o  s272389_podprogram.c  s272397_podprogram.o  s276588_podprogram.c
+program_usage.c  s272354_podprogram.o  s272360_podprogram.c  s272370_podprogram.o  s272379_podprogram.o  s272383_podprogram.c  s272389_podprogram.o  s272398_podprogram.c  s276588_podprogram.o
+
+󰣛 kallas  …/list3/app_1/trunk   main ?    v13.3.1   23:33 
+ ./program 272398
+Michał Kallas, nr indeksu: 272398
+Program wczytuje liczbę całkowitą i drukuje liczbę większą o 102
+Podaj liczbę x: 100
+Liczba x powiększon o 102 wynosi: 202
+
+󰣛 kallas  …/list3/app_1/trunk   main ?    v13.3.1   23:33 
+ svn status
+?       program
+
+󰣛 kallas  …/list3/app_1/trunk   main ?    v13.3.1   23:33 
+ rm program
+
+󰣛 kallas  …/list3/app_1/trunk   main ?    v13.3.1   23:33 
+ svn status
+
+󰣛 kallas  …/list3/app_1/trunk   main ?    v13.3.1   23:33 
+ svn mergeinfo https://repo.cs.pwr.edu.pl/p-2/app_1/trunk
+    youngest common ancestor
+    |         last full merge
+    |         |        tip of branch
+    |         |        |         repository path
+
+    261                263
+    |                  |
+  -------| |------------         app_1/trunk
+     \
+      \
+       --| |------------         app_1/trunk
+                       |
+                       WC
+
+󰣛 kallas  …/list3/app_1/trunk   main ?    v13.3.1   23:33 
+ svn diff https://repo.cs.pwr.edu.pl/p-2/app_1/trunk https://repo.cs.pwr.edu.pl/p-2/app_1/tags/v_272398
+
+󰣛 kallas  …/list3/app_1/trunk   main ?    v13.3.1   23:33 
+ svn log https://repo.cs.pwr.edu.pl/p-2/app_1/tags/v_272398
+------------------------------------------------------------------------
+r263 | 272398 | 2024-11-17 23:32:56 +0100 (Sun, 17 Nov 2024) | 1 line
+
+Utworzenie taga z wersją v_272398
+------------------------------------------------------------------------
+r261 | 272398 | 2024-11-17 23:32:08 +0100 (Sun, 17 Nov 2024) | 1 line
+
+Reintegracja trunka z branchem 272398
+------------------------------------------------------------------------
+r256 | 272381 | 2024-11-17 23:17:32 +0100 (Sun, 17 Nov 2024) | 1 line
+
+Reintegracja gałęzi 272381 z trunk
+------------------------------------------------------------------------
+r247 | 272353 | 2024-11-17 17:36:31 +0100 (Sun, 17 Nov 2024) | 1 line
+
+utf8
+------------------------------------------------------------------------
+r244 | 272353 | 2024-11-17 17:10:25 +0100 (Sun, 17 Nov 2024) | 1 line
+
+Reintegracja gałęzi 272353 do trunk
+------------------------------------------------------------------------
+r237 | 272360 | 2024-11-17 11:16:02 +0100 (Sun, 17 Nov 2024) | 1 line
+
+272360 proba II - przywrocenie trunka
+------------------------------------------------------------------------
+r234 | 272360 | 2024-11-17 11:02:46 +0100 (Sun, 17 Nov 2024) | 1 line
+
+272360 proba II - merge brancha do trunka
+------------------------------------------------------------------------
+r226 | 272360 | 2024-11-17 09:58:35 +0100 (Sun, 17 Nov 2024) | 1 line
+
+272360 cofnieto zmiany w tagach
+------------------------------------------------------------------------
+r218 | 272380 | 2024-11-16 21:29:09 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Merged branch 272380 to trunk
+------------------------------------------------------------------------
+r213 | 272358 | 2024-11-16 21:15:39 +0100 (Sat, 16 Nov 2024) | 1 line
+
+mała zmiana o pomylone z 0
+------------------------------------------------------------------------
+r208 | 272358 | 2024-11-16 21:04:11 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Reintegracja gałęzi 272358 do trunk
+------------------------------------------------------------------------
+r207 | 272358 | 2024-11-16 21:02:24 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Committing mergeinfo update after merging trunk revisions r203-205
+------------------------------------------------------------------------
+r200 | 272359 | 2024-11-16 19:37:28 +0100 (Sat, 16 Nov 2024) | 1 line
+
+merge to trunk
+------------------------------------------------------------------------
+r195 | 272378 | 2024-11-16 18:08:49 +0100 (Sat, 16 Nov 2024) | 1 line
+
+272378 merge
+------------------------------------------------------------------------
+r190 | 272378 | 2024-11-16 17:53:54 +0100 (Sat, 16 Nov 2024) | 1 line
+
+272378 failed merge revert
+------------------------------------------------------------------------
+r184 | 272382 | 2024-11-16 16:53:16 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Resolved conflicts and merged branch into trunk
+------------------------------------------------------------------------
+r179 | 276588 | 2024-11-16 15:52:05 +0100 (Sat, 16 Nov 2024) | 1 line
+
+reintegracja
+------------------------------------------------------------------------
+r178 | 276588 | 2024-11-16 15:50:45 +0100 (Sat, 16 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r172 | 274037 | 2024-11-16 15:05:07 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Reintegracja
+------------------------------------------------------------------------
+r168 | 272395 | 2024-11-15 20:17:57 +0100 (Fri, 15 Nov 2024) | 1 line
+
+Ustawienie właściwości svn:mime-type w trunk dla s272395_podprogram.c
+------------------------------------------------------------------------
+r166 | 272362 | 2024-11-15 17:18:03 +0100 (Fri, 15 Nov 2024) | 1 line
+
+correct subprogram 272362
+------------------------------------------------------------------------
+r164 | 272362 | 2024-11-15 16:29:38 +0100 (Fri, 15 Nov 2024) | 1 line
+
+modify s272362_podprogram.c
+------------------------------------------------------------------------
+r161 | 272362 | 2024-11-15 16:03:57 +0100 (Fri, 15 Nov 2024) | 2 lines
+
+merge (2) 272362
+
+------------------------------------------------------------------------
+r159 | 272362 | 2024-11-15 15:59:45 +0100 (Fri, 15 Nov 2024) | 2 lines
+
+merge 272362
+
+------------------------------------------------------------------------
+r153 | 272395 | 2024-11-15 09:01:25 +0100 (Fri, 15 Nov 2024) | 1 line
+
+Reintegracja
+------------------------------------------------------------------------
+r150 | 272374 | 2024-11-14 23:33:34 +0100 (Thu, 14 Nov 2024) | 1 line
+
+Dodanie property svn:mime-type na moje pliki
+------------------------------------------------------------------------
+r147 | 272374 | 2024-11-14 23:14:02 +0100 (Thu, 14 Nov 2024) | 1 line
+
+Branch 272374 merged into trunk
+------------------------------------------------------------------------
+r142 | 272375 | 2024-11-14 21:16:34 +0100 (Thu, 14 Nov 2024) | 1 line
+
+Reintegrated branch 272375 into trunk
+------------------------------------------------------------------------
+r136 | 272392 | 2024-11-14 20:53:15 +0100 (Thu, 14 Nov 2024) | 1 line
+
+dodanie zmian - 272392
+------------------------------------------------------------------------
+r130 | 272389 | 2024-11-14 17:00:26 +0100 (Thu, 14 Nov 2024) | 1 line
+
+merge branch 272389
+------------------------------------------------------------------------
+r123 | 272402 | 2024-11-13 21:56:41 +0100 (Wed, 13 Nov 2024) | 1 line
+
+Scalenie zmian z gałęzi 272402 do trunka
+------------------------------------------------------------------------
+r117 | 272370 | 2024-11-13 20:24:27 +0100 (Wed, 13 Nov 2024) | 1 line
+
+reintegracja branch 272370
+------------------------------------------------------------------------
+r113 | 272383 | 2024-11-12 22:31:20 +0100 (Tue, 12 Nov 2024) | 1 line
+
+trunk 272383
+------------------------------------------------------------------------
+r109 | 272383 | 2024-11-12 22:19:36 +0100 (Tue, 12 Nov 2024) | 1 line
+
+reintegracja 272383 (ponownie)
+------------------------------------------------------------------------
+r102 | 272383 | 2024-11-12 21:54:46 +0100 (Tue, 12 Nov 2024) | 1 line
+
+reintegracja gałęzi 272383 do trunk
+------------------------------------------------------------------------
+r98 | 272383 | 2024-11-12 21:20:53 +0100 (Tue, 12 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r97 | 272383 | 2024-11-12 21:11:58 +0100 (Tue, 12 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r93 | 272383 | 2024-11-12 20:51:20 +0100 (Tue, 12 Nov 2024) | 1 line
+
+reintegracja gałęzi 272383 do trunk
+------------------------------------------------------------------------
+r87 | 272379 | 2024-11-11 23:21:00 +0100 (Mon, 11 Nov 2024) | 1 line
+
+merged 272379 z trunk
+------------------------------------------------------------------------
+r86 | 272379 | 2024-11-11 23:12:59 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r85 | 272379 | 2024-11-11 23:12:02 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r83 | 272379 | 2024-11-11 23:06:13 +0100 (Mon, 11 Nov 2024) | 1 line
+
+Rozwiązanie konfliktu tekstowego w pliku s272379_podprogram.c
+------------------------------------------------------------------------
+r82 | 272379 | 2024-11-11 23:05:03 +0100 (Mon, 11 Nov 2024) | 1 line
+
+Rozwiązanie konfliktu tekstowego w pliku s272379_podprogram.c
+------------------------------------------------------------------------
+r81 | 272379 | 2024-11-11 23:04:07 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r80 | 272379 | 2024-11-11 23:01:36 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r79 | 272379 | 2024-11-11 23:01:15 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r78 | 272379 | 2024-11-11 22:57:51 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r77 | 272379 | 2024-11-11 22:56:32 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r76 | 272379 | 2024-11-11 22:50:53 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r74 | 272379 | 2024-11-11 22:45:48 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r73 | 272379 | 2024-11-11 22:43:52 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r72 | 272379 | 2024-11-11 22:42:36 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r71 | 272379 | 2024-11-11 22:41:43 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r70 | 272379 | 2024-11-11 22:40:41 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r69 | 272379 | 2024-11-11 22:38:23 +0100 (Mon, 11 Nov 2024) | 1 line
+
+synchronizacja 272379 z trunk
+------------------------------------------------------------------------
+r68 | 272379 | 2024-11-11 22:37:10 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r67 | 272379 | 2024-11-11 22:34:18 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r66 | 272379 | 2024-11-11 22:31:21 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r65 | 272379 | 2024-11-11 22:29:34 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r64 | 272379 | 2024-11-11 22:19:30 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r58 | 272355 | 2024-11-08 23:03:11 +0100 (Fri, 08 Nov 2024) | 1 line
+
+272355 integruje swoją gałąź z trunk
+------------------------------------------------------------------------
+r52 | 272388 | 2024-11-08 17:55:50 +0100 (Fri, 08 Nov 2024) | 1 line
+
+merge, tag 272388
+------------------------------------------------------------------------
+r49 | 272369 | 2024-11-07 18:20:37 +0100 (Thu, 07 Nov 2024) | 1 line
+
+Changed propset.
+------------------------------------------------------------------------
+r46 | 272369 | 2024-11-07 18:09:29 +0100 (Thu, 07 Nov 2024) | 1 line
+
+Zmergowano prace studenta 272369 do trunk.
+------------------------------------------------------------------------
+r42 | 272354 | 2024-11-05 22:40:50 +0100 (Tue, 05 Nov 2024) | 1 line
+
+encoding added
+------------------------------------------------------------------------
+r38 | 272385 | 2024-11-05 22:16:57 +0100 (Tue, 05 Nov 2024) | 1 line
+
+Merge 272385 do trunk.
+------------------------------------------------------------------------
+r33 | 272354 | 2024-11-05 21:41:29 +0100 (Tue, 05 Nov 2024) | 1 line
+
+encoding set
+------------------------------------------------------------------------
+r32 | 272354 | 2024-11-05 21:40:21 +0100 (Tue, 05 Nov 2024) | 1 line
+
+encoding set
+------------------------------------------------------------------------
+r29 | 272354 | 2024-11-05 21:06:45 +0100 (Tue, 05 Nov 2024) | 1 line
+
+merged 272354 z trunk
+------------------------------------------------------------------------
+r26 | 272354 | 2024-11-05 20:58:36 +0100 (Tue, 05 Nov 2024) | 1 line
+
+reintegracja 272354 z trunk
+------------------------------------------------------------------------
+r17 | 272397 | 2024-11-04 23:38:26 +0100 (Mon, 04 Nov 2024) | 1 line
+
+merge 272397 into trunk
+------------------------------------------------------------------------
+r13 | mk1 | 2024-10-29 13:45:35 +0100 (Tue, 29 Oct 2024) | 2 lines
+
+wykonano: `svn propset svn:mime-type 'text/plain;charset=utf-8' $(find app_1/ -type f )`
+
+------------------------------------------------------------------------
+r12 | admin | 2020-11-12 10:52:01 +0100 (Thu, 12 Nov 2020) | 2 lines
+
+Poprawione kodowanie README i względny adres katalogu z tagami.
+
+------------------------------------------------------------------------
+r10 | 999 | 2016-10-24 13:55:29 +0200 (Mon, 24 Oct 2016) | 3 lines
+
+999 zreintegrował swoją gałąź z trunk-iem
+
+
+------------------------------------------------------------------------
+r7 | admin | 2016-10-24 13:44:15 +0200 (Mon, 24 Oct 2016) | 3 lines
+
+Dodatkowe wyjaśnienia w pliku README o tworzeniu tag-ów
+
+
+------------------------------------------------------------------------
+r3 | 999 | 2016-10-24 13:04:10 +0200 (Mon, 24 Oct 2016) | 2 lines
+
+dodano plik README w trunk
+
+------------------------------------------------------------------------
+r1 | admin | 2016-10-17 14:28:36 +0200 (Mon, 17 Oct 2016) | 3 lines
+
+początkowa wersja projektu.
+
+
+------------------------------------------------------------------------
+
+󰣛 kallas  …/list3/app_1/trunk   main ?    v13.3.1   23:33 
+ ls
+README           s0_podprogram.c       s272355_podprogram.o  s272362_podprogram.c  s272374_podprogram.o  s272380_podprogram.o  s272385_podprogram.c  s272392_podprogram.o  s272402_podprogram.c  s999_podprogram.o
+main.c           s0_podprogram.o       s272358_podprogram.c  s272362_podprogram.o  s272375_podprogram.c  s272381_podprogram.c  s272385_podprogram.o  s272395_podprogram.c  s272402_podprogram.o
+main.o           s272353_podprogram.c  s272358_podprogram.o  s272369_podprogram.c  s272378_podprogram.c  s272381_podprogram.o  s272388_podprogram.c  s272395_podprogram.o  s274037_podprogram.c
+makefile         s272353_podprogram.o  s272359_podprogram.c  s272369_podprogram.o  s272378_podprogram.o  s272382_podprogram.c  s272388_podprogram.o  s272397_podprogram.c  s274037_podprogram.o
+program.h        s272354_podprogram.c  s272359_podprogram.o  s272370_podprogram.c  s272379_podprogram.c  s272382_podprogram.o  s272389_podprogram.c  s272397_podprogram.o  s276588_podprogram.c
+program_usage.c  s272354_podprogram.o  s272360_podprogram.c  s272370_podprogram.o  s272379_podprogram.o  s272383_podprogram.c  s272389_podprogram.o  s272398_podprogram.c  s276588_podprogram.o
+program_usage.o  s272355_podprogram.c  s272360_podprogram.o  s272374_podprogram.c  s272380_podprogram.c  s272383_podprogram.o  s272392_podprogram.c  s272398_podprogram.o  s999_podprogram.c
+
+󰣛 kallas  …/list3/app_1/trunk   main ?    v13.3.1   23:34 
+ cd ..
+
+󰣛 kallas  …/sp/list3/app_1   main ?   23:34 
+ ls
+branches  tags  trunk
+
+󰣛 kallas  …/sp/list3/app_1   main ?   23:34 
+ cd branches/
+
+󰣛 kallas  …/list3/app_1/branches   main ?   23:34 
+ ls
+272359  272398  999
+
+󰣛 kallas  …/list3/app_1/branches   main ?   23:34 
+ svn update
+Updating '.':
+D    272398
+Updated to revision 263.
+
+󰣛 kallas  …/list3/app_1/branches   main ?   23:34 
+ ls
+272359  999
+
+󰣛 kallas  …/list3/app_1/branches   main ?   23:34 
+ cd ..
+
+󰣛 kallas  …/sp/list3/app_1   main ?   23:34 
+ svn log -g
+------------------------------------------------------------------------
+r258 | 272381 | 2024-11-17 23:18:21 +0100 (Sun, 17 Nov 2024) | 1 line
+
+Utworzenie taga z wersją finalną
+------------------------------------------------------------------------
+r257 | 272381 | 2024-11-17 23:17:49 +0100 (Sun, 17 Nov 2024) | 1 line
+
+Usunięcie gałęzi po reintegracji
+------------------------------------------------------------------------
+r256 | 272381 | 2024-11-17 23:17:32 +0100 (Sun, 17 Nov 2024) | 1 line
+
+Reintegracja gałęzi 272381 z trunk
+------------------------------------------------------------------------
+r255 | 272381 | 2024-11-17 23:16:28 +0100 (Sun, 17 Nov 2024) | 1 line
+
+Synchronizacja z trunk
+------------------------------------------------------------------------
+r254 | 272381 | 2024-11-17 23:11:32 +0100 (Sun, 17 Nov 2024) | 1 line
+
+Utworzenie gałęzi do własnej funkcjonalności
+------------------------------------------------------------------------
+r253 | 272381 | 2024-11-17 23:09:03 +0100 (Sun, 17 Nov 2024) | 1 line
+
+Usunięcie gałęzi po reintegracji
+------------------------------------------------------------------------
+r252 | 272381 | 2024-11-17 22:58:36 +0100 (Sun, 17 Nov 2024) | 1 line
+
+Synchronizacja z trunk
+------------------------------------------------------------------------
+r251 | 272381 | 2024-11-17 22:56:33 +0100 (Sun, 17 Nov 2024) | 1 line
+
+Synchronizacja z trunk
+------------------------------------------------------------------------
+r250 | 272381 | 2024-11-17 22:54:49 +0100 (Sun, 17 Nov 2024) | 1 line
+
+Synchronizacja z trunk
+------------------------------------------------------------------------
+r249 | 272381 | 2024-11-17 22:37:01 +0100 (Sun, 17 Nov 2024) | 1 line
+
+Utworzenie gałęzi do własnej funkcjonalności
+------------------------------------------------------------------------
+r248 | 272353 | 2024-11-17 17:36:45 +0100 (Sun, 17 Nov 2024) | 1 line
+
+utf8
+------------------------------------------------------------------------
+r247 | 272353 | 2024-11-17 17:36:31 +0100 (Sun, 17 Nov 2024) | 1 line
+
+utf8
+------------------------------------------------------------------------
+r246 | 272353 | 2024-11-17 17:11:35 +0100 (Sun, 17 Nov 2024) | 1 line
+
+Utworzenie tag-a  po dodaniu nowej funkcjonalności
+------------------------------------------------------------------------
+r245 | 272353 | 2024-11-17 17:10:46 +0100 (Sun, 17 Nov 2024) | 1 line
+
+Usunięcie gałęzi 272353 po reintegracji
+------------------------------------------------------------------------
+r244 | 272353 | 2024-11-17 17:10:25 +0100 (Sun, 17 Nov 2024) | 1 line
+
+Reintegracja gałęzi 272353 do trunk
+------------------------------------------------------------------------
+r243 | 272353 | 2024-11-17 17:09:41 +0100 (Sun, 17 Nov 2024) | 1 line
+
+Scalanie zmian z trunk do 272353
+------------------------------------------------------------------------
+r242 | 272353 | 2024-11-17 17:06:10 +0100 (Sun, 17 Nov 2024) | 1 line
+
+Dodanie funkcjonalności do 272353
+------------------------------------------------------------------------
+r241 | 272353 | 2024-11-17 16:58:33 +0100 (Sun, 17 Nov 2024) | 1 line
+
+Tworzenie gałęzi 272353 dla dodania nowej funkcjonalności
+------------------------------------------------------------------------
+r240 | 272360 | 2024-11-17 11:28:16 +0100 (Sun, 17 Nov 2024) | 1 line
+
+272360 proba II - usuniecie brancha
+------------------------------------------------------------------------
+r239 | 272360 | 2024-11-17 11:16:48 +0100 (Sun, 17 Nov 2024) | 1 line
+
+272360 proba II - stworzenie taga
+------------------------------------------------------------------------
+r238 | 272360 | 2024-11-17 11:16:29 +0100 (Sun, 17 Nov 2024) | 1 line
+
+272370 proba II - zla nazwa taga
+------------------------------------------------------------------------
+r237 | 272360 | 2024-11-17 11:16:02 +0100 (Sun, 17 Nov 2024) | 1 line
+
+272360 proba II - przywrocenie trunka
+------------------------------------------------------------------------
+r236 | 272360 | 2024-11-17 11:07:08 +0100 (Sun, 17 Nov 2024) | 1 line
+
+272370 proba II - zla nazwa taga
+------------------------------------------------------------------------
+r235 | 272360 | 2024-11-17 11:06:21 +0100 (Sun, 17 Nov 2024) | 1 line
+
+272360 proba II - stworzenie taga
+------------------------------------------------------------------------
+r234 | 272360 | 2024-11-17 11:02:46 +0100 (Sun, 17 Nov 2024) | 1 line
+
+272360 proba II - merge brancha do trunka
+------------------------------------------------------------------------
+r233 | 272360 | 2024-11-17 10:54:10 +0100 (Sun, 17 Nov 2024) | 1 line
+
+272360 proba II - merge brancha do trunka
+------------------------------------------------------------------------
+r232 | 272360 | 2024-11-17 10:46:38 +0100 (Sun, 17 Nov 2024) | 1 line
+
+272360 proba II - zmiany na branchu
+------------------------------------------------------------------------
+r231 | 272360 | 2024-11-17 10:35:37 +0100 (Sun, 17 Nov 2024) | 1 line
+
+272360 proba II - integracja zmian do trunka
+------------------------------------------------------------------------
+r230 | 272360 | 2024-11-17 10:24:51 +0100 (Sun, 17 Nov 2024) | 1 line
+
+272360 proba II - readme
+------------------------------------------------------------------------
+r229 | 272360 | 2024-11-17 10:23:45 +0100 (Sun, 17 Nov 2024) | 1 line
+
+272360 proba II - podprogram
+------------------------------------------------------------------------
+r228 | 272360 | 2024-11-17 10:19:52 +0100 (Sun, 17 Nov 2024) | 1 line
+
+272360 proba II - stworzenie brancha
+------------------------------------------------------------------------
+r227 | 272360 | 2024-11-17 10:14:54 +0100 (Sun, 17 Nov 2024) | 1 line
+
+272360 usuniecie brancha
+------------------------------------------------------------------------
+r226 | 272360 | 2024-11-17 09:58:35 +0100 (Sun, 17 Nov 2024) | 1 line
+
+272360 cofnieto zmiany w tagach
+------------------------------------------------------------------------
+r225 | 272360 | 2024-11-17 09:41:38 +0100 (Sun, 17 Nov 2024) | 1 line
+
+272360 stwrzenie taga
+------------------------------------------------------------------------
+r224 | 272360 | 2024-11-17 09:37:52 +0100 (Sun, 17 Nov 2024) | 1 line
+
+272360 stwrzenie taga
+------------------------------------------------------------------------
+r223 | 272360 | 2024-11-17 09:31:31 +0100 (Sun, 17 Nov 2024) | 1 line
+
+272360 stwrzenie taga
+------------------------------------------------------------------------
+r222 | 272360 | 2024-11-17 09:18:37 +0100 (Sun, 17 Nov 2024) | 1 line
+
+272360 podprogram
+------------------------------------------------------------------------
+r221 | 272360 | 2024-11-17 09:07:12 +0100 (Sun, 17 Nov 2024) | 1 line
+
+272360 tworzy wlasna galaz
+------------------------------------------------------------------------
+r220 | 272380 | 2024-11-16 21:55:59 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Deleted branch of student 272380
+------------------------------------------------------------------------
+r219 | 272380 | 2024-11-16 21:31:59 +0100 (Sat, 16 Nov 2024) | 2 lines
+
+Created a tag for a version of 272380 student
+
+------------------------------------------------------------------------
+r218 | 272380 | 2024-11-16 21:29:09 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Merged branch 272380 to trunk
+------------------------------------------------------------------------
+r217 | 272380 | 2024-11-16 21:26:09 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Updated branch 272380 to trunk
+------------------------------------------------------------------------
+r216 | 272358 | 2024-11-16 21:18:04 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Modyfikacja tagu 272358 v2
+------------------------------------------------------------------------
+r215 | 272358 | 2024-11-16 21:17:59 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Usunięcie starego tagu v_272358
+------------------------------------------------------------------------
+r214 | 272380 | 2024-11-16 21:16:26 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Added subprogram for student 272380
+------------------------------------------------------------------------
+r213 | 272358 | 2024-11-16 21:15:39 +0100 (Sat, 16 Nov 2024) | 1 line
+
+mała zmiana o pomylone z 0
+------------------------------------------------------------------------
+r212 | 272358 | 2024-11-16 21:14:54 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Modyfikacja tagu 272358
+------------------------------------------------------------------------
+r211 | 272358 | 2024-11-16 21:07:33 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Utworzenie tagu v_272358
+------------------------------------------------------------------------
+r210 | 272358 | 2024-11-16 21:05:47 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Usuniecie galezi 272358
+------------------------------------------------------------------------
+r209 | 272380 | 2024-11-16 21:05:28 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Created a branch for student 272380
+------------------------------------------------------------------------
+r208 | 272358 | 2024-11-16 21:04:11 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Reintegracja gałęzi 272358 do trunk
+------------------------------------------------------------------------
+r207 | 272358 | 2024-11-16 21:02:24 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Committing mergeinfo update after merging trunk revisions r203-205
+------------------------------------------------------------------------
+r206 | 272380 | 2024-11-16 21:00:37 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Removed branch 272380
+------------------------------------------------------------------------
+r205 | 272358 | 2024-11-16 20:55:03 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Dodanie podprogramu 272358, który przyjmuję liczbę i zwraca jej wartość pomnożoną przez 100
+------------------------------------------------------------------------
+r204 | 272380 | 2024-11-16 20:32:47 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Added a subprogram for student 272380
+------------------------------------------------------------------------
+r203 | 272358 | 2024-11-16 20:25:39 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Tworzenie gałęzi dla 272358
+------------------------------------------------------------------------
+r202 | 272380 | 2024-11-16 19:53:54 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Added a branch for student 272380
+------------------------------------------------------------------------
+r201 | 272359 | 2024-11-16 19:38:17 +0100 (Sat, 16 Nov 2024) | 2 lines
+
+create release
+
+------------------------------------------------------------------------
+r200 | 272359 | 2024-11-16 19:37:28 +0100 (Sat, 16 Nov 2024) | 1 line
+
+merge to trunk
+------------------------------------------------------------------------
+r199 | 272359 | 2024-11-16 19:35:43 +0100 (Sat, 16 Nov 2024) | 1 line
+
+podprogram 272359
+------------------------------------------------------------------------
+r198 | 272359 | 2024-11-16 19:26:52 +0100 (Sat, 16 Nov 2024) | 2 lines
+
+my branch
+
+------------------------------------------------------------------------
+r197 | 272378 | 2024-11-16 19:24:04 +0100 (Sat, 16 Nov 2024) | 1 line
+
+272378 branch delete
+------------------------------------------------------------------------
+r196 | 272378 | 2024-11-16 18:09:36 +0100 (Sat, 16 Nov 2024) | 1 line
+
+272378 tag
+------------------------------------------------------------------------
+r195 | 272378 | 2024-11-16 18:08:49 +0100 (Sat, 16 Nov 2024) | 1 line
+
+272378 merge
+------------------------------------------------------------------------
+r194 | 272378 | 2024-11-16 18:06:34 +0100 (Sat, 16 Nov 2024) | 1 line
+
+272378 implementacja
+------------------------------------------------------------------------
+r193 | 272378 | 2024-11-16 18:04:01 +0100 (Sat, 16 Nov 2024) | 1 line
+
+272378 implementacja
+------------------------------------------------------------------------
+r192 | 272378 | 2024-11-16 18:00:14 +0100 (Sat, 16 Nov 2024) | 1 line
+
+272378 branch
+------------------------------------------------------------------------
+r191 | 272378 | 2024-11-16 17:54:27 +0100 (Sat, 16 Nov 2024) | 1 line
+
+272378 failed merge revert
+------------------------------------------------------------------------
+r190 | 272378 | 2024-11-16 17:53:54 +0100 (Sat, 16 Nov 2024) | 1 line
+
+272378 failed merge revert
+------------------------------------------------------------------------
+r189 | 272378 | 2024-11-16 17:50:39 +0100 (Sat, 16 Nov 2024) | 1 line
+
+272378 sync
+------------------------------------------------------------------------
+r188 | 272378 | 2024-11-16 17:49:46 +0100 (Sat, 16 Nov 2024) | 1 line
+
+272378 implementacja
+------------------------------------------------------------------------
+r187 | 272378 | 2024-11-16 17:33:09 +0100 (Sat, 16 Nov 2024) | 1 line
+
+272378 nowy branch
+------------------------------------------------------------------------
+r186 | 272382 | 2024-11-16 17:00:00 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Creating tag for 272382
+------------------------------------------------------------------------
+r185 | 272382 | 2024-11-16 16:56:09 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Usuwanie branch po reintegracji
+------------------------------------------------------------------------
+r184 | 272382 | 2024-11-16 16:53:16 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Resolved conflicts and merged branch into trunk
+------------------------------------------------------------------------
+r183 | 272382 | 2024-11-16 16:44:47 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Synchronizacja 272382 z trunk
+------------------------------------------------------------------------
+r182 | 272382 | 2024-11-16 16:27:51 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Dodanie podprogramu studenta 272382
+------------------------------------------------------------------------
+r181 | 276588 | 2024-11-16 15:54:49 +0100 (Sat, 16 Nov 2024) | 1 line
+
+tworzę tag
+------------------------------------------------------------------------
+r180 | 276588 | 2024-11-16 15:53:04 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Usuwam gałęź
+------------------------------------------------------------------------
+r179 | 276588 | 2024-11-16 15:52:05 +0100 (Sat, 16 Nov 2024) | 1 line
+
+reintegracja
+------------------------------------------------------------------------
+r178 | 276588 | 2024-11-16 15:50:45 +0100 (Sat, 16 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r177 | 276588 | 2024-11-16 15:39:54 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Zmiana
+------------------------------------------------------------------------
+r176 | 276588 | 2024-11-16 15:39:00 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Dodano pliku studenta 276588
+------------------------------------------------------------------------
+r175 | 276588 | 2024-11-16 15:32:07 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Gałęź
+------------------------------------------------------------------------
+r174 | 274037 | 2024-11-16 15:07:48 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Utworzenie tagu v_274037
+------------------------------------------------------------------------
+r173 | 274037 | 2024-11-16 15:05:59 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Usuniecie galezi
+------------------------------------------------------------------------
+r172 | 274037 | 2024-11-16 15:05:07 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Reintegracja
+------------------------------------------------------------------------
+r171 | 274037 | 2024-11-16 14:54:56 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Dodanie podprogramu studenta 274037
+------------------------------------------------------------------------
+r170 | 274037 | 2024-11-16 14:37:05 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Utworzenie galezi
+------------------------------------------------------------------------
+r169 | 274037 | 2024-11-16 14:23:33 +0100 (Sat, 16 Nov 2024) | 1 line
+
+Utworzenie galezi
+------------------------------------------------------------------------
+r168 | 272395 | 2024-11-15 20:17:57 +0100 (Fri, 15 Nov 2024) | 1 line
+
+Ustawienie właściwości svn:mime-type w trunk dla s272395_podprogram.c
+------------------------------------------------------------------------
+r167 | 272395 | 2024-11-15 20:16:08 +0100 (Fri, 15 Nov 2024) | 1 line
+
+Ustawienie właściwości svn:mime-type w trunk dla s272395_podprogram.c
+------------------------------------------------------------------------
+r166 | 272362 | 2024-11-15 17:18:03 +0100 (Fri, 15 Nov 2024) | 1 line
+
+correct subprogram 272362
+------------------------------------------------------------------------
+r165 | 272362 | 2024-11-15 16:33:11 +0100 (Fri, 15 Nov 2024) | 1 line
+
+update 272362 in tags
+------------------------------------------------------------------------
+r164 | 272362 | 2024-11-15 16:29:38 +0100 (Fri, 15 Nov 2024) | 1 line
+
+modify s272362_podprogram.c
+------------------------------------------------------------------------
+r163 | 272362 | 2024-11-15 16:05:50 +0100 (Fri, 15 Nov 2024) | 2 lines
+
+copy tags
+
+------------------------------------------------------------------------
+r162 | 272362 | 2024-11-15 16:04:46 +0100 (Fri, 15 Nov 2024) | 1 line
+
+delete branch 272362
+------------------------------------------------------------------------
+r161 | 272362 | 2024-11-15 16:03:57 +0100 (Fri, 15 Nov 2024) | 2 lines
+
+merge (2) 272362
+
+------------------------------------------------------------------------
+r160 | 272362 | 2024-11-15 16:02:28 +0100 (Fri, 15 Nov 2024) | 1 line
+
+modify main.c
+------------------------------------------------------------------------
+r159 | 272362 | 2024-11-15 15:59:45 +0100 (Fri, 15 Nov 2024) | 2 lines
+
+merge 272362
+
+------------------------------------------------------------------------
+r158 | 272362 | 2024-11-15 15:56:49 +0100 (Fri, 15 Nov 2024) | 2 lines
+
+modify README and program.h
+
+------------------------------------------------------------------------
+r157 | 272362 | 2024-11-15 15:51:31 +0100 (Fri, 15 Nov 2024) | 2 lines
+
+add subprogram (on branch)
+
+------------------------------------------------------------------------
+r156 | 272362 | 2024-11-15 15:29:02 +0100 (Fri, 15 Nov 2024) | 3 lines
+
+copy to new branch
+
+
+------------------------------------------------------------------------
+r155 | 272395 | 2024-11-15 09:08:26 +0100 (Fri, 15 Nov 2024) | 1 line
+
+Utworzenie tagu v_272395
+------------------------------------------------------------------------
+r154 | 272395 | 2024-11-15 09:04:07 +0100 (Fri, 15 Nov 2024) | 1 line
+
+Usunięcie gałęzi studenta 272395 po reintegracji
+------------------------------------------------------------------------
+r153 | 272395 | 2024-11-15 09:01:25 +0100 (Fri, 15 Nov 2024) | 1 line
+
+Reintegracja
+------------------------------------------------------------------------
+r152 | 272395 | 2024-11-15 08:21:01 +0100 (Fri, 15 Nov 2024) | 1 line
+
+Dodanie podprogramu studenta 272395
+------------------------------------------------------------------------
+r151 | 272395 | 2024-11-15 08:02:16 +0100 (Fri, 15 Nov 2024) | 1 line
+
+Utworzenie gałęzi dla studenta 272395
+------------------------------------------------------------------------
+r150 | 272374 | 2024-11-14 23:33:34 +0100 (Thu, 14 Nov 2024) | 1 line
+
+Dodanie property svn:mime-type na moje pliki
+------------------------------------------------------------------------
+r149 | 272374 | 2024-11-14 23:20:18 +0100 (Thu, 14 Nov 2024) | 1 line
+
+Utworzenie taga wersji utworzonej przez 272374
+------------------------------------------------------------------------
+r148 | 272374 | 2024-11-14 23:15:55 +0100 (Thu, 14 Nov 2024) | 1 line
+
+Deleting branch 272374
+------------------------------------------------------------------------
+r147 | 272374 | 2024-11-14 23:14:02 +0100 (Thu, 14 Nov 2024) | 1 line
+
+Branch 272374 merged into trunk
+------------------------------------------------------------------------
+r146 | 272374 | 2024-11-14 23:10:47 +0100 (Thu, 14 Nov 2024) | 1 line
+
+Trunk merged int branch 272374
+------------------------------------------------------------------------
+r145 | 272374 | 2024-11-14 23:04:43 +0100 (Thu, 14 Nov 2024) | 1 line
+
+Dodanie implementacji studenta 272374
+------------------------------------------------------------------------
+r144 | 272374 | 2024-11-14 22:43:52 +0100 (Thu, 14 Nov 2024) | 1 line
+
+Utworzenie brancha dla 272374
+------------------------------------------------------------------------
+r143 | 272375 | 2024-11-14 21:18:19 +0100 (Thu, 14 Nov 2024) | 1 line
+
+Removing branch 272375 after successful reintegration
+------------------------------------------------------------------------
+r142 | 272375 | 2024-11-14 21:16:34 +0100 (Thu, 14 Nov 2024) | 1 line
+
+Reintegrated branch 272375 into trunk
+------------------------------------------------------------------------
+r141 | 272375 | 2024-11-14 21:14:18 +0100 (Thu, 14 Nov 2024) | 1 line
+
+Synchronizing with trunk
+------------------------------------------------------------------------
+r140 | 272375 | 2024-11-14 21:13:37 +0100 (Thu, 14 Nov 2024) | 1 line
+
+Added functionality to multiply by 14
+------------------------------------------------------------------------
+r139 | 272375 | 2024-11-14 21:06:36 +0100 (Thu, 14 Nov 2024) | 1 line
+
+Creating my personal branch
+------------------------------------------------------------------------
+r138 | 272392 | 2024-11-14 20:56:53 +0100 (Thu, 14 Nov 2024) | 2 lines
+
+dodanie taga - 272392
+
+------------------------------------------------------------------------
+r137 | 272392 | 2024-11-14 20:54:40 +0100 (Thu, 14 Nov 2024) | 2 lines
+
+usuniecie brancha - 272392
+
+------------------------------------------------------------------------
+r136 | 272392 | 2024-11-14 20:53:15 +0100 (Thu, 14 Nov 2024) | 1 line
+
+dodanie zmian - 272392
+------------------------------------------------------------------------
+r135 | 272392 | 2024-11-14 20:48:30 +0100 (Thu, 14 Nov 2024) | 1 line
+
+dodanie zmian - 272392
+------------------------------------------------------------------------
+r134 | 272392 | 2024-11-14 20:47:23 +0100 (Thu, 14 Nov 2024) | 1 line
+
+dodanie zmian - 272392
+------------------------------------------------------------------------
+r133 | 272392 | 2024-11-14 20:33:16 +0100 (Thu, 14 Nov 2024) | 2 lines
+
+dodanie rozgalezienia
+
+------------------------------------------------------------------------
+r132 | 272389 | 2024-11-14 17:03:56 +0100 (Thu, 14 Nov 2024) | 1 line
+
+add tag v_272389
+------------------------------------------------------------------------
+r131 | 272389 | 2024-11-14 17:02:18 +0100 (Thu, 14 Nov 2024) | 1 line
+
+remove branch 272389
+------------------------------------------------------------------------
+r130 | 272389 | 2024-11-14 17:00:26 +0100 (Thu, 14 Nov 2024) | 1 line
+
+merge branch 272389
+------------------------------------------------------------------------
+r129 | 272389 | 2024-11-14 16:57:32 +0100 (Thu, 14 Nov 2024) | 1 line
+
+merge branch 272389
+------------------------------------------------------------------------
+r128 | 272389 | 2024-11-14 16:54:54 +0100 (Thu, 14 Nov 2024) | 1 line
+
+add 272389's subprogram
+------------------------------------------------------------------------
+r127 | 272389 | 2024-11-14 16:48:05 +0100 (Thu, 14 Nov 2024) | 1 line
+
+remove all binaries
+------------------------------------------------------------------------
+r126 | 272389 | 2024-11-14 16:44:10 +0100 (Thu, 14 Nov 2024) | 1 line
+
+add 272389 branch
+------------------------------------------------------------------------
+r125 | 272402 | 2024-11-13 21:58:44 +0100 (Wed, 13 Nov 2024) | 1 line
+
+Utworzenie taga wersji v_272402 po scaleniu z trunkiem
+------------------------------------------------------------------------
+r124 | 272402 | 2024-11-13 21:56:52 +0100 (Wed, 13 Nov 2024) | 1 line
+
+Usunięcie gałęzi 272402 po reintegracji z trunkiem
+------------------------------------------------------------------------
+r123 | 272402 | 2024-11-13 21:56:41 +0100 (Wed, 13 Nov 2024) | 1 line
+
+Scalenie zmian z gałęzi 272402 do trunka
+------------------------------------------------------------------------
+r122 | 272402 | 2024-11-13 21:54:57 +0100 (Wed, 13 Nov 2024) | 1 line
+
+poprawka 272402
+------------------------------------------------------------------------
+r121 | 272402 | 2024-11-13 21:47:39 +0100 (Wed, 13 Nov 2024) | 1 line
+
+program studenda 272402
+------------------------------------------------------------------------
+r120 | 272402 | 2024-11-13 21:31:58 +0100 (Wed, 13 Nov 2024) | 2 lines
+
+branch w repo
+
+------------------------------------------------------------------------
+r119 | 272370 | 2024-11-13 20:28:04 +0100 (Wed, 13 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r118 | 272370 | 2024-11-13 20:25:33 +0100 (Wed, 13 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r117 | 272370 | 2024-11-13 20:24:27 +0100 (Wed, 13 Nov 2024) | 1 line
+
+reintegracja branch 272370
+------------------------------------------------------------------------
+r116 | 272370 | 2024-11-13 20:21:46 +0100 (Wed, 13 Nov 2024) | 1 line
+
+synchronizacja 272370 z trunk
+------------------------------------------------------------------------
+r115 | 272370 | 2024-11-13 20:18:33 +0100 (Wed, 13 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r114 | 272370 | 2024-11-13 20:05:49 +0100 (Wed, 13 Nov 2024) | 1 line
+
+stworzono branch 272370
+------------------------------------------------------------------------
+r113 | 272383 | 2024-11-12 22:31:20 +0100 (Tue, 12 Nov 2024) | 1 line
+
+trunk 272383
+------------------------------------------------------------------------
+r112 | 272383 | 2024-11-12 22:28:49 +0100 (Tue, 12 Nov 2024) | 1 line
+
+poprawny tag v_272383
+------------------------------------------------------------------------
+r111 | 272383 | 2024-11-12 22:20:48 +0100 (Tue, 12 Nov 2024) | 1 line
+
+utworzenie tagu v_272383 (ponownie)
+------------------------------------------------------------------------
+r110 | 272383 | 2024-11-12 22:19:58 +0100 (Tue, 12 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r109 | 272383 | 2024-11-12 22:19:36 +0100 (Tue, 12 Nov 2024) | 1 line
+
+reintegracja 272383 (ponownie)
+------------------------------------------------------------------------
+r108 | 272383 | 2024-11-12 22:18:34 +0100 (Tue, 12 Nov 2024) | 1 line
+
+scalenie zmian 272383
+------------------------------------------------------------------------
+r107 | 272383 | 2024-11-12 22:17:40 +0100 (Tue, 12 Nov 2024) | 1 line
+
+dodano brakującą linijkę do headera
+------------------------------------------------------------------------
+r106 | 272383 | 2024-11-12 22:16:29 +0100 (Tue, 12 Nov 2024) | 1 line
+
+Utworzenie gałęzi 272383 (ponownie)
+------------------------------------------------------------------------
+r105 | 272383 | 2024-11-12 22:14:22 +0100 (Tue, 12 Nov 2024) | 1 line
+
+tag do ponownego dodania
+------------------------------------------------------------------------
+r104 | 272383 | 2024-11-12 21:58:23 +0100 (Tue, 12 Nov 2024) | 1 line
+
+utworzenie tagu v_272383
+------------------------------------------------------------------------
+r103 | 272383 | 2024-11-12 21:55:24 +0100 (Tue, 12 Nov 2024) | 1 line
+
+usuwanie zbędnej gałęzi 272383
+------------------------------------------------------------------------
+r102 | 272383 | 2024-11-12 21:54:46 +0100 (Tue, 12 Nov 2024) | 1 line
+
+reintegracja gałęzi 272383 do trunk
+------------------------------------------------------------------------
+r101 | 272383 | 2024-11-12 21:53:02 +0100 (Tue, 12 Nov 2024) | 1 line
+
+scalenie zmian z trunk do gałęzi 272383
+------------------------------------------------------------------------
+r100 | 272383 | 2024-11-12 21:51:40 +0100 (Tue, 12 Nov 2024) | 1 line
+
+dodano podprogram s272383_podprogram.c
+------------------------------------------------------------------------
+r99 | 272383 | 2024-11-12 21:39:57 +0100 (Tue, 12 Nov 2024) | 1 line
+
+Utworzenie gałęzi 272383
+------------------------------------------------------------------------
+r98 | 272383 | 2024-11-12 21:20:53 +0100 (Tue, 12 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r97 | 272383 | 2024-11-12 21:11:58 +0100 (Tue, 12 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r96 | 272383 | 2024-11-12 21:10:38 +0100 (Tue, 12 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r95 | 272383 | 2024-11-12 20:53:20 +0100 (Tue, 12 Nov 2024) | 1 line
+
+utworzenie taga v_272383
+------------------------------------------------------------------------
+r94 | 272383 | 2024-11-12 20:52:07 +0100 (Tue, 12 Nov 2024) | 1 line
+
+Usunięcie zbędnej gałęzi 272383 po reintegracji
+------------------------------------------------------------------------
+r93 | 272383 | 2024-11-12 20:51:20 +0100 (Tue, 12 Nov 2024) | 1 line
+
+reintegracja gałęzi 272383 do trunk
+------------------------------------------------------------------------
+r92 | 272383 | 2024-11-12 20:50:18 +0100 (Tue, 12 Nov 2024) | 1 line
+
+Scalenie zmian z trunk do gałęzi 272383
+------------------------------------------------------------------------
+r91 | 272383 | 2024-11-12 20:49:25 +0100 (Tue, 12 Nov 2024) | 1 line
+
+Podprogram s272383_podprogram.c
+------------------------------------------------------------------------
+r90 | 272383 | 2024-11-12 20:46:46 +0100 (Tue, 12 Nov 2024) | 1 line
+
+Utworzenie gałęzi 272383
+------------------------------------------------------------------------
+r89 | 272379 | 2024-11-11 23:26:13 +0100 (Mon, 11 Nov 2024) | 1 line
+
+tag projektu po wykonaniu zadania przez 272379
+------------------------------------------------------------------------
+r88 | 272379 | 2024-11-11 23:22:54 +0100 (Mon, 11 Nov 2024) | 1 line
+
+usunieto branch 272379
+------------------------------------------------------------------------
+r87 | 272379 | 2024-11-11 23:21:00 +0100 (Mon, 11 Nov 2024) | 1 line
+
+merged 272379 z trunk
+------------------------------------------------------------------------
+r86 | 272379 | 2024-11-11 23:12:59 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r85 | 272379 | 2024-11-11 23:12:02 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r84 | 272379 | 2024-11-11 23:08:24 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r83 | 272379 | 2024-11-11 23:06:13 +0100 (Mon, 11 Nov 2024) | 1 line
+
+Rozwiązanie konfliktu tekstowego w pliku s272379_podprogram.c
+------------------------------------------------------------------------
+r82 | 272379 | 2024-11-11 23:05:03 +0100 (Mon, 11 Nov 2024) | 1 line
+
+Rozwiązanie konfliktu tekstowego w pliku s272379_podprogram.c
+------------------------------------------------------------------------
+r81 | 272379 | 2024-11-11 23:04:07 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r80 | 272379 | 2024-11-11 23:01:36 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r79 | 272379 | 2024-11-11 23:01:15 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r78 | 272379 | 2024-11-11 22:57:51 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r77 | 272379 | 2024-11-11 22:56:32 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r76 | 272379 | 2024-11-11 22:50:53 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r75 | 272379 | 2024-11-11 22:50:04 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r74 | 272379 | 2024-11-11 22:45:48 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r73 | 272379 | 2024-11-11 22:43:52 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r72 | 272379 | 2024-11-11 22:42:36 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r71 | 272379 | 2024-11-11 22:41:43 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r70 | 272379 | 2024-11-11 22:40:41 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r69 | 272379 | 2024-11-11 22:38:23 +0100 (Mon, 11 Nov 2024) | 1 line
+
+synchronizacja 272379 z trunk
+------------------------------------------------------------------------
+r68 | 272379 | 2024-11-11 22:37:10 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r67 | 272379 | 2024-11-11 22:34:18 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r66 | 272379 | 2024-11-11 22:31:21 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r65 | 272379 | 2024-11-11 22:29:34 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r64 | 272379 | 2024-11-11 22:19:30 +0100 (Mon, 11 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r63 | 272379 | 2024-11-11 22:13:59 +0100 (Mon, 11 Nov 2024) | 1 line
+
+synchronizacja gałęzi 272379 z trunk
+------------------------------------------------------------------------
+r62 | 272379 | 2024-11-11 22:12:48 +0100 (Mon, 11 Nov 2024) | 1 line
+
+dodano podprogram studenta 272379
+------------------------------------------------------------------------
+r61 | 272379 | 2024-11-11 22:00:12 +0100 (Mon, 11 Nov 2024) | 1 line
+
+stworzono branch 272379
+------------------------------------------------------------------------
+r60 | 272355 | 2024-11-08 23:04:57 +0100 (Fri, 08 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r59 | 272355 | 2024-11-08 23:04:26 +0100 (Fri, 08 Nov 2024) | 1 line
+
+Usunięcie gałęzi po zakończeniu integracji z trunk
+------------------------------------------------------------------------
+r58 | 272355 | 2024-11-08 23:03:11 +0100 (Fri, 08 Nov 2024) | 1 line
+
+272355 integruje swoją gałąź z trunk
+------------------------------------------------------------------------
+r57 | 272355 | 2024-11-08 22:59:58 +0100 (Fri, 08 Nov 2024) | 1 line
+
+272355 zaimplementowała swoją procedurę
+------------------------------------------------------------------------
+r56 | 272355 | 2024-11-08 22:54:02 +0100 (Fri, 08 Nov 2024) | 1 line
+
+272355 synchronizuje swoją gałąź z trunk
+------------------------------------------------------------------------
+r55 | 272355 | 2024-11-08 22:50:56 +0100 (Fri, 08 Nov 2024) | 1 line
+
+
+------------------------------------------------------------------------
+r54 | 272388 | 2024-11-08 18:10:47 +0100 (Fri, 08 Nov 2024) | 1 line
+
+branch delete
+------------------------------------------------------------------------
+r53 | 272388 | 2024-11-08 18:07:28 +0100 (Fri, 08 Nov 2024) | 1 line
+
+tag
+------------------------------------------------------------------------
+r52 | 272388 | 2024-11-08 17:55:50 +0100 (Fri, 08 Nov 2024) | 1 line
+
+merge, tag 272388
+------------------------------------------------------------------------
+r51 | 272388 | 2024-11-08 17:34:05 +0100 (Fri, 08 Nov 2024) | 1 line
+
+my changes
+------------------------------------------------------------------------
+r50 | 272388 | 2024-11-08 16:30:44 +0100 (Fri, 08 Nov 2024) | 1 line
+
+272388 branch
+------------------------------------------------------------------------
+r49 | 272369 | 2024-11-07 18:20:37 +0100 (Thu, 07 Nov 2024) | 1 line
+
+Changed propset.
+------------------------------------------------------------------------
+r48 | 272369 | 2024-11-07 18:11:26 +0100 (Thu, 07 Nov 2024) | 1 line
+
+Tagowanie wersji studenta 272369.
+------------------------------------------------------------------------
+r47 | 272369 | 2024-11-07 18:10:13 +0100 (Thu, 07 Nov 2024) | 1 line
+
+Usunięto gałąź 272369 po reintegracji.
+------------------------------------------------------------------------
+r46 | 272369 | 2024-11-07 18:09:29 +0100 (Thu, 07 Nov 2024) | 1 line
+
+Zmergowano prace studenta 272369 do trunk.
+------------------------------------------------------------------------
+r45 | 272369 | 2024-11-07 18:04:10 +0100 (Thu, 07 Nov 2024) | 1 line
+
+Zmergowano do trunk.
+------------------------------------------------------------------------
+r44 | 272369 | 2024-11-07 18:01:27 +0100 (Thu, 07 Nov 2024) | 1 line
+
+Student 272369 dodal mnozenie liczby przez 9.
+------------------------------------------------------------------------
+r43 | 272369 | 2024-11-07 17:40:44 +0100 (Thu, 07 Nov 2024) | 1 line
+
+Tworzenie gałęzi dla studenta 272369
+------------------------------------------------------------------------
+r42 | 272354 | 2024-11-05 22:40:50 +0100 (Tue, 05 Nov 2024) | 1 line
+
+encoding added
+------------------------------------------------------------------------
+r41 | 272354 | 2024-11-05 22:39:48 +0100 (Tue, 05 Nov 2024) | 1 line
+
+encoding added
+------------------------------------------------------------------------
+r40 | 272385 | 2024-11-05 22:38:32 +0100 (Tue, 05 Nov 2024) | 1 line
+
+Tag projektu po wykonaniu zadania 272385.
+------------------------------------------------------------------------
+r39 | 272385 | 2024-11-05 22:24:30 +0100 (Tue, 05 Nov 2024) | 1 line
+
+Usunięcie 272385 branch.
+------------------------------------------------------------------------
+r38 | 272385 | 2024-11-05 22:16:57 +0100 (Tue, 05 Nov 2024) | 1 line
+
+Merge 272385 do trunk.
+------------------------------------------------------------------------
+r37 | 272385 | 2024-11-05 22:12:16 +0100 (Tue, 05 Nov 2024) | 1 line
+
+Synchronizacja brancha 272385 z trunk.
+------------------------------------------------------------------------
+r36 | 272385 | 2024-11-05 22:10:28 +0100 (Tue, 05 Nov 2024) | 1 line
+
+Dodano podprogram 272385 do aplikacji.
+------------------------------------------------------------------------
+r35 | 272385 | 2024-11-05 21:54:22 +0100 (Tue, 05 Nov 2024) | 1 line
+
+branch 272385
+------------------------------------------------------------------------
+r34 | 272354 | 2024-11-05 21:46:58 +0100 (Tue, 05 Nov 2024) | 1 line
+
+encoding set
+------------------------------------------------------------------------
+r33 | 272354 | 2024-11-05 21:41:29 +0100 (Tue, 05 Nov 2024) | 1 line
+
+encoding set
+------------------------------------------------------------------------
+r32 | 272354 | 2024-11-05 21:40:21 +0100 (Tue, 05 Nov 2024) | 1 line
+
+encoding set
+------------------------------------------------------------------------
+r31 | 272354 | 2024-11-05 21:14:35 +0100 (Tue, 05 Nov 2024) | 1 line
+
+Tag projektu po wykonaniu zadania przez 272354
+------------------------------------------------------------------------
+r30 | 272354 | 2024-11-05 21:07:26 +0100 (Tue, 05 Nov 2024) | 1 line
+
+usunieto branch 272354
+------------------------------------------------------------------------
+r29 | 272354 | 2024-11-05 21:06:45 +0100 (Tue, 05 Nov 2024) | 1 line
+
+merged 272354 z trunk
+------------------------------------------------------------------------
+r28 | 272354 | 2024-11-05 21:03:36 +0100 (Tue, 05 Nov 2024) | 1 line
+
+synchronizacja 272354 z trunk
+------------------------------------------------------------------------
+r27 | 272354 | 2024-11-05 21:02:29 +0100 (Tue, 05 Nov 2024) | 1 line
+
+poprawiono makefile do 272354
+------------------------------------------------------------------------
+r26 | 272354 | 2024-11-05 20:58:36 +0100 (Tue, 05 Nov 2024) | 1 line
+
+reintegracja 272354 z trunk
+------------------------------------------------------------------------
+r25 | 272354 | 2024-11-05 20:55:58 +0100 (Tue, 05 Nov 2024) | 1 line
+
+synchronizacja 272354 z trunk
+------------------------------------------------------------------------
+r24 | 272354 | 2024-11-05 20:20:46 +0100 (Tue, 05 Nov 2024) | 1 line
+
+synchronizacja 272354 z trunk
+------------------------------------------------------------------------
+r23 | 272354 | 2024-11-05 20:15:56 +0100 (Tue, 05 Nov 2024) | 1 line
+
+synchronizacja 272354 z trunk
+------------------------------------------------------------------------
+r22 | 272354 | 2024-11-05 20:03:19 +0100 (Tue, 05 Nov 2024) | 1 line
+
+synchronizacja gałęzi 272354 z trunk
+------------------------------------------------------------------------
+r21 | 272354 | 2024-11-05 20:01:09 +0100 (Tue, 05 Nov 2024) | 1 line
+
+dodano podprogram studenta 272354
+------------------------------------------------------------------------
+r20 | 272354 | 2024-11-05 19:28:14 +0100 (Tue, 05 Nov 2024) | 1 line
+
+stworzono branch 272354
+------------------------------------------------------------------------
+r19 | 272397 | 2024-11-04 23:42:21 +0100 (Mon, 04 Nov 2024) | 1 line
+
+Tagging project after 272397 update
+------------------------------------------------------------------------
+r18 | 272397 | 2024-11-04 23:39:20 +0100 (Mon, 04 Nov 2024) | 1 line
+
+Remove 272397 branch
+------------------------------------------------------------------------
+r17 | 272397 | 2024-11-04 23:38:26 +0100 (Mon, 04 Nov 2024) | 1 line
+
+merge 272397 into trunk
+------------------------------------------------------------------------
+r16 | 272397 | 2024-11-04 23:29:54 +0100 (Mon, 04 Nov 2024) | 1 line
+
+Synchronizacja gałęzi 272397 z trunk
+------------------------------------------------------------------------
+r15 | 272397 | 2024-11-04 23:25:17 +0100 (Mon, 04 Nov 2024) | 1 line
+
+Dodano podprogram 272397 do aplikacji
+------------------------------------------------------------------------
+r14 | 272397 | 2024-11-04 23:11:26 +0100 (Mon, 04 Nov 2024) | 2 lines
+
+dodanie branch 272397
+
+------------------------------------------------------------------------
+r13 | mk1 | 2024-10-29 13:45:35 +0100 (Tue, 29 Oct 2024) | 2 lines
+
+wykonano: `svn propset svn:mime-type 'text/plain;charset=utf-8' $(find app_1/ -type f )`
+
+------------------------------------------------------------------------
+r12 | admin | 2020-11-12 10:52:01 +0100 (Thu, 12 Nov 2020) | 2 lines
+
+Poprawione kodowanie README i względny adres katalogu z tagami.
+
+------------------------------------------------------------------------
+r11 | 999 | 2016-10-24 13:57:42 +0200 (Mon, 24 Oct 2016) | 3 lines
+
+999 tworzy własnego tag-a
+
+
+------------------------------------------------------------------------
+r10 | 999 | 2016-10-24 13:55:29 +0200 (Mon, 24 Oct 2016) | 3 lines
+
+999 zreintegrował swoją gałąź z trunk-iem
+
+
+------------------------------------------------------------------------
+r9 | 999 | 2016-10-24 13:50:09 +0200 (Mon, 24 Oct 2016) | 2 lines
+
+999 wprowadza opis swojego podprogramu do README - ostateczna wersja jego gałęzi
+
+------------------------------------------------------------------------
+r8 | 999 | 2016-10-24 13:46:37 +0200 (Mon, 24 Oct 2016) | 2 lines
+
+999 ponownie synchronizuje swoją gałąź z trunk
+
+------------------------------------------------------------------------
+r7 | admin | 2016-10-24 13:44:15 +0200 (Mon, 24 Oct 2016) | 3 lines
+
+Dodatkowe wyjaśnienia w pliku README o tworzeniu tag-ów
+
+
+------------------------------------------------------------------------
+r6 | admin | 2016-10-24 13:39:20 +0200 (Mon, 24 Oct 2016) | 3 lines
+
+utworzenie katalogu na tagi aplikacji app_1
+
+
+------------------------------------------------------------------------
+r5 | 999 | 2016-10-24 13:37:15 +0200 (Mon, 24 Oct 2016) | 3 lines
+
+999 zaimplementował swoją procedurę
+
+
+------------------------------------------------------------------------
+r4 | 999 | 2016-10-24 13:21:53 +0200 (Mon, 24 Oct 2016) | 3 lines
+
+999 synchronizuje swoją gałąź z trunk
+
+
+------------------------------------------------------------------------
+r3 | 999 | 2016-10-24 13:04:10 +0200 (Mon, 24 Oct 2016) | 2 lines
+
+dodano plik README w trunk
+
+------------------------------------------------------------------------
+r2 | 999 | 2016-10-17 16:01:19 +0200 (Mon, 17 Oct 2016) | 1 line
+
+student 999 tworzy własną gałąź https://156.17.7.16/svn/lab/piaskownica/app_1/branches/999
+------------------------------------------------------------------------
+r1 | admin | 2016-10-17 14:28:36 +0200 (Mon, 17 Oct 2016) | 3 lines
+
+początkowa wersja projektu.
+
+
+------------------------------------------------------------------------
+
+󰣛 kallas  …/sp/list3/app_1   main ?   23:34 
+ cd trunk/
+
+󰣛 kallas  …/list3/app_1/trunk   main ?    v13.3.1   23:35 
+ ls
+README           s0_podprogram.c       s272355_podprogram.o  s272362_podprogram.c  s272374_podprogram.o  s272380_podprogram.o  s272385_podprogram.c  s272392_podprogram.o  s272402_podprogram.c  s999_podprogram.o
+main.c           s0_podprogram.o       s272358_podprogram.c  s272362_podprogram.o  s272375_podprogram.c  s272381_podprogram.c  s272385_podprogram.o  s272395_podprogram.c  s272402_podprogram.o
+main.o           s272353_podprogram.c  s272358_podprogram.o  s272369_podprogram.c  s272378_podprogram.c  s272381_podprogram.o  s272388_podprogram.c  s272395_podprogram.o  s274037_podprogram.c
+makefile         s272353_podprogram.o  s272359_podprogram.c  s272369_podprogram.o  s272378_podprogram.o  s272382_podprogram.c  s272388_podprogram.o  s272397_podprogram.c  s274037_podprogram.o
+program.h        s272354_podprogram.c  s272359_podprogram.o  s272370_podprogram.c  s272379_podprogram.c  s272382_podprogram.o  s272389_podprogram.c  s272397_podprogram.o  s276588_podprogram.c
+program_usage.c  s272354_podprogram.o  s272360_podprogram.c  s272370_podprogram.o  s272379_podprogram.o  s272383_podprogram.c  s272389_podprogram.o  s272398_podprogram.c  s276588_podprogram.o
+program_usage.o  s272355_podprogram.c  s272360_podprogram.o  s272374_podprogram.c  s272380_podprogram.c  s272383_podprogram.o  s272392_podprogram.c  s272398_podprogram.o  s999_podprogram.c
+
+󰣛 kallas  …/list3/app_1/trunk   main ?    v13.3.1   23:35 
+ svn blame program.h
+   159     272362 #include <stdio.h>
+     1      admin #include <stdlib.h>
+     1      admin #include <string.h>
+     1      admin
+     1      admin /* deklaracje funkcji używanych w programie */
+   159     272362 void program_usage();
+     1      admin
+     1      admin /* tu studenci mogą deklarować własne funkcje.
+     1      admin    Wszystkie nazwy funkcji studenta o numerze indeksu NNNNNN
+     1      admin    powinny rozpoczynać się od przedrostka sNNNNNN_
+     1      admin    aby nie kolidowały z nazwami funkcji innych studentów */
+     1      admin
+   159     272362 void s0_podprogram();      /* funkcja studenta 0 */
+   159     272362 void s999_podprogram();    /* funkcja studenta 999 */
+    17     272397 void s272397_podprogram(); /* funkcja studenta 272397 */
+    26     272354 void s272354_podprogram(); /* funkcja studenta 272354 */
+    38     272385 void s272385_podprogram(); /*funkcja studenta 272385 */
+    46     272369 void s272369_podprogram(); /*funkcja studenta 272369 */
+    52     272388 void s272388_podprogram(); /*funkcja studenta 272388 */
+    58     272355 void s272355_podprogram(); /*funkcja studenta 272355 */
+   159     272362 void s272379_podprogram(); /*funkcja studenta 272379 */
+   159     272362 void s272383_podprogram(); /*funkcja studenta 272383 */
+   159     272362 void s272370_podprogram(); /*funkcja studenta 272370 */
+   159     272362 void s272402_podprogram(); /*funkcja studenta 272402 */
+   159     272362 void s272389_podprogram(); /* funkcja studenta 272389 */
+   159     272362 void s272392_podprogram(); /* funkcja studenta 272392 */
+   147     272374 void s272374_podprogram(); /* funkcja studenta 272374 */
+   153     272395 void s272395_podprogram(); /* funkcja studenta 272395 */
+   159     272362 void s272362_podprogram(); /* funkcja studenta 272362 */
+   172     274037 void s274037_podprogram(); /* funkcja studenta 274037 */
+   179     276588 void s276588_podprogram(); /* funkcja studenta 276588 */
+   184     272382 void s272382_podprogram(); /* funkcja studenta 272382 */
+   195     272378 void s272378_podprogram(); /* funkcja studenta 272378 */
+   200     272359 void s272359_podprogram(); /* funkcja studenta 272359 */
+   208     272358 void s272358_podprogram(); /* funkcja studenta 272358 */
+   218     272380 void s272380_podprogram(); /* funkcja studenta 272380 */
+   234     272360 void s272360_podprogram(); /* funkcja studenta 272360 */
+   244     272353 void s272353_podprogram(); /* funkcja studenta 272353 */
+   256     272381 void s272381_podprogram(); /* funkcja studenta 272381 */
+   261     272398 void s272398_podprogram(); /* funkcja studenta 272398 */
+
+󰣛 kallas  …/list3/app_1/trunk   main ?    v13.3.1   23:35 
+ svn blame main.c
+     1      admin #include "program.h"
+     1      admin
+   184     272382 int main(int argc, char *argv[])
+   184     272382 {
+     1      admin
+   184     272382   if (argc != 2)
+   184     272382   {
+   161     272362     program_usage();
+   161     272362     exit(EXIT_FAILURE);
+   161     272362   }
+     1      admin
+     1      admin   {
+   161     272362     int idx = atoi(argv[1]);
+   184     272382     switch (idx)
+   184     272382     {
+   161     272362     case 0:
+   161     272362       s0_podprogram(); // podprogram studenta o numerze indeksu 0
+   161     272362       break;
+   161     272362     case 999:
+   161     272362       s999_podprogram(); // podprogram studenta o numerze indeksu 999
+   161     272362       break;
+   161     272362     case 272397:
+   161     272362       s272397_podprogram(); // podprogram studenta o numerze indeksu 272397
+   161     272362       break;
+   161     272362     case 272354:
+   161     272362       s272354_podprogram(); // podprogram studenta o numerze indeksu 272354
+   161     272362       break;
+   161     272362     case 272385:
+   161     272362       s272385_podprogram(); // podprogram studenta o numerze indeksu 272385
+   161     272362       break;
+   161     272362     case 272369:
+   161     272362       s272369_podprogram(); // podprogram studenta o numerze indeksu 272369
+   161     272362       break;
+   161     272362     case 272388:
+   161     272362       s272388_podprogram(); // podprogram studenta o numerze indeksu 272388
+   161     272362       break;
+   161     272362     case 272355:
+   161     272362       s272355_podprogram(); // podprogram studenta o numerze indeksu 272355
+   161     272362       break;
+   161     272362     case 272379:
+   161     272362       s272379_podprogram(); // podprogram studenta o numerze indeksu 272379
+   161     272362       break;
+   161     272362     case 272383:
+   161     272362       s272383_podprogram(); // podprogram studenta o numerze indeksu 272383
+   161     272362       break;
+   117     272370     case 272370:
+   161     272362       s272370_podprogram(); // podprogram studenta o numerze indeksu 272370
+   161     272362       break;
+   123     272402     case 272402:
+   161     272362       s272402_podprogram(); // podprogram studenta o numerze indeksu 272402
+   161     272362       break;
+   161     272362     case 272389:
+   161     272362       s272389_podprogram(); // podprogram studenta o numerze indeksu 272389
+   161     272362       break;
+   161     272362     case 272392:
+   161     272362       s272392_podprogram(); // podprogram studenta o numerze indeksu 272392
+   161     272362       break;
+   161     272362     case 272374:
+   161     272362       s272374_podprogram(); // podprogram studenta o numerze indeksu 272374
+   161     272362       break;
+   161     272362     case 272362:
+   161     272362       s272362_podprogram(); // podprogram studenta o numerze indeksu 272362
+   161     272362       break;
+   161     272362     case 272395:
+   161     272362       s272395_podprogram(); // podprogram studenta o numerze indeksu 272395
+   161     272362       break;
+   172     274037     case 274037:
+   184     272382       s274037_podprogram(); // podprogram studenta o numerze indeksu 274037
+   172     274037       break;
+   179     276588     case 276588:
+   184     272382       s276588_podprogram(); // podprogram studenta o numerze indeksu 276588
+   179     276588       break;
+   184     272382     case 272382:
+   184     272382       s272382_podprogram(); // podprogram studenta o numerze indeksu 272382
+   184     272382       break;
+   195     272378     case 272378:
+   195     272378       s272378_podprogram(); // podprogram studenta o numerze indeksu 272378
+   195     272378       break;
+   200     272359     case 272359:
+   200     272359       s272359_podprogram(); // podprogram studenta o numerze indeksu 272359
+   200     272359       break;
+   208     272358     case 272358:
+   208     272358       s272358_podprogram(); // podprogram studenta o numerze indeksu 272358
+   218     272380       break;
+   218     272380     case 272380:
+   218     272380       s272380_podprogram(); // podprogram studenta o numerze indeksu 272380
+   234     272360       break;
+   244     272353     case 272353:
+   244     272353       s272353_podprogram(); // podprogram studenta o numerze indeksu 272353
+   244     272353       break;
+   234     272360     case 272360:
+   234     272360       s272360_podprogram(); // podprogram studenta o numerze indeksu 272380
+   208     272358       break;
+   256     272381     case 272381:
+   256     272381       s272381_podprogram(); // podprogram studenta o numerze indeksu 272381
+   256     272381       break;
+   261     272398     case 272398:
+   261     272398       s272398_podprogram(); // podprogram studenta o numerze indeksu 272398
+   261     272398       break;
+   208     272358
+   117     272370     default:
+   161     272362       printf("\nStudent o numerze indeksu %d nie wykonał jeszcze zadania\n\n",
+   161     272362              idx);
+     1      admin       break;
+   161     272362     }
+     1      admin   }
+     1      admin   exit(EXIT_SUCCESS);
+     1      admin }
+
+󰣛 kallas  …/list3/app_1/trunk   main ?    v13.3.1   23:35 
+ tmux capture-pane -p -S'-' -E'-' >> my-log
+
+󰣛 kallas  …/list3/app_1/trunk   main ?    v13.3.1   23:35 
+ ls
+README           program_usage.o       s272355_podprogram.c  s272360_podprogram.o  s272374_podprogram.c  s272380_podprogram.c  s272383_podprogram.o  s272392_podprogram.c  s272398_podprogram.o  s999_podprogram.c
+main.c           s0_podprogram.c       s272355_podprogram.o  s272362_podprogram.c  s272374_podprogram.o  s272380_podprogram.o  s272385_podprogram.c  s272392_podprogram.o  s272402_podprogram.c  s999_podprogram.o
+main.o           s0_podprogram.o       s272358_podprogram.c  s272362_podprogram.o  s272375_podprogram.c  s272381_podprogram.c  s272385_podprogram.o  s272395_podprogram.c  s272402_podprogram.o
+makefile         s272353_podprogram.c  s272358_podprogram.o  s272369_podprogram.c  s272378_podprogram.c  s272381_podprogram.o  s272388_podprogram.c  s272395_podprogram.o  s274037_podprogram.c
+my-log           s272353_podprogram.o  s272359_podprogram.c  s272369_podprogram.o  s272378_podprogram.o  s272382_podprogram.c  s272388_podprogram.o  s272397_podprogram.c  s274037_podprogram.o
+program.h        s272354_podprogram.c  s272359_podprogram.o  s272370_podprogram.c  s272379_podprogram.c  s272382_podprogram.o  s272389_podprogram.c  s272397_podprogram.o  s276588_podprogram.c
+program_usage.c  s272354_podprogram.o  s272360_podprogram.c  s272370_podprogram.o  s272379_podprogram.o  s272383_podprogram.c  s272389_podprogram.o  s272398_podprogram.c  s276588_podprogram.o
+
+󰣛 kallas  …/list3/app_1/trunk   main ?    v13.3.1   23:35 
+ cd ..
+
+󰣛 kallas  …/sp/list3/app_1   main ?   23:35 
+ cd ..
+
+󰣛 kallas  …/sem5/sp/list3   main ?   23:35 
+ tmux capture-pane -p -S'-' -E'-' >> my-log
+

@@ -1,0 +1,76 @@
+
+󰣛 kallas  …/sem5/sp/list3   main ?   00:56 
+ # Michał Kallas, 272398
+
+󰣛 kallas  …/sem5/sp/list3   main ?   00:56 
+ ls
+l3z2.bash  l3z3.bash  my-log
+
+󰣛 kallas  …/sem5/sp/list3   main ?   00:56 
+ cat l3z2.bash
+#!/bin/bash
+
+if [ "$#" -ne 2 ]; then
+    echo -n "Usage: ./l3z2.bash <revision_number> <repo_url>"
+    exit 1
+fi
+
+REVISION=$1
+REPO_URL=$2
+TEMP_DIR=$(mktemp -d)
+
+trap "rm -rf $TEMP_DIR" EXIT
+
+svn checkout -r "$REVISION" "$REPO_URL" "$TEMP_DIR" > /dev/null 2>&1
+
+cat $(find $TEMP_DIR -type f ! -path "*/.svn/*")| tr -s " \n" | tr " " "\n" | sort | uniq -c
+
+
+󰣛 kallas  …/sem5/sp/list3   main ?   00:56 
+ ./l3z2.bash 15 https://repo.cs.pwr.edu.pl/info/SP/l3/a/
+     10 a
+      3 aa
+      1 aaa
+      1 aaaab
+      1 aaabb
+      2 aab
+      1 aabab
+      1 aabbb
+      6 ab
+      1 aba
+      1 abaab
+      1 ababb
+      2 abb
+      1 abbab
+      1 abbbb
+     10 b
+      1 bab
+      3 bb
+      1 bbb
+
+󰣛 kallas  …/sem5/sp/list3   main ?   00:56 
+ ./l3z2.bash 23 https://repo.cs.pwr.edu.pl/info/SP/l3/a/
+      6 a
+      3 aa
+      1 aaa
+      1 aaaab
+      1 aaabb
+      2 aab
+      1 aabab
+      1 aabbb
+      4 ab
+      1 aba
+      1 abaab
+      1 ababb
+      1 abb
+      1 abbab
+      1 abbbb
+      5 b
+      1 bab
+      1 bb
+      3 c
+      2 d
+
+󰣛 kallas  …/sem5/sp/list3   main ?   00:56 
+ tmux capture-pane -p -S'-' -E'-' >> zad2
+

@@ -1,0 +1,85 @@
+
+󰣛 kallas  …/sem5/sp/list3   main ?   00:57 
+ # Michał Kallas, 272398
+
+󰣛 kallas  …/sem5/sp/list3   main ?   00:57 
+ ls
+l3z2.bash  l3z3.bash  my-log  zad2
+
+󰣛 kallas  …/sem5/sp/list3   main ?   00:57 
+ cat l3z3.bash
+#!/bin/bash
+
+if [ "$#" -ne 2 ]; then
+    echo -n "Usage: ./l3z2.bash <revision_number> <repo_url>"
+    exit 1
+fi
+
+REVISION=$1
+REPO_URL=$2
+TEMP_DIR=$(mktemp -d)
+
+trap "rm -rf $TEMP_DIR" EXIT
+
+svn checkout -r "$REVISION" "$REPO_URL" "$TEMP_DIR" > /dev/null 2>&1
+
+files=$(find $TEMP_DIR -type f ! -path "*/.svn/*")
+all_unique_words=""
+
+for file in $files; do
+    all_unique_words=$(echo $all_unique_words $(cat $file | tr -s " \n" | tr " " "\n" | sort -u))
+done
+
+echo $all_unique_words | tr " " "\n" | sort | uniq -c
+
+
+󰣛 kallas  …/sem5/sp/list3   main ?   00:57 
+ ./l3z3.bash 15 https://repo.cs.pwr.edu.pl/info/SP/l3/a/
+      7 a
+      3 aa
+      1 aaa
+      1 aaaab
+      1 aaabb
+      2 aab
+      1 aabab
+      1 aabbb
+      5 ab
+      1 aba
+      1 abaab
+      1 ababb
+      2 abb
+      1 abbab
+      1 abbbb
+      7 b
+      1 bab
+      3 bb
+      1 bbb
+
+󰣛 kallas  …/sem5/sp/list3   main ?   00:57 
+ ./l3z3.bash 18 https://repo.cs.pwr.edu.pl/info/SP/l3/a/
+      7 a
+      3 aa
+      1 aaa
+      1 aaaab
+      1 aaabb
+      2 aab
+      1 aabab
+      1 aabbb
+      5 ab
+      1 aba
+      1 abaab
+      1 ababb
+      2 abb
+      1 abbab
+      1 abbbb
+      7 b
+      1 bab
+      3 bb
+      1 bbb
+      3 c
+      2 d
+      1 dd
+
+󰣛 kallas  …/sem5/sp/list3   main ?   00:57 
+ tmux capture-pane -p -S'-' -E'-' >> zad3
+
