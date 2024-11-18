@@ -130,7 +130,7 @@
 [\+\-\*/\^\%]                 { handleOperator(&stack, yytext[0]); }
 [[:blank:]]+                  {}
 \n                            { handleEndOfLine(&stack); }
-[^0-9\+\-\*/\^\%[:blank:]\n]  { handleInvalidSymbol(yytext); }
+.                             { handleInvalidSymbol(yytext); }
 
 %%
 
