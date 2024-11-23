@@ -1,0 +1,200 @@
+[kallas@Asus-Michal list4]$ ls
+l4z2.bash
+[kallas@Asus-Michal list4]$ cat l4z2.bash
+#!/bin/bash
+
+if [ "$#" -ne 3 ]; then
+  echo "Usage: $0 <r1> <r2> <SVN_URL>"
+  exit 1
+fi
+
+svn_min_revision_number=$1
+svn_max_revision_number=$2
+svn_repository_url=$3
+
+git_repository_directory=$(basename "$svn_repository_url")
+temp_svn_repository_directory="temp_svn"
+
+rm -rf "$git_repository_directory"
+git init "$git_repository_directory" >/dev/null 2>&1
+
+trap "rm -rf $temp_svn_repository_directory" EXIT
+
+for ((revision_number = svn_min_revision_number; revision_number <= svn_max_revision_number; revision_number++)); do
+      rm -rf "$temp_svn_repository_directory"
+      mkdir "$temp_svn_repository_directory"
+      svn export --force --revision "$revision_number" "$svn_repository_url" "$temp_svn_repository_directory" >/dev/null 2>&1
+      find "$temp_svn_repository_directory" \( -name ".git" -o -name ".svn" -o -name ".gitignore" \) -exec rm -rf {} +
+
+      cd "$git_repository_directory"
+      find . -mindepth 1 -name ".git" -prune -o -exec rm -rf {} +
+      cp -r ../"$temp_svn_repository_directory"/* .
+      git add .
+
+      svn_log=$(svn log --revision "$revision_number" "$svn_repository_url" | sed -n '/^$/,$p' | tail -n +2)
+      git commit -m "$svn_log" >/dev/null 2>&1
+
+      cd - >/dev/null 2>&1
+done
+
+[kallas@Asus-Michal list4]$ ./l4z2.bash 15 21 https://repo.cs.pwr.edu.pl/info/SP/l3/
+[kallas@Asus-Michal list4]$ ls
+l3  l4z2.bash
+[kallas@Asus-Michal list4]$ cd l3
+[kallas@Asus-Michal l3]$ ls
+a
+[kallas@Asus-Michal l3]$ git log --stat
+commit 0290e9b1d75e433d2f12e877825961a486bdbecb (HEAD -> master)
+Author: kallazz <michael.w.kallas@gmail.com>
+Date:   Sat Nov 23 21:27:58 2024 +0100
+
+    usunięcie katalogu
+
+    Usunięcie kolejnego podkatalogu:
+    a/bb
+
+    ------------------------------------------------------------------------
+
+ a/bb/b/abbb | 3 ---
+ 1 file changed, 3 deletions(-)
+
+commit df74063fa9b365cfc8b7af7da0e5b3f30dfb70a4
+Author: kallazz <michael.w.kallas@gmail.com>
+Date:   Sat Nov 23 21:27:58 2024 +0100
+
+    usunięcie katalogu
+
+    ------------------------------------------------------------------------
+
+ a/b/ab    | 2 --
+ a/b/b/abb | 3 ---
+ 2 files changed, 5 deletions(-)
+
+commit 8f384549058086ac02913091fa956f86d5cda720
+Author: kallazz <michael.w.kallas@gmail.com>
+Date:   Sat Nov 23 21:27:57 2024 +0100
+
+    nowa rewizja
+
+    ------------------------------------------------------------------------
+
+ a/baa/dc | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit c4cdbf6d768aba9fb3983aec9629e49601a02dfa
+Author: kallazz <michael.w.kallas@gmail.com>
+Date:   Sat Nov 23 21:27:57 2024 +0100
+
+    nowa rewizja
+
+    ------------------------------------------------------------------------
+
+ a/ba/b/abab | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+commit ffb87d44b247834c9269716a77a43d8af71f9241
+Author: kallazz <michael.w.kallas@gmail.com>
+Date:   Sat Nov 23 21:27:57 2024 +0100
+
+    nowa rewizja
+
+    ------------------------------------------------------------------------
+
+ a/b/ab | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 67529bd7758ae171a2cb6475a075b19b2c793c6c
+Author: kallazz <michael.w.kallas@gmail.com>
+Date:   Sat Nov 23 21:27:56 2024 +0100
+
+    Dane do listy 3.
+
+    ------------------------------------------------------------------------
+
+ a/a/b/aab     | 3 +++
+ a/aa/b/aaab   | 3 +++
+ a/aaa/b/aaaab | 1 +
+ a/aab/b/aaabb | 1 +
+ a/ab/b/aabb   | 3 +++
+ a/aba/b/aabab | 1 +
+ a/abb/b/aabbb | 1 +
+ a/b/ab        | 1 +
+ a/b/b/abb     | 3 +++
+ a/ba/b/abab   | 3 +++
+ a/baa/b/abaab | 1 +
+ a/bab/b/ababb | 1 +
+ a/bb/b/abbb   | 3 +++
+ a/bba/b/abbab | 1 +
+ a/bbb/b/abbbb | 1 +
+ 15 files changed, 27 insertions(+)
+[kallas@Asus-Michal l3]$ git log --stat | grep -v '^commit ' | grep -v '^Author: ' | grep -v '^Date: '
+
+    usunięcie katalogu
+
+    Usunięcie kolejnego podkatalogu:
+    a/bb
+
+    ------------------------------------------------------------------------
+
+ a/bb/b/abbb | 3 ---
+ 1 file changed, 3 deletions(-)
+
+
+    usunięcie katalogu
+
+    ------------------------------------------------------------------------
+
+ a/b/ab    | 2 --
+ a/b/b/abb | 3 ---
+ 2 files changed, 5 deletions(-)
+
+
+    nowa rewizja
+
+    ------------------------------------------------------------------------
+
+ a/baa/dc | 2 ++
+ 1 file changed, 2 insertions(+)
+
+
+    nowa rewizja
+
+    ------------------------------------------------------------------------
+
+ a/ba/b/abab | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+
+    nowa rewizja
+
+    ------------------------------------------------------------------------
+
+ a/b/ab | 1 +
+ 1 file changed, 1 insertion(+)
+
+
+    Dane do listy 3.
+
+    ------------------------------------------------------------------------
+
+ a/a/b/aab     | 3 +++
+ a/aa/b/aaab   | 3 +++
+ a/aaa/b/aaaab | 1 +
+ a/aab/b/aaabb | 1 +
+ a/ab/b/aabb   | 3 +++
+ a/aba/b/aabab | 1 +
+ a/abb/b/aabbb | 1 +
+ a/b/ab        | 1 +
+ a/b/b/abb     | 3 +++
+ a/ba/b/abab   | 3 +++
+ a/baa/b/abaab | 1 +
+ a/bab/b/ababb | 1 +
+ a/bb/b/abbb   | 3 +++
+ a/bba/b/abbab | 1 +
+ a/bbb/b/abbbb | 1 +
+ 15 files changed, 27 insertions(+)
+[kallas@Asus-Michal l3]$ cd ..
+[kallas@Asus-Michal list4]$ ls
+l3  l4z2.bash
+[kallas@Asus-Michal list4]$ tmux capture-pane -p -S'-' -E'-' >> my-log
+

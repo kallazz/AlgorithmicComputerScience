@@ -1,0 +1,497 @@
+[kallas@Asus-Michal workspace]$ cd ina/sem5/sp/list4
+[kallas@Asus-Michal list4]$ ls
+[kallas@Asus-Michal list4]$ git clone ssh://git@156.17.7.16:59004/24-25-1-p-2
+Cloning into '24-25-1-p-2'...
+remote: Enumerating objects: 84, done.
+remote: Counting objects: 100% (84/84), done.
+remote: Compressing objects: 100% (84/84), done.
+remote: Total 84 (delta 45), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (84/84), 12.00 KiB | 1.71 MiB/s, done.
+Resolving deltas: 100% (45/45), done.
+[kallas@Asus-Michal list4]$ ls
+24-25-1-p-2
+[kallas@Asus-Michal list4]$ cd 24-25-1-p-2/
+[kallas@Asus-Michal 24-25-1-p-2]$ ls
+main.c    program.h        s0_podprogram.c       s272370_podprogram.c  s272388_podprogram.c
+makefile  program_usage.c  s272354_podprogram.c  s272383_podprogram.c  s999.c
+[kallas@Asus-Michal 24-25-1-p-2]$ cat main.c
+#include "program.h"
+
+
+int main(int argc, char *argv[])
+{
+
+  if(argc!=2)
+    {
+      program_usage();
+      exit(EXIT_FAILURE);
+    }
+
+  {
+    int idx=atoi(argv[1]);
+    switch( idx )
+      {
+      case 0:
+        s0_podprogram() ; // podprogram studenta o numerze indeksu 0
+        break;
+      case 999: /* podprogram studenta 999 */
+        s999_podprogram() ;
+        break;
+      case 272383: /* podprogram studenta 272383 */
+        s272383_podprogram() ;
+        break;
+      case 272354: /* podprogram studenta 272354 */
+        s272354_podprogram() ;
+        break;
+      case 272370: /* podprogram studenta 272370 */
+        s272370_podprogram() ;
+        break;
+      case 272388: /* podprogram studenta 272388 */
+        s272388_podprogram() ;
+        break;
+      default:
+        printf("\nStudent o numerze indeksu %d nie wykonał jeszcze zadania\n\n",idx);
+      break;
+
+      }
+  }
+  exit(EXIT_SUCCESS);
+}
+[kallas@Asus-Michal 24-25-1-p-2]$ git branch
+* master
+[kallas@Asus-Michal 24-25-1-p-2]$ git checkout -b 272398-branch
+Switched to a new branch '272398-branch'
+[kallas@Asus-Michal 24-25-1-p-2]$ git branch
+* 272398-branch
+  master
+[kallas@Asus-Michal 24-25-1-p-2]$ ls
+main.c    program.h        s0_podprogram.c       s272370_podprogram.c  s272388_podprogram.c
+makefile  program_usage.c  s272354_podprogram.c  s272383_podprogram.c  s999.c
+[kallas@Asus-Michal 24-25-1-p-2]$ vi .
+[kallas@Asus-Michal 24-25-1-p-2]$ git status
+On branch 272398-branch
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   main.c
+        modified:   makefile
+        modified:   program.h
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        s272398_podprogram.c
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[kallas@Asus-Michal 24-25-1-p-2]$ git checkout master
+M       main.c
+M       makefile
+M       program.h
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+[kallas@Asus-Michal 24-25-1-p-2]$ git pull origin master
+From ssh://156.17.7.16:59004/24-25-1-p-2
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+[kallas@Asus-Michal 24-25-1-p-2]$ git checkout 272398-branch
+M       main.c
+M       makefile
+M       program.h
+Switched to branch '272398-branch'
+[kallas@Asus-Michal 24-25-1-p-2]$ git merge master
+Already up to date.
+[kallas@Asus-Michal 24-25-1-p-2]$ git status
+On branch 272398-branch
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   main.c
+        modified:   makefile
+        modified:   program.h
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        s272398_podprogram.c
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[kallas@Asus-Michal 24-25-1-p-2]$ git add .
+[kallas@Asus-Michal 24-25-1-p-2]$ git status
+On branch 272398-branch
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   main.c
+        modified:   makefile
+        modified:   program.h
+        new file:   s272398_podprogram.c
+
+[kallas@Asus-Michal 24-25-1-p-2]$ git commit -m "Dodano program dla 272398"
+[272398-branch 64c4424] Dodano program dla 272398
+ 4 files changed, 20 insertions(+)
+ create mode 100644 s272398_podprogram.c
+[kallas@Asus-Michal 24-25-1-p-2]$ git checkout master
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+[kallas@Asus-Michal 24-25-1-p-2]$ git pull origin master
+From ssh://156.17.7.16:59004/24-25-1-p-2
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+[kallas@Asus-Michal 24-25-1-p-2]$ git merge 272398-branch
+Updating 93f3cdf..64c4424
+Fast-forward
+ main.c               |  3 +++
+ makefile             |  3 +++
+ program.h            |  1 +
+ s272398_podprogram.c | 13 +++++++++++++
+ 4 files changed, 20 insertions(+)
+ create mode 100644 s272398_podprogram.c
+[kallas@Asus-Michal 24-25-1-p-2]$ git push origin master
+Enumerating objects: 10, done.
+Counting objects: 100% (10/10), done.
+Delta compression using up to 16 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 808 bytes | 808.00 KiB/s, done.
+Total 6 (delta 4), reused 0 (delta 0), pack-reused 0 (from 0)
+To ssh://156.17.7.16:59004/24-25-1-p-2
+   93f3cdf..64c4424  master -> master
+[kallas@Asus-Michal 24-25-1-p-2]$ git log
+commit 64c442474100ffcb5dfb3d7a85316eee41d64e5c (HEAD -> master, origin/master, origin/HEAD, 272398-branch)
+Author: kallazz <michael.w.kallas@gmail.com>
+Date:   Sat Nov 23 18:22:06 2024 +0100
+
+    Dodano program dla 272398
+
+commit 93f3cdf4d2408e13cad526df018f5fde896c3e46
+Author: kallazz <michael.w.kallas@gmail.com>
+Date:   Sat Nov 23 18:09:35 2024 +0100
+
+    Revert "Dodano program dla 272398"
+
+    This reverts commit 37c02cda309c0c43c016ea6e551c93482b5ae431.
+
+commit 37c02cda309c0c43c016ea6e551c93482b5ae431 (tag: v_272398_old, tag: v_272398)
+Author: kallazz <michael.w.kallas@gmail.com>
+Date:   Sat Nov 23 18:05:18 2024 +0100
+
+    Dodano program dla 272398
+
+commit c210090e09cda639c0fed8e7b0c16d21205b1137
+Author: Zofia Kuriata <zosia.kuriata7@gmail.com>
+Date:   Sat Nov 23 08:37:46 2024 +0100
+
+    delete changes 272362
+
+commit 5d51b9b9ff877f7076b51c8f0ea4461f3ec1ee32
+Author: Zofia Kuriata <zosia.kuriata7@gmail.com>
+[kallas@Asus-Michal 24-25-1-p-2]$ git branch -D 272398-branch
+Deleted branch 272398-branch (was 64c4424).
+[kallas@Asus-Michal 24-25-1-p-2]$ git tag v_272398_
+[kallas@Asus-Michal 24-25-1-p-2]$ git push origin tag v_272398_
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+To ssh://156.17.7.16:59004/24-25-1-p-2
+ * [new tag]         v_272398_ -> v_272398_
+[kallas@Asus-Michal 24-25-1-p-2]$ cd ..
+[kallas@Asus-Michal list4]$ ls
+24-25-1-p-2
+[kallas@Asus-Michal list4]$ git clone ssh://git@156.17.7.16:59004/24-25-1-p-2 ponownie-sklonowane-repo
+Cloning into 'ponownie-sklonowane-repo'...
+remote: Enumerating objects: 87, done.
+remote: Counting objects: 100% (87/87), done.
+remote: Compressing objects: 100% (87/87), done.
+remote: Total 87 (delta 47), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (87/87), 12.22 KiB | 12.22 MiB/s, done.
+Resolving deltas: 100% (47/47), done.
+[kallas@Asus-Michal list4]$ ls
+24-25-1-p-2  ponownie-sklonowane-repo
+[kallas@Asus-Michal list4]$ cd ponownie-sklonowane-repo/
+[kallas@Asus-Michal ponownie-sklonowane-repo]$ ls
+main.c    program.h        s0_podprogram.c       s272370_podprogram.c  s272388_podprogram.c  s999.c
+makefile  program_usage.c  s272354_podprogram.c  s272383_podprogram.c  s272398_podprogram.c
+[kallas@Asus-Michal ponownie-sklonowane-repo]$ git diff master..v_272398_
+[kallas@Asus-Michal ponownie-sklonowane-repo]$ git checkout v_272398_
+Note: switching to 'v_272398_'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 64c4424 Dodano program dla 272398
+[kallas@Asus-Michal ponownie-sklonowane-repo]$ git branch
+* (HEAD detached at v_272398_)
+  master
+[kallas@Asus-Michal ponownie-sklonowane-repo]$ git show v_272398_
+commit 64c442474100ffcb5dfb3d7a85316eee41d64e5c (HEAD, tag: v_272398_, origin/master, origin/HEAD, master)
+Author: kallazz <michael.w.kallas@gmail.com>
+Date:   Sat Nov 23 18:22:06 2024 +0100
+
+    Dodano program dla 272398
+
+diff --git a/main.c b/main.c
+index aaf585e..e3144e9 100644
+--- a/main.c
++++ b/main.c
+@@ -32,6 +32,9 @@ int main(int argc, char *argv[])
+       case 272388: /* podprogram studenta 272388 */
+         s272388_podprogram() ;
+         break;
++      case 272398: /* podprogram studenta 272398 */
++        s272398_podprogram() ;
++        break;
+       default:
+        printf("\nStudent o numerze indeksu %d nie wykonał jeszcze zadania\n\n",idx);
+       break;
+diff --git a/makefile b/makefile
+index 06b57db..93bcc05 100644
+--- a/makefile
++++ b/makefile
+@@ -4,6 +4,7 @@ objects = main.o program_usage.o \
+           s272354_podprogram.o \
+           s272370_podprogram.o \
+           s272388_podprogram.o \
++          s272398_podprogram.o \
+           s999.o
+
+ program : $(objects)
+@@ -24,6 +25,8 @@ s272370_podprogram.o : program.h
+
+ s272388_podprogram.o : program.h
+
++s272398_podprogram.o : program.h
++
+ .PHONY : clean
+
+ clean :
+diff --git a/program.h b/program.h
+index f81781a..57c299f 100644
+--- a/program.h
++++ b/program.h
+@@ -18,4 +18,5 @@ void s272383_podprogram(); /* funcja studenta 272383 */
+ void s272354_podprogram(); /* funkcja studenta 272354 */
+ void s272370_podprogram(); /* funkcja studenta 272370 */
+ void s272388_podprogram(); /* funkcja studenta 272388 */
++void s272398_podprogram(); /* funkcja studenta 272398 */
+
+diff --git a/s272398_podprogram.c b/s272398_podprogram.c
+new file mode 100644
+index 0000000..2fe2bd7
+--- /dev/null
++++ b/s272398_podprogram.c
+@@ -0,0 +1,13 @@
++#include "program.h"
++
++void s272398_podprogram()
++{
++  printf("\n\nAutor: Michał Kallas, numer indeksu: 272398\n\n");
++  printf("Program wczytuje liczbę całkowitą i drukuje ją pomnożoną przez 25\n");
++
++  int x;
++  printf("Podaj liczbę x: ");
++  scanf("%d", &x);
++
++  printf("Liczba x pomnożona przez 25 wynosi: %d\n", x * 25);
++}
+[kallas@Asus-Michal ponownie-sklonowane-repo]$ ls
+main.c    program.h        s0_podprogram.c       s272370_podprogram.c  s272388_podprogram.c  s999.c
+makefile  program_usage.c  s272354_podprogram.c  s272383_podprogram.c  s272398_podprogram.c
+[kallas@Asus-Michal ponownie-sklonowane-repo]$ make
+cc    -c -o main.o main.c
+cc    -c -o program_usage.o program_usage.c
+cc    -c -o s0_podprogram.o s0_podprogram.c
+cc    -c -o s272383_podprogram.o s272383_podprogram.c
+cc    -c -o s272354_podprogram.o s272354_podprogram.c
+cc    -c -o s272370_podprogram.o s272370_podprogram.c
+cc    -c -o s272388_podprogram.o s272388_podprogram.c
+cc    -c -o s272398_podprogram.o s272398_podprogram.c
+cc    -c -o s999.o s999.c
+cc -o program main.o program_usage.o s0_podprogram.o s272383_podprogram.o s272354_podprogram.o s272370_podprogram.o s272
+388_podprogram.o s272398_podprogram.o s999.o
+[kallas@Asus-Michal ponownie-sklonowane-repo]$ ls
+main.c    program.h        s0_podprogram.o       s272370_podprogram.o  s272388_podprogram.o  s999.o
+main.o    program_usage.c  s272354_podprogram.c  s272383_podprogram.c  s272398_podprogram.c
+makefile  program_usage.o  s272354_podprogram.o  s272383_podprogram.o  s272398_podprogram.o
+program   s0_podprogram.c  s272370_podprogram.c  s272388_podprogram.c  s999.c
+[kallas@Asus-Michal ponownie-sklonowane-repo]$ ./program 272398
+
+
+Autor: Michał Kallas, numer indeksu: 272398
+
+Program wczytuje liczbę całkowitą i drukuje ją pomnożoną przez 25
+Podaj liczbę x: 4
+Liczba x pomnożona przez 25 wynosi: 100
+[kallas@Asus-Michal ponownie-sklonowane-repo]$ git checkout master
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+[kallas@Asus-Michal ponownie-sklonowane-repo]$ git branch
+* master
+[kallas@Asus-Michal ponownie-sklonowane-repo]$ git log --all --graph --decorate
+* commit 64c442474100ffcb5dfb3d7a85316eee41d64e5c (HEAD -> master, tag: v_272398_, origin/master, origin/HEAD)
+| Author: kallazz <michael.w.kallas@gmail.com>
+| Date:   Sat Nov 23 18:22:06 2024 +0100
+|
+|     Dodano program dla 272398
+|
+* commit 93f3cdf4d2408e13cad526df018f5fde896c3e46
+| Author: kallazz <michael.w.kallas@gmail.com>
+| Date:   Sat Nov 23 18:09:35 2024 +0100
+|
+|     Revert "Dodano program dla 272398"
+|
+|     This reverts commit 37c02cda309c0c43c016ea6e551c93482b5ae431.
+|
+* commit 37c02cda309c0c43c016ea6e551c93482b5ae431 (tag: v_272398_old, tag: v_272398)
+| Author: kallazz <michael.w.kallas@gmail.com>
+| Date:   Sat Nov 23 18:05:18 2024 +0100
+|
+|     Dodano program dla 272398
+|
+| * commit ace7b0bed4c7a3f9728783a1b4f151ebe3659f3e (tag: s272362_)
+|/  Author: Zofia Kuriata <zosia.kuriata7@gmail.com>
+|   Date:   Sat Nov 23 08:43:30 2024 +0100
+|
+|       272362 add program
+|
+* commit c210090e09cda639c0fed8e7b0c16d21205b1137
+| Author: Zofia Kuriata <zosia.kuriata7@gmail.com>
+| Date:   Sat Nov 23 08:37:46 2024 +0100
+|
+|     delete changes 272362
+|
+* commit 5d51b9b9ff877f7076b51c8f0ea4461f3ec1ee32
+| Author: Zofia Kuriata <zosia.kuriata7@gmail.com>
+| Date:   Sat Nov 23 08:25:07 2024 +0100
+|
+|     272362 changes again
+|
+* commit a5fc3242c8f1fccea2b10cd63ddf53885b070a8f
+| Author: Zofia Kuriata <zosia.kuriata7@gmail.com>
+| Date:   Sat Nov 23 08:03:06 2024 +0100
+|
+|     repair makefile by 272362
+|
+* commit 86ddcebde7b664bdd22757c7383f070f514b0fa4 (tag: s272362)
+| Author: Zofia Kuriata <zosia.kuriata7@gmail.com>
+| Date:   Sat Nov 23 07:52:16 2024 +0100
+|
+|     272362 changes
+|
+* commit 89bfb153399f8850cb68ca63d128088404b1ba89 (tag: s272388)
+| Author: Domofold <domeg630@gmail.com>
+| Date:   Fri Nov 22 18:09:06 2024 +0100
+|
+|     changes 272388
+|
+* commit ee13c4ec7fd2df8d0f09c0374e6c41b9de656bf7 (tag: v_272370)
+| Author: mpoprawa <m.poprawa23@gmail.com>
+| Date:   Wed Nov 20 17:30:41 2024 +0100
+|
+|     podprogram 272370
+|
+* commit 5adb43b3040b727766894d445e620867aeda7e9a (tag: v_272354, origin/272354)
+| Author: Kinga <272354@student.pwr.edu.pl>
+| Date:   Wed Nov 20 13:39:40 2024 +0100
+|
+|     dodano rozwiązanie studenta 272354
+|
+* commit 0bb6a5214bcf8ee28716d6a820070cd5842d6b7f
+| Author: Kinga <272354@student.pwr.edu.pl>
+| Date:   Wed Nov 20 13:38:02 2024 +0100
+|
+|     dodano rozwiązanie studenta 272354
+|
+* commit 89e98cdd8cc98450560412558a10f58a9192db6f (tag: s272383)
+| Author: wikto <wikto@ideapad-wikto.home>
+| Date:   Thu Nov 14 17:15:09 2024 +0100
+|
+|     Dodano podprogram s272383_podprogram.c
+|
+* commit fff7624ae83a5a362a07ca898ce45efd10c875f2 (tag: s999)
+| Author: Student Sztuczny 999 <999@nibyuczelnia>
+| Date:   Mon Nov 10 14:30:55 2014 +0100
+|
+|     Student 999 wprowadza odpowiednie poprawki w makefile i pozostałych plikach źródłowych.
+|
+*   commit b495dd411d82d84c118cced42125d6fe0bd57769
+|\  Merge: baf27db e0cac2e
+| | Author: Student Sztuczny 999 <999@nibyuczelnia>
+| | Date:   Mon Nov 10 13:59:02 2014 +0100
+| |
+| |     Merge branch 'master' into branch-999
+| |
+| |     Student 999 dokonał synchronizacji swojej gałęzi ze zmianami dokonanymi przez admina w origin/master.
+| |     Polecenia:
+| |       git checkout master
+| |       git pull
+| |       git checkout branch-999
+| |       git merge master
+| |
+| * commit e0cac2e9636ab179b95340d4f19c1b1ed4234c76
+| | Author: admin <Marcin.Kik@pwr.edu.pl>
+| | Date:   Mon Nov 10 13:54:58 2014 +0100
+| |
+| |     admin wprowadza poprawki w pliku makefile.
+| |
+* | commit baf27dba822c9b17c97baddf3bf5324811b24860
+|/  Author: Student Sztuczny 999 <999@nibyuczelnia>
+|   Date:   Mon Nov 10 13:45:43 2014 +0100
+|
+|       Student 999 tworzy swoją gałąź i przełącza się na nią,
+|       wykonując  polecenia:
+|
+|         git branch branch-999
+|         git checkout branch-999
+|
+|       Student 999 dodaje plik s999.c z podprogramem, ale jeszcze nie
+|       uwzględnił go w makefile i pozostałych plikach źródłowych.
+|
+* commit 871c4727e2370ff70fbff9878c222e33ba5e2b4f
+| Author: admin <Marcin.Kik@pwr.edu.pl>
+| Date:   Mon Nov 10 12:53:38 2014 +0100
+|
+|         admin wprowadza trochę poprawek do organizacji projektu:
+|
+|         - dodany został plik: makefile -- teraz program kompiluje się poleceniem make
+|         - dodany został szablonowy przykład podprogramu -- pilk: s0_podprogram.c
+|
+* commit 2ccbb68c9bfb88a15caf7884ec3877837bc4be79
+  Author: admin <Marcin.Kik@pwr.edu.pl>
+  Date:   Mon Nov 10 12:36:14 2014 +0100
+
+      admin tworzy pliki z wstępną wersją projektu
+[kallas@Asus-Michal ponownie-sklonowane-repo]$ git blame program.h
+^2ccbb68 (admin                2014-11-10 12:36:14 +0100  1) #include <stdlib.h>
+^2ccbb68 (admin                2014-11-10 12:36:14 +0100  2) #include <stdio.h>
+871c4727 (admin                2014-11-10 12:53:38 +0100  3) #include <string.h>
+^2ccbb68 (admin                2014-11-10 12:36:14 +0100  4)
+^2ccbb68 (admin                2014-11-10 12:36:14 +0100  5)
+871c4727 (admin                2014-11-10 12:53:38 +0100  6) /* deklaracje funkcji używanych w programie */
+^2ccbb68 (admin                2014-11-10 12:36:14 +0100  7) void program_usage( );
+871c4727 (admin                2014-11-10 12:53:38 +0100  8)
+871c4727 (admin                2014-11-10 12:53:38 +0100  9)
+871c4727 (admin                2014-11-10 12:53:38 +0100 10) /* tu studenci mogą deklarować własne funkcje.
+871c4727 (admin                2014-11-10 12:53:38 +0100 11)    Wszystkie nazwy funkcji studenta o numerze indeksu NNNNN
+N
+871c4727 (admin                2014-11-10 12:53:38 +0100 12)    powinny rozpoczynać się od przedrostka sNNNNNN_
+871c4727 (admin                2014-11-10 12:53:38 +0100 13)    aby nie kolidowały z nazwami funkcji innych studentów */
+871c4727 (admin                2014-11-10 12:53:38 +0100 14)
+871c4727 (admin                2014-11-10 12:53:38 +0100 15) void s0_podprogram(); /* funkcja studenta 0 */
+fff7624a (Student Sztuczny 999 2014-11-10 14:30:55 +0100 16) void s999_podprogram(); /* funcja studenta 999 */
+89e98cdd (wikto                2024-11-14 17:15:09 +0100 17) void s272383_podprogram(); /* funcja studenta 272383 */
+5adb43b3 (Kinga                2024-11-20 13:39:40 +0100 18) void s272354_podprogram(); /* funkcja studenta 272354 */
+ee13c4ec (mpoprawa             2024-11-20 17:30:41 +0100 19) void s272370_podprogram(); /* funkcja studenta 272370 */
+89bfb153 (Domofold             2024-11-22 18:09:06 +0100 20) void s272388_podprogram(); /* funkcja studenta 272388 */
+64c44247 (kallazz              2024-11-23 18:22:06 +0100 21) void s272398_podprogram(); /* funkcja studenta 272398 */
+871c4727 (admin                2014-11-10 12:53:38 +0100 22)
+[kallas@Asus-Michal ponownie-sklonowane-repo]$ cd ..
+[kallas@Asus-Michal list4]$ ls
+24-25-1-p-2  ponownie-sklonowane-repo
+[kallas@Asus-Michal list4]$ tmux capture-pane -p -S'-' -E'-' >> my-log
+
