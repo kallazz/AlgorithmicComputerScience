@@ -1,0 +1,97 @@
+%{
+#include "fieldOperations.hpp"
+#include <iostream>
+#include <string>
+
+constexpr long long FIELD_CHARACTERISTIC = 1234577;
+
+int yylex();
+void yyerror(const std::string& message);
+
+std::string rpnResult = "";
+%}
+
+%token NUM ADD SUB MUL DIV POW LPAREN RPAREN EOL INVALID
+
+%left ADD SUB
+%left MUL DIV
+%nonassoc POW
+%precedence NEG
+
+%%
+
+input:
+    %empty
+    | input line
+    ;
+
+line:
+    expression EOL  { 
+                        std::cout << "Reverse Polish Notation: " << rpnResult << '\n';
+                        std::cout << "Result: " << $1 << '\n';
+
+                        rpnResult = "";
+                    }
+    | error EOL     { 
+                        yyerrok;
+                        rpnResult = "";
+                    }
+    ;
+
+expression:
+    number                                   { rpnResult += std::to_string($1) + " "; $$ = $1; }
+    | expression ADD expression              { rpnResult += "+ "; $$ = fieldAdd($1, $3, FIELD_CHARACTERISTIC); }
+    | expression SUB expression              { rpnResult += "- "; $$ = fieldSub($1, $3, FIELD_CHARACTERISTIC); }
+    | expression MUL expression              { rpnResult += "* "; $$ = fieldMul($1, $3, FIELD_CHARACTERISTIC); }
+    | expression DIV expression              { 
+                                                 if ($3 == 0) {
+                                                     yyerror("division by zero");
+                                                     YYERROR;
+                                                 } else {
+                                                     rpnResult += "/ ";
+                                                     $$ = fieldDiv($1, $3, FIELD_CHARACTERISTIC);
+                                                 }
+                                             }
+    | expression POW exponent                { rpnResult += "^ "; $$ = fieldPow($1, $3, FIELD_CHARACTERISTIC); }
+    | LPAREN expression RPAREN               { $$ = $2; }
+    | SUB LPAREN expression RPAREN %prec NEG { rpnResult += "~ "; $$ = fieldSub(0, $3, FIELD_CHARACTERISTIC); }
+    ;
+
+exponent:
+    exponent_number                        { rpnResult += std::to_string($1) + " "; $$ = $1; }
+    | exponent ADD exponent                { rpnResult += "+ "; $$ = fieldAdd($1, $3, FIELD_CHARACTERISTIC - 1); }
+    | exponent SUB exponent                { rpnResult += "- "; $$ = fieldSub($1, $3, FIELD_CHARACTERISTIC - 1); }
+    | exponent MUL exponent                { rpnResult += "* "; $$ = fieldMul($1, $3, FIELD_CHARACTERISTIC - 1); }
+    | exponent DIV exponent                { 
+                                               if ($3 == 0) {
+                                                   yyerror("division by zero");
+                                                   YYERROR;
+                                               } else {
+                                                   rpnResult += "/ ";
+                                                   $$ = fieldDiv($1, $3, FIELD_CHARACTERISTIC - 1);
+                                               }
+                                           }
+    | LPAREN exponent RPAREN               { $$ = $2; }
+    | SUB LPAREN exponent RPAREN %prec NEG { rpnResult += "~ "; $$ = fieldSub(0, $3, FIELD_CHARACTERISTIC - 1); }
+    ;
+
+number:
+    NUM                    { $$ = $1 % FIELD_CHARACTERISTIC; }
+    | SUB number %prec NEG { $$ = fieldSub(0, $2, FIELD_CHARACTERISTIC); }
+    ;
+
+exponent_number:
+    NUM                             { $$ = $1 % (FIELD_CHARACTERISTIC - 1); }
+    | SUB exponent_number %prec NEG { $$ = fieldSub(0, $2, FIELD_CHARACTERISTIC - 1); }
+    ;
+
+%%
+
+void yyerror(const std::string& message) {
+    std::cerr << "Error: " << message << '\n';
+}
+
+int main() {
+    printf("Please enter equations(one per line):\n");
+    yyparse();
+}
