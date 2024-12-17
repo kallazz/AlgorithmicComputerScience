@@ -114,9 +114,9 @@ Wielomian interpolacyjny w postaci Newtona można przekształcić do postaci nat
 \[
 P(x) = a_n x^n + a_{n-1} x^{n-1} + \dots + a_1 x + a_0 = \sum_{i=0}^n a_i x^i.
 \]
-Bardzo istotną obserwacją jest to, że współczynniki $c_n$ z postaci Newtona są równe współczynnikom $a_n$ przy najwyższych potęgach w postaci naturalnej.
-To pozwoli skorzystać nam z trochę zmodyfikowanego uogólnionego algorymtu Hornera.
-Będzie on wykorzystywał uprzednio wyliczone współczynniki przy najwyższych potęgach do liczenia $a_i$ ze złożonością czasową \( O(n^2) \).
+Bardzo istotną obserwacją jest to, że współczynnik $c_n = f_x[n]$ z postaci Newtona jest równy współczynnikowi $a_n$ przy najwyższej potędze w postaci naturalnej.
+Kolejne współczynniki możemy wyliczać na podstawie poprzednich oraz wartości ilorazów różnicowych i węzłów, przy okazji aktualizując współczynniki przy wyższych potęgach poprzez odjęcie aktualnego węzła.
+Algorytm działa ze złożonością czasową \( O(n^2) \).
 
 Dla pierwszych 3 iteracji wyniki wyglądają następująco:
 $$a_n = c_n$$
