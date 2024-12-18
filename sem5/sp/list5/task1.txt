@@ -1,0 +1,991 @@
+
+󰣛 kallas  ~/workspace/list5   23:15  
+ # Michał Kallas, 272398
+
+󰣛 kallas  ~/workspace/list5   23:15  
+ ls
+
+󰣛 kallas  ~/workspace/list5   23:15  
+ git clone ssh://git@156.17.7.16:59004/student/272398/l5z1
+git clone ssh://git@156.17.7.16:59004/l5z1 l5z1-orig
+cd l5z1-orig/
+git log --all --graph --oneline
+git checkout -b topic origin/topic
+git log --all --graph --oneline
+git checkout -b hint origin/hint
+git log --all --graph --oneline
+git -C ../l5z1 remote -v
+git push --all ssh://git@156.17.7.16:59004/student/272398/l5z1
+cd ../l5z1
+git pull
+git log --all --graph --oneline
+Cloning into 'l5z1'...
+remote: Enumerating objects: 72, done.
+remote: Counting objects: 100% (72/72), done.
+remote: Compressing objects: 100% (46/46), done.
+remote: Total 72 (delta 10), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (72/72), 5.61 KiB | 5.61 MiB/s, done.
+Resolving deltas: 100% (10/10), done.
+Cloning into 'l5z1-orig'...
+remote: Enumerating objects: 72, done.
+remote: Counting objects: 100% (72/72), done.
+remote: Compressing objects: 100% (46/46), done.
+remote: Total 72 (delta 10), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (72/72), 5.61 KiB | 5.61 MiB/s, done.
+Resolving deltas: 100% (10/10), done.
+* 2c90388 (origin/hint) hint
+| * 6666a06 (origin/topic) t-f{8,9}
+| * daf46b7 t-f{5..7}
+| * dd64558 t-f3,f4
+| * a862f88 t-f2
+| * f124435 t-f1
+|/  
+| * 56172ec (HEAD -> master, origin/master, origin/HEAD) m-f{8,9}
+| * 0d02cfd m-f{5..7}
+| * 0d1e4e2 m-f3,f4
+| * 188b2b6 m-f2-2
+| * a4a4262 m-f2
+| * ab8d128 m-f1
+|/  
+* 2d11dd3 start
+branch 'topic' set up to track 'origin/topic'.
+Switched to a new branch 'topic'
+* 2c90388 (origin/hint) hint
+| * 6666a06 (HEAD -> topic, origin/topic) t-f{8,9}
+| * daf46b7 t-f{5..7}
+| * dd64558 t-f3,f4
+| * a862f88 t-f2
+| * f124435 t-f1
+|/  
+| * 56172ec (origin/master, origin/HEAD, master) m-f{8,9}
+| * 0d02cfd m-f{5..7}
+| * 0d1e4e2 m-f3,f4
+| * 188b2b6 m-f2-2
+| * a4a4262 m-f2
+| * ab8d128 m-f1
+|/  
+* 2d11dd3 start
+branch 'hint' set up to track 'origin/hint'.
+Switched to a new branch 'hint'
+* 2c90388 (HEAD -> hint, origin/hint) hint
+| * 6666a06 (origin/topic, topic) t-f{8,9}
+| * daf46b7 t-f{5..7}
+| * dd64558 t-f3,f4
+| * a862f88 t-f2
+| * f124435 t-f1
+|/  
+| * 56172ec (origin/master, origin/HEAD, master) m-f{8,9}
+| * 0d02cfd m-f{5..7}
+| * 0d1e4e2 m-f3,f4
+| * 188b2b6 m-f2-2
+| * a4a4262 m-f2
+| * ab8d128 m-f1
+|/  
+* 2d11dd3 start
+origin  ssh://git@156.17.7.16:59004/student/272398/l5z1 (fetch)
+origin  ssh://git@156.17.7.16:59004/student/272398/l5z1 (push)
+Everything up-to-date
+Already up to date.
+* 2c90388 (origin/hint) hint
+| * 6666a06 (origin/topic) t-f{8,9}
+| * daf46b7 t-f{5..7}
+| * dd64558 t-f3,f4
+| * a862f88 t-f2
+| * f124435 t-f1
+|/  
+| * 56172ec (HEAD -> master, origin/master, origin/HEAD) m-f{8,9}
+| * 0d02cfd m-f{5..7}
+| * 0d1e4e2 m-f3,f4
+| * 188b2b6 m-f2-2
+| * a4a4262 m-f2
+| * ab8d128 m-f1
+|/  
+* 2d11dd3 start
+
+󰣛 kallas  …/l5z1   master   23:15  
+ ls
+f1  f2  f3  f4  f5  f6  f7  f8  f9
+
+󰣛 kallas  …/l5z1   master   23:15  
+ cd ..
+
+󰣛 kallas  ~/workspace/list5   23:16  
+ ls
+l5z1  l5z1-orig
+
+󰣛 kallas  ~/workspace/list5   23:16  
+ cd l5z1      
+
+󰣛 kallas  …/l5z1   master   23:16  
+ ls
+f1  f2  f3  f4  f5  f6  f7  f8  f9
+
+󰣛 kallas  …/l5z1   master   23:16  
+ git branch
+* master
+
+󰣛 kallas  …/l5z1   master   23:16  
+ git checkout hint
+branch 'hint' set up to track 'origin/hint'.
+Switched to a new branch 'hint'
+
+󰣛 kallas  …/l5z1   hint   23:17  
+ ls
+rr-cache
+
+󰣛 kallas  …/l5z1   hint   23:17  
+ cd rr-cache/
+
+󰣛 kallas  …/l5z1/rr-cache   hint   23:17  
+ ls
+15cc3966c87007beaeaeef7274dd9adb9e1daa57  bd59672620afe24b6132c8e812c7a0f5a5a4f538
+7efdd32db81b698a2de867b1f3b60fd4739df8b8  de8d1e22804631367b3886aeb1343761cbe4cdb6
+819c0410d70a54f3fb601e794586f3cf670d6f3b  fc67f65d2ee08c9ae0ce9f4cedd93aab47ca3148
+87137d4f6c78aec38babe871063ee2ff124a2e82  fd942a277ad12d265e56f4fc54e92c1fc36c8177
+b10b0d28f7f51050cbcd70a7bbe7b24301303244
+
+󰣛 kallas  …/l5z1/rr-cache   hint   23:17  
+ cd ..
+
+󰣛 kallas  …/l5z1   hint   23:17  
+ ls
+rr-cache
+
+󰣛 kallas  …/l5z1   hint   23:17  
+ cp -r rr-cache/ ..
+
+󰣛 kallas  …/l5z1   hint   23:17  
+ cd ..
+
+󰣛 kallas  ~/workspace/list5   23:17  
+ ls
+l5z1  l5z1-orig  rr-cache
+
+󰣛 kallas  ~/workspace/list5   23:17  
+ tree rr-cache/
+rr-cache/
+├── 15cc3966c87007beaeaeef7274dd9adb9e1daa57
+│   ├── postimage
+│   ├── preimage
+│   └── thisimage
+├── 7efdd32db81b698a2de867b1f3b60fd4739df8b8
+│   ├── postimage
+│   └── preimage
+├── 819c0410d70a54f3fb601e794586f3cf670d6f3b
+│   ├── postimage
+│   ├── preimage
+│   └── thisimage
+├── 87137d4f6c78aec38babe871063ee2ff124a2e82
+│   ├── postimage
+│   ├── preimage
+│   └── thisimage
+├── b10b0d28f7f51050cbcd70a7bbe7b24301303244
+│   ├── postimage
+│   ├── preimage
+│   └── thisimage
+├── bd59672620afe24b6132c8e812c7a0f5a5a4f538
+│   ├── postimage
+│   ├── preimage
+│   └── thisimage
+├── de8d1e22804631367b3886aeb1343761cbe4cdb6
+│   ├── postimage
+│   ├── preimage
+│   └── thisimage
+├── fc67f65d2ee08c9ae0ce9f4cedd93aab47ca3148
+│   ├── postimage
+│   ├── preimage
+│   └── thisimage
+└── fd942a277ad12d265e56f4fc54e92c1fc36c8177
+    ├── postimage
+    └── preimage
+
+10 directories, 25 files
+
+󰣛 kallas  ~/workspace/list5   23:17  
+ find -type f | grep postimage
+./rr-cache/7efdd32db81b698a2de867b1f3b60fd4739df8b8/postimage
+./rr-cache/15cc3966c87007beaeaeef7274dd9adb9e1daa57/postimage
+./rr-cache/bd59672620afe24b6132c8e812c7a0f5a5a4f538/postimage
+./rr-cache/fd942a277ad12d265e56f4fc54e92c1fc36c8177/postimage
+./rr-cache/87137d4f6c78aec38babe871063ee2ff124a2e82/postimage
+./rr-cache/b10b0d28f7f51050cbcd70a7bbe7b24301303244/postimage
+./rr-cache/fc67f65d2ee08c9ae0ce9f4cedd93aab47ca3148/postimage
+./rr-cache/819c0410d70a54f3fb601e794586f3cf670d6f3b/postimage
+./rr-cache/de8d1e22804631367b3886aeb1343761cbe4cdb6/postimage
+./l5z1/rr-cache/7efdd32db81b698a2de867b1f3b60fd4739df8b8/postimage
+./l5z1/rr-cache/15cc3966c87007beaeaeef7274dd9adb9e1daa57/postimage
+./l5z1/rr-cache/bd59672620afe24b6132c8e812c7a0f5a5a4f538/postimage
+./l5z1/rr-cache/fd942a277ad12d265e56f4fc54e92c1fc36c8177/postimage
+./l5z1/rr-cache/87137d4f6c78aec38babe871063ee2ff124a2e82/postimage
+./l5z1/rr-cache/b10b0d28f7f51050cbcd70a7bbe7b24301303244/postimage
+./l5z1/rr-cache/fc67f65d2ee08c9ae0ce9f4cedd93aab47ca3148/postimage
+./l5z1/rr-cache/819c0410d70a54f3fb601e794586f3cf670d6f3b/postimage
+./l5z1/rr-cache/de8d1e22804631367b3886aeb1343761cbe4cdb6/postimage
+./l5z1-orig/rr-cache/7efdd32db81b698a2de867b1f3b60fd4739df8b8/postimage
+./l5z1-orig/rr-cache/15cc3966c87007beaeaeef7274dd9adb9e1daa57/postimage
+./l5z1-orig/rr-cache/bd59672620afe24b6132c8e812c7a0f5a5a4f538/postimage
+./l5z1-orig/rr-cache/fd942a277ad12d265e56f4fc54e92c1fc36c8177/postimage
+./l5z1-orig/rr-cache/87137d4f6c78aec38babe871063ee2ff124a2e82/postimage
+./l5z1-orig/rr-cache/b10b0d28f7f51050cbcd70a7bbe7b24301303244/postimage
+./l5z1-orig/rr-cache/fc67f65d2ee08c9ae0ce9f4cedd93aab47ca3148/postimage
+./l5z1-orig/rr-cache/819c0410d70a54f3fb601e794586f3cf670d6f3b/postimage
+./l5z1-orig/rr-cache/de8d1e22804631367b3886aeb1343761cbe4cdb6/postimage
+
+󰣛 kallas  ~/workspace/list5   23:19  
+ ls                           
+l5z1  l5z1-orig  rr-cache
+
+󰣛 kallas  ~/workspace/list5   23:19  
+ cd rr-cache/
+
+󰣛 kallas  …/workspace/list5/rr-cache   23:19  
+ find -type f | grep postimage
+./7efdd32db81b698a2de867b1f3b60fd4739df8b8/postimage
+./15cc3966c87007beaeaeef7274dd9adb9e1daa57/postimage
+./bd59672620afe24b6132c8e812c7a0f5a5a4f538/postimage
+./fd942a277ad12d265e56f4fc54e92c1fc36c8177/postimage
+./87137d4f6c78aec38babe871063ee2ff124a2e82/postimage
+./b10b0d28f7f51050cbcd70a7bbe7b24301303244/postimage
+./fc67f65d2ee08c9ae0ce9f4cedd93aab47ca3148/postimage
+./819c0410d70a54f3fb601e794586f3cf670d6f3b/postimage
+./de8d1e22804631367b3886aeb1343761cbe4cdb6/postimage
+
+󰣛 kallas  …/workspace/list5/rr-cache   23:19  
+ find -type f | grep postimage | cat
+./7efdd32db81b698a2de867b1f3b60fd4739df8b8/postimage
+./15cc3966c87007beaeaeef7274dd9adb9e1daa57/postimage
+./bd59672620afe24b6132c8e812c7a0f5a5a4f538/postimage
+./fd942a277ad12d265e56f4fc54e92c1fc36c8177/postimage
+./87137d4f6c78aec38babe871063ee2ff124a2e82/postimage
+./b10b0d28f7f51050cbcd70a7bbe7b24301303244/postimage
+./fc67f65d2ee08c9ae0ce9f4cedd93aab47ca3148/postimage
+./819c0410d70a54f3fb601e794586f3cf670d6f3b/postimage
+./de8d1e22804631367b3886aeb1343761cbe4cdb6/postimage
+
+󰣛 kallas  …/workspace/list5/rr-cache   23:19  
+ cat $(find -type f | grep postimage)                                                                 
+ mt81
+ mt82
+ t83
+ tm84
+ t85
+ tm86
+ t87
+ mt88
+ t89
+
+ m31 t31
+ mt32
+ t33 m33
+ m34
+ m35
+ t36  m36
+
+ m21  t1
+ t2 m22
+ m23
+ t4  m24 
+ t5 m25
+ m26 t6
+
+ tm91
+ tm92
+ mt93
+ m94
+ m95
+ m96
+ m97
+ m98
+ m71
+ m72
+ m73
+ m74
+ m75
+ m76
+ m77
+ m78
+ t71
+ t72
+ t73
+ t74
+ t75
+ t76
+
+ t41
+ t42
+ t43
+ m44 t44
+ t45
+ t46 m44
+
+ tm51
+ m52
+ m53
+ m54
+ tm55
+ m56
+ m57 t57
+ mt58
+
+ m1 t1
+ t2
+ m3 t3
+ t4
+ t5 m5
+ m6
+
+ tm61
+ mt62
+ t63
+ m64
+ m65
+ m66
+ tm67
+ m68
+
+
+󰣛 kallas  …/workspace/list5/rr-cache   23:20  
+ cd ..
+
+󰣛 kallas  ~/workspace/list5   23:20  
+ ls
+l5z1  l5z1-orig  rr-cache
+
+󰣛 kallas  ~/workspace/list5   23:20  
+ cd l5z1
+
+󰣛 kallas  …/l5z1   hint   23:20  
+ ls
+rr-cache
+
+󰣛 kallas  …/l5z1   hint   23:20  
+ git branch
+* hint
+  master
+
+󰣛 kallas  …/l5z1   hint   23:20  
+ git checkout master 
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+
+󰣛 kallas  …/l5z1   master   23:20  
+ git checkout topic
+branch 'topic' set up to track 'origin/topic'.
+Switched to a new branch 'topic'
+
+󰣛 kallas  …/l5z1   topic   23:22  
+ git rebase master
+Auto-merging f1
+CONFLICT (content): Merge conflict in f1
+error: could not apply f124435... t-f1
+hint: Resolve all conflicts manually, mark them as resolved with
+hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+hint: You can instead skip this commit: run "git rebase --skip".
+hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+hint: Disable this message with "git config advice.mergeConflict false"
+Could not apply f124435... t-f1
+
+󰣛 kallas  …/l5z1   HEAD =   23:22  
+ git status
+interactive rebase in progress; onto 56172ec
+Last command done (1 command done):
+   pick f124435 t-f1
+Next commands to do (4 remaining commands):
+   pick a862f88 t-f2
+   pick dd64558 t-f3,f4
+  (use "git rebase --edit-todo" to view and edit)
+You are currently rebasing branch 'topic' on '56172ec'.
+  (fix conflicts and then run "git rebase --continue")
+  (use "git rebase --skip" to skip this patch)
+  (use "git rebase --abort" to check out the original branch)
+
+Unmerged paths:
+  (use "git restore --staged <file>..." to unstage)
+  (use "git add <file>..." to mark resolution)
+        both modified:   f1
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+󰣛 kallas  …/l5z1   HEAD =   23:22  
+ cat f1 
+<<<<<<< HEAD
+ m1
+ m2
+ m3
+ m4
+ m5
+ m6
+=======
+ t1
+ t2
+ t3
+ t4
+ t5
+ t6
+>>>>>>> f124435 (t-f1)
+
+
+󰣛 kallas  …/l5z1   HEAD =   23:22  
+ cp ../rr-cache/819c0410d70a54f3fb601e794586f3cf670d6f3b/postimage ./f1
+
+󰣛 kallas  …/l5z1   HEAD =   23:22  
+ cat f1 
+ m1 t1
+ t2
+ m3 t3
+ t4
+ t5 m5
+ m6
+
+
+󰣛 kallas  …/l5z1   HEAD =   23:22  
+ git add f1 
+
+󰣛 kallas  …/l5z1   HEAD +   23:23  
+ git rebase --continue
+[detached HEAD b12adc6] t-f1
+ Author: Marcin Kik <mki1967@gmail.com>
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+Auto-merging f2
+CONFLICT (content): Merge conflict in f2
+error: could not apply a862f88... t-f2
+hint: Resolve all conflicts manually, mark them as resolved with
+hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+hint: You can instead skip this commit: run "git rebase --skip".
+hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+hint: Disable this message with "git config advice.mergeConflict false"
+Could not apply a862f88... t-f2
+
+󰣛 kallas  …/l5z1   HEAD =   23:23  
+ cat f2
+<<<<<<< HEAD
+ m21
+ m22
+ m23
+ m24
+ m25
+ m26
+=======
+ t1
+ t2
+ t3
+ t4
+ t5
+ t6
+>>>>>>> a862f88 (t-f2)
+
+
+󰣛 kallas  …/l5z1   HEAD =   23:23  
+ p ../rr-cache/bd59672620afe24b6132c8e812c7a0f5a5a4f538/postimage ./f2
+-bash: p: command not found
+
+󰣛 kallas  …/l5z1   HEAD =   23:23  
+ cp ../rr-cache/bd59672620afe24b6132c8e812c7a0f5a5a4f538/postimage ./f2                               
+
+󰣛 kallas  …/l5z1   HEAD =   23:23  
+ git add f2
+
+󰣛 kallas  …/l5z1   HEAD +   23:23  
+ cat f2
+ m21  t1
+ t2 m22
+ m23
+ t4  m24 
+ t5 m25
+ m26 t6
+
+
+󰣛 kallas  …/l5z1   HEAD +   23:23  
+ git rebase --continue                                                                                
+[detached HEAD ed657a9] t-f2
+ Author: Marcin Kik <mki1967@gmail.com>
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+Auto-merging f3
+CONFLICT (content): Merge conflict in f3
+Auto-merging f4
+CONFLICT (content): Merge conflict in f4
+error: could not apply dd64558... t-f3,f4
+hint: Resolve all conflicts manually, mark them as resolved with
+hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+hint: You can instead skip this commit: run "git rebase --skip".
+hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+hint: Disable this message with "git config advice.mergeConflict false"
+Could not apply dd64558... t-f3,f4
+
+󰣛 kallas  …/l5z1   HEAD =   23:23  
+ cat f3 f4
+<<<<<<< HEAD
+ m31
+ m32
+ m33
+ m34
+ m35
+ m36
+=======
+ t31
+ t32
+ t33
+ t34
+ t35
+ t36
+>>>>>>> dd64558 (t-f3,f4)
+
+<<<<<<< HEAD
+ m41
+ m42
+ m43
+ m44
+ m45
+ m46
+=======
+ t41
+ t42
+ t43
+ t44
+ t45
+ t46
+>>>>>>> dd64558 (t-f3,f4)
+
+
+󰣛 kallas  …/l5z1   HEAD =   23:23  
+ cp ../rr-cache/15cc3966c87007beaeaeef7274dd9adb9e1daa57/postimage ./f3
+
+󰣛 kallas  …/l5z1   HEAD =   23:23  
+ cp ../rr-cache/b10b0d28f7f51050cbcd70a7bbe7b24301303244/postimage ./f4
+
+󰣛 kallas  …/l5z1   HEAD =   23:23  
+ cat f3 f4
+ m31 t31
+ mt32
+ t33 m33
+ m34
+ m35
+ t36  m36
+
+ t41
+ t42
+ t43
+ m44 t44
+ t45
+ t46 m44
+
+
+󰣛 kallas  …/l5z1   HEAD =   23:23  
+ git add .
+
+󰣛 kallas  …/l5z1   HEAD +   23:23  
+ git rebase --continue
+[detached HEAD b84f23c] t-f3,f4
+ Author: Marcin Kik <mki1967@gmail.com>
+ 2 files changed, 10 insertions(+), 10 deletions(-)
+Auto-merging f5
+CONFLICT (content): Merge conflict in f5
+Auto-merging f6
+CONFLICT (content): Merge conflict in f6
+Auto-merging f7
+CONFLICT (content): Merge conflict in f7
+error: could not apply daf46b7... t-f{5..7}
+hint: Resolve all conflicts manually, mark them as resolved with
+hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+hint: You can instead skip this commit: run "git rebase --skip".
+hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+hint: Disable this message with "git config advice.mergeConflict false"
+Could not apply daf46b7... t-f{5..7}
+
+󰣛 kallas  …/l5z1   HEAD =   23:24  
+ git status
+interactive rebase in progress; onto 56172ec
+Last commands done (4 commands done):
+   pick dd64558 t-f3,f4
+   pick daf46b7 t-f{5..7}
+  (see more in file .git/rebase-merge/done)
+Next command to do (1 remaining command):
+   pick 6666a06 t-f{8,9}
+  (use "git rebase --edit-todo" to view and edit)
+You are currently rebasing branch 'topic' on '56172ec'.
+  (fix conflicts and then run "git rebase --continue")
+  (use "git rebase --skip" to skip this patch)
+  (use "git rebase --abort" to check out the original branch)
+
+Unmerged paths:
+  (use "git restore --staged <file>..." to unstage)
+  (use "git add <file>..." to mark resolution)
+        both modified:   f5
+        both modified:   f6
+        both modified:   f7
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+󰣛 kallas  …/l5z1   HEAD =   23:24  
+ cat f5 f6 f7
+<<<<<<< HEAD
+ m51
+ m52
+ m53
+ m54
+ m55
+ m56
+ m57
+ m58
+=======
+ t51
+ t52
+ t53
+ t54
+ t55
+ t56
+>>>>>>> daf46b7 (t-f{5..7})
+
+<<<<<<< HEAD
+ m61
+ m62
+ m63
+ m64
+ m65
+ m66
+ m67
+ m68
+=======
+ t61
+ t62
+ t63
+ t64
+ t65
+ t66
+>>>>>>> daf46b7 (t-f{5..7})
+
+<<<<<<< HEAD
+ m71
+ m72
+ m73
+ m74
+ m75
+ m76
+ m77
+ m78
+=======
+ t71
+ t72
+ t73
+ t74
+ t75
+ t76
+>>>>>>> daf46b7 (t-f{5..7})
+
+
+󰣛 kallas  …/l5z1   HEAD =   23:24  
+ cp ../rr-cache/fc67f65d2ee08c9ae0ce9f4cedd93aab47ca3148/postimage ./f5
+
+󰣛 kallas  …/l5z1   HEAD =   23:24  
+ cp ../rr-cache/de8d1e22804631367b3886aeb1343761cbe4cdb6/postimage ./f6
+
+󰣛 kallas  …/l5z1   HEAD =   23:24  
+ cp ../rr-cache/87137d4f6c78aec38babe871063ee2ff124a2e82/postimage ./f7
+
+󰣛 kallas  …/l5z1   HEAD =   23:24  
+ cat f5 f6 f7
+ tm51
+ m52
+ m53
+ m54
+ tm55
+ m56
+ m57 t57
+ mt58
+
+ tm61
+ mt62
+ t63
+ m64
+ m65
+ m66
+ tm67
+ m68
+
+ m71
+ m72
+ m73
+ m74
+ m75
+ m76
+ m77
+ m78
+ t71
+ t72
+ t73
+ t74
+ t75
+ t76
+
+
+󰣛 kallas  …/l5z1   HEAD =   23:24  
+ git add .
+
+󰣛 kallas  …/l5z1   HEAD +   23:24  
+ git rebase --continue
+[detached HEAD 38cc0bd] t-f{5..7}
+ Author: Marcin Kik <mki1967@gmail.com>
+ 3 files changed, 14 insertions(+), 8 deletions(-)
+Auto-merging f8
+CONFLICT (content): Merge conflict in f8
+Auto-merging f9
+CONFLICT (content): Merge conflict in f9
+error: could not apply 6666a06... t-f{8,9}
+hint: Resolve all conflicts manually, mark them as resolved with
+hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+hint: You can instead skip this commit: run "git rebase --skip".
+hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+hint: Disable this message with "git config advice.mergeConflict false"
+Could not apply 6666a06... t-f{8,9}
+
+󰣛 kallas  …/l5z1   HEAD =   23:24  
+ git status
+interactive rebase in progress; onto 56172ec
+Last commands done (5 commands done):
+   pick daf46b7 t-f{5..7}
+   pick 6666a06 t-f{8,9}
+  (see more in file .git/rebase-merge/done)
+No commands remaining.
+You are currently rebasing branch 'topic' on '56172ec'.
+  (fix conflicts and then run "git rebase --continue")
+  (use "git rebase --skip" to skip this patch)
+  (use "git rebase --abort" to check out the original branch)
+
+Unmerged paths:
+  (use "git restore --staged <file>..." to unstage)
+  (use "git add <file>..." to mark resolution)
+        both modified:   f8
+        both modified:   f9
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+󰣛 kallas  …/l5z1   HEAD =   23:24  
+ cp ../rr-cache/7efdd32db81b698a2de867b1f3b60fd4739df8b8/postimage ./f8
+
+󰣛 kallas  …/l5z1   HEAD =   23:24  
+ cp ../rr-cache/fd942a277ad12d265e56f4fc54e92c1fc36c8177/postimage ./f9
+
+󰣛 kallas  …/l5z1   HEAD =   23:24  
+ cat f8 f9 
+ mt81
+ mt82
+ t83
+ tm84
+ t85
+ tm86
+ t87
+ mt88
+ t89
+
+ tm91
+ tm92
+ mt93
+ m94
+ m95
+ m96
+ m97
+ m98
+
+󰣛 kallas  …/l5z1   HEAD =   23:24  
+ git status
+interactive rebase in progress; onto 56172ec
+Last commands done (5 commands done):
+   pick daf46b7 t-f{5..7}
+   pick 6666a06 t-f{8,9}
+  (see more in file .git/rebase-merge/done)
+No commands remaining.
+You are currently rebasing branch 'topic' on '56172ec'.
+  (fix conflicts and then run "git rebase --continue")
+  (use "git rebase --skip" to skip this patch)
+  (use "git rebase --abort" to check out the original branch)
+
+Unmerged paths:
+  (use "git restore --staged <file>..." to unstage)
+  (use "git add <file>..." to mark resolution)
+        both modified:   f8
+        both modified:   f9
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+󰣛 kallas  …/l5z1   HEAD =   23:24  
+ git add .
+
+󰣛 kallas  …/l5z1   HEAD +   23:25  
+ git rebase --continue
+[detached HEAD 98632e7] t-f{8,9}
+ Author: Marcin Kik <mki1967@gmail.com>
+ 2 files changed, 12 insertions(+), 12 deletions(-)
+Successfully rebased and updated refs/heads/topic.
+
+󰣛 kallas  …/l5z1   topic ⇕   23:25  
+ git checkout master
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+
+󰣛 kallas  …/l5z1   master   23:25  
+ git merge topic
+Updating 56172ec..98632e7
+Fast-forward
+ f1 | 10 +++++-----
+ f2 | 10 +++++-----
+ f3 |  8 ++++----
+ f4 | 12 ++++++------
+ f5 |  8 ++++----
+ f6 |  8 ++++----
+ f7 |  6 ++++++
+ f8 | 17 +++++++++--------
+ f9 |  7 +++----
+ 9 files changed, 46 insertions(+), 40 deletions(-)
+
+󰣛 kallas  …/l5z1   master ⇡   23:25  
+ git log --all --graph --oneline
+* 98632e7 (HEAD -> master, topic) t-f{8,9}
+* 38cc0bd t-f{5..7}
+* b84f23c t-f3,f4
+* ed657a9 t-f2
+* b12adc6 t-f1
+* 56172ec (origin/master, origin/HEAD) m-f{8,9}
+* 0d02cfd m-f{5..7}
+* 0d1e4e2 m-f3,f4
+* 188b2b6 m-f2-2
+* a4a4262 m-f2
+* ab8d128 m-f1
+| * 2c90388 (origin/hint, hint) hint
+|/  
+| * 6666a06 (origin/topic) t-f{8,9}
+| * daf46b7 t-f{5..7}
+| * dd64558 t-f3,f4
+| * a862f88 t-f2
+| * f124435 t-f1
+|/  
+* 2d11dd3 start
+
+󰣛 kallas  …/l5z1   master ⇡   23:25  
+ ls
+f1  f2  f3  f4  f5  f6  f7  f8  f9
+
+󰣛 kallas  …/l5z1   master ⇡   23:27  
+ cat f{1..9} | sha1sum
+8683d98e9e559b012fcbba9ada1ee93621ab49c1  -
+
+󰣛 kallas  …/l5z1   master ⇡   23:27  
+ git branch
+  hint
+* master
+  topic
+
+󰣛 kallas  …/l5z1   master ⇡   23:27  
+ git log
+commit 98632e7ddf4d4d2e26ff2e764c043bbeb844b072 (HEAD -> master, topic)
+Author: Marcin Kik <mki1967@gmail.com>
+Date:   Mon Dec 2 16:09:03 2024 +0100
+
+    t-f{8,9}
+
+commit 38cc0bdfcb37d28642d273670946851323b7249a
+Author: Marcin Kik <mki1967@gmail.com>
+Date:   Mon Dec 2 15:05:13 2024 +0100
+
+    t-f{5..7}
+
+commit b84f23c7cb1b594cbdc79a8d896318f79abed7fe
+Author: Marcin Kik <mki1967@gmail.com>
+Date:   Mon Dec 2 13:55:26 2024 +0100
+
+    t-f3,f4
+
+commit ed657a92e06639fa566448477e5468117202d665
+Author: Marcin Kik <mki1967@gmail.com>
+Date:   Mon Dec 2 12:56:42 2024 +0100
+
+    t-f2
+
+commit b12adc6b5c1d133df7abde9210acc202927e4d43
+Author: Marcin Kik <mki1967@gmail.com>
+Date:   Mon Dec 2 12:45:09 2024 +0100
+
+    t-f1
+
+commit 56172eca337ce6f82dcfa4f2676978fdd52864b3 (origin/master, origin/HEAD)
+Author: Marcin Kik <mki1967@gmail.com>
+Date:   Mon Dec 2 16:01:37 2024 +0100
+
+    m-f{8,9}
+
+commit 0d02cfd37ddf4c757e6766e16e0551ab0e934511
+Author: Marcin Kik <mki1967@gmail.com>
+Date:   Mon Dec 2 15:45:20 2024 +0100
+
+    m-f{5..7}
+
+commit 0d1e4e26ad7955d88a6f4f5bc23f48dba5d2d7e3
+Author: Marcin Kik <mki1967@gmail.com>
+Date:   Mon Dec 2 13:50:54 2024 +0100
+
+    m-f3,f4
+
+commit 188b2b645ad6be1c850035613b9574ac64c13ef0
+Author: Marcin Kik <mki1967@gmail.com>
+
+󰣛 kallas  …/l5z1   master ⇡   23:27  
+ git push
+Enumerating objects: 29, done.
+Counting objects: 100% (29/29), done.
+Delta compression using up to 16 threads
+Compressing objects: 100% (12/12), done.
+Writing objects: 100% (19/19), 1.94 KiB | 1.94 MiB/s, done.
+Total 19 (delta 3), reused 9 (delta 0), pack-reused 0 (from 0)
+To ssh://156.17.7.16:59004/student/272398/l5z1
+   56172ec..98632e7  master -> master
+
+󰣛 kallas  …/l5z1   master   23:28  
+ cd ..
+
+󰣛 kallas  ~/workspace/list5   23:28  
+ ls
+l5z1  l5z1-orig  rr-cache
+
+󰣛 kallas  ~/workspace/list5   23:28  
+ rm -rf l5z1
+
+󰣛 kallas  ~/workspace/list5   23:28  
+ rm -rf l5z1-orig/
+
+󰣛 kallas  ~/workspace/list5   23:28  
+ rm -rf rr-cache/
+
+󰣛 kallas  ~/workspace/list5   23:28  
+ git clone ssh://git@156.17.7.16:59004/student/272398/l5z1                                           
+Cloning into 'l5z1'...
+remote: Enumerating objects: 82, done.
+remote: Counting objects: 100% (82/82), done.
+remote: Compressing objects: 100% (56/56), done.
+remote: Total 82 (delta 14), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (82/82), 6.94 KiB | 6.94 MiB/s, done.
+Resolving deltas: 100% (14/14), done.
+
+󰣛 kallas  ~/workspace/list5   23:28  
+ ls
+l5z1
+
+󰣛 kallas  ~/workspace/list5   23:28  
+ cd l5z1/
+
+󰣛 kallas  …/l5z1   master   23:28  
+ ls
+f1  f2  f3  f4  f5  f6  f7  f8  f9
+
+󰣛 kallas  …/l5z1   master   23:28  
+ cat f{1..9} | sha1sum
+8683d98e9e559b012fcbba9ada1ee93621ab49c1  -
+
+󰣛 kallas  …/l5z1   master   23:28  
+ cd ..
+
+󰣛 kallas  ~/workspace/list5   23:29  
+ ls
+l5z1
+
+󰣛 kallas  ~/workspace/list5   23:29  
+ tmux capture-pane -p -S'-' -E'-' -J >> my-log
+
