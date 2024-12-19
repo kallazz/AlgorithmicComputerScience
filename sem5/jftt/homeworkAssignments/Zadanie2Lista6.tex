@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{polski}
+\usepackage{mathtools}
+\usepackage{float}
+
+\title{Zadanie 2. z 6. listy zadań z JFTT}
+\author{Michał Kallas}
+
+\setlength\parindent{0pt}
+\begin{document}
+
+\maketitle
+
+\section{Treść zadania}
+Wyeliminuj lewostronną rekursję z gramatyki:
+$$
+\begin{aligned}
+S &\to (L) \mid a \\
+L &\to L, S \mid S
+\end{aligned}
+$$
+
+\section{Lewostronna rekurencja}
+Gramatyka jest \emph{lewostronnie rekurencyjna}, jeśli istnieje nieterminal $A$ taki, że istnieje wyprowadzenie $A \Rightarrow^+ A\alpha$ dla pewnego $\alpha$.
+
+\section{Algorytm}
+Aby wyeliminować lewostronną rekurencję, można skorzystać z prostego algorytmu.
+Dla produkcji w postaci
+${\displaystyle A \rightarrow A\alpha_1 \mid \ldots \mid A\alpha_n \mid \beta_1 \mid \ldots \mid \beta_m}$, gdzie:
+
+\begin{itemize}
+    \item $\alpha$ jest niepustym ciągiem nieterminali i terminali
+    \item $\beta$ jest ciągiem nieterminali i terminali, który nie zaczyna się od $A$
+\end{itemize}
+
+Dodajemy nieterminal $A'$ i przekształcamy ją następująco:
+$$
+A \rightarrow \beta_1A' \mid \ldots \mid \beta_mA'
+$$
+$$
+A' \rightarrow \alpha_1A' \mid \ldots \mid \alpha_nA' \mid \epsilon
+$$
+Powtarzamy ten proces, aż nie pozostanie żadna bezpośrednia lewostronna rekurencja.
+
+\section{Rozwiązanie}
+W zadanej gramatyce lewostronna rekurencja występuje w produkcji $L$:
+$$
+\begin{aligned}
+S &\to (L) \mid a \\
+L &\to \boldsymbol{L}, S \mid S
+\end{aligned}
+$$
+Zacznijmy od przekształcenia produkcji $L$ na formę z nowym nieterminalem $L'$:
+$$
+L \rightarrow SL'
+$$
+Teraz zdefiniujmy $L'$:
+$$
+L' \rightarrow ,SA' \mid \epsilon
+$$
+
+W ten sposób usunęliśmy lewostronną rekurencję z zadanej gramatyki.
+Nowa gramatyka prezentuje się następująco:
+$$
+\begin{aligned}
+S &\to (L) \mid a \\
+L &\to SL' \\
+L' &\to ,SL' \mid \epsilon
+\end{aligned}
+$$
+
+\end{document}
