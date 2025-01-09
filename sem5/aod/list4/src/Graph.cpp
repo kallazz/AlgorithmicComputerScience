@@ -23,11 +23,11 @@ Graph Graph::createHypercube(const long long size) {
                 continue;
             }
 
-            const long long vertexHammingWeight = __builtin_popcount(size);
-            const long long vertexNumberOfZeroes = dimension - vertexHammingWeight;
+            const long long vertexHammingWeight = __builtin_popcount(vertex);
+            const long long vertexNumberOfZeroes = size - vertexHammingWeight;
 
-            const long long neighborHammingWeight = __builtin_popcount(size);
-            const long long neighborNumberOfZeroes = dimension - neighborHammingWeight;
+            const long long neighborHammingWeight = __builtin_popcount(neighbor);
+            const long long neighborNumberOfZeroes = size - neighborHammingWeight;
 
             const long long upperBound = 1 << std::max({vertexHammingWeight, vertexNumberOfZeroes, neighborHammingWeight, neighborNumberOfZeroes});
 
@@ -40,6 +40,25 @@ Graph Graph::createHypercube(const long long size) {
     return hypercube;
 }
 
+Graph Graph::createBipartiteGraph(const long long size, const long long vertexDegree) {
+    const long long numberOfVertices = 1 << (size + 1); // 2^(2 * size)
+    Graph bipartiteGraph(numberOfVertices, false);
+
+    std::mt19937 mt(std::random_device{}());
+
+    std::uniform_int_distribution<long long> firstVertexSetDistribution(0, (2 << size) - 1);
+    std::uniform_int_distribution<long long> secondVertexSetDistribution((2 << size), (1 << (2 * size)) - 1);
+
+    for (long long vertex = 0; vertex < numberOfVertices; vertex++) {
+        for (int i = 0; i < vertexDegree; i++) {
+            const long long neighbor = (vertex <= (2 << size) - 1) ? secondVertexSetDistribution(mt) : firstVertexSetDistribution(mt);
+            bipartiteGraph.addEdge(vertex, neighbor, 1);
+        }
+    }
+
+    return bipartiteGraph;
+}
+
 void Graph::addEdge(const long long vertex1, const long long vertex2, const long long capacity) {
     numberOfEdges_++;
 
@@ -49,8 +68,8 @@ void Graph::addEdge(const long long vertex1, const long long vertex2, const long
         return;
     }
 
-    // adjacencyList_[vertex1].push_back(Edge(vertex1, vertex2, capacity));
-    // adjacencyList_[vertex2].push_back(Edge(vertex2, vertex1, capacity));
+    adjacencyList_[vertex1].push_back(Edge(vertex1, vertex2, capacity, 0, adjacencyList_[vertex2].size()));
+    adjacencyList_[vertex2].push_back(Edge(vertex2, vertex1, capacity, 0, adjacencyList_[vertex1].size() - 1));
 }
 
 bool Graph::isDirected() const {

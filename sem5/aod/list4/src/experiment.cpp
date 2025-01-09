@@ -6,9 +6,9 @@
 #include "Graph.hpp"
 
 const std::string OUTPUT_DIRECTORY = "../experimentOutput/";
-constexpr int NUMBER_OF_REPEATS = 10;
+constexpr int NUMBER_OF_REPEATS = 100;
 
-void runExperiment() {
+void runFirstExperiment() {
     std::ofstream resultsFile(OUTPUT_DIRECTORY + "edmondsKarpResults.csv");
     resultsFile << "Hypercube Size,Duration,Max Flow,Number of Augmenting Paths\n";
 
@@ -40,7 +40,7 @@ void runExperiment() {
 }
 
 int main() {
-    runExperiment();
+    runFirstExperiment();
 
     return 0;
 }

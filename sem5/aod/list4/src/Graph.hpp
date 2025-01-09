@@ -21,6 +21,7 @@ public:
     Graph(const long long numberOfVertices, const bool isDirected);
 
     static Graph createHypercube(const long long size);
+    static Graph createBipartiteGraph(const long long size, const long long vertexDegree);
 
     void addEdge(const long long vertex1, const long long vertex2, const long long capacity);
     bool isDirected() const;
