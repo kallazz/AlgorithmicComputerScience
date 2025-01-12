@@ -5,7 +5,7 @@
 #include <iostream>
 
 void testEdmondsKarp() {
-    Graph graph1 = Graph(6, true);
+    Graph graph1 = Graph(6);
     graph1.addEdge(0, 1, 3);
     graph1.addEdge(0, 2, 7);
     graph1.addEdge(1, 3, 3);
@@ -19,7 +19,7 @@ void testEdmondsKarp() {
     const auto [maxFlow1, _] = edmondsKarp(graph1, 0, 5);
     assert(maxFlow1 == 8);
 
-    Graph graph2 = Graph(8, true);
+    Graph graph2 = Graph(8);
     graph2.addEdge(0,1,1);
     graph2.addEdge(1,2,1);
     graph2.addEdge(2,4,1);

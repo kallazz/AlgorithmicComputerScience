@@ -5,6 +5,6 @@
 
 class Graph;
 
-std::pair<long long, long long> edmondsKarp(Graph& graph, const long long sourceVertex, const long long sinkVertex);
+std::pair<int, int> edmondsKarp(Graph& graph, const int sourceVertex, const int sinkVertex);
 
 #endif // ALGORITHMS_HPP

@@ -5,14 +5,14 @@
 #include <queue>
 #include <iostream>
 
-constexpr long long INF = std::numeric_limits<long long>::max();
+constexpr int INF = std::numeric_limits<int>::max();
 
-bool bfs(Graph &graph, const long long sourceVertex, const long long sinkVertex, std::vector<Edge*> &predecessorEdges) {
-    std::queue<long long> queue;
+bool bfs(Graph &graph, const int sourceVertex, const int sinkVertex, std::vector<Edge*> &predecessorEdges) {
+    std::queue<int> queue;
     queue.push(sourceVertex);
 
     while (!queue.empty()) {
-        const long long currentVertex = queue.front();
+        const int currentVertex = queue.front();
         queue.pop();
 
         for (Edge& edge : graph.getAdjacencyList()[currentVertex]) {
@@ -26,9 +26,9 @@ bool bfs(Graph &graph, const long long sourceVertex, const long long sinkVertex,
     return predecessorEdges[sinkVertex] != nullptr;
 }
 
-std::pair<long long, long long> edmondsKarp(Graph& graph, const long long sourceVertex, const long long sinkVertex) {
-    long long maxFlow = 0;
-    long long amountOfAugmentingPathsFound = 0;
+std::pair<int, int> edmondsKarp(Graph& graph, const int sourceVertex, const int sinkVertex) {
+    int maxFlow = 0;
+    int amountOfAugmentingPathsFound = 0;
 
     while (true) {
         std::vector<Edge*> predecessorEdges(graph.getNumberOfVertices(), nullptr);
@@ -38,10 +38,9 @@ std::pair<long long, long long> edmondsKarp(Graph& graph, const long long source
 
         amountOfAugmentingPathsFound++;
 
-        long long pathFlow = INF;
+        int pathFlow = INF;
         for (Edge* edge = predecessorEdges[sinkVertex]; edge != nullptr; edge = predecessorEdges[edge->sourceVertex]) {
             pathFlow = std::min(pathFlow, edge->capacity - edge->flow);
-
         }
         for (Edge* edge = predecessorEdges[sinkVertex]; edge != nullptr; edge = predecessorEdges[edge->sourceVertex]) {
             edge->flow += pathFlow;

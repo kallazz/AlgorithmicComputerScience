@@ -4,34 +4,33 @@
 #include <random>
 #include <stdexcept>
 
-Graph::Graph(const long long numberOfVertices, const bool isDirected)
-    : numberOfVertices_(numberOfVertices), numberOfEdges_(0), isDirected_(isDirected),
-      adjacencyList_(std::vector<std::vector<Edge>>(numberOfVertices)) {}
+Graph::Graph(const int numberOfVertices)
+    : numberOfVertices_(numberOfVertices), adjacencyList_(std::vector<std::vector<Edge>>(numberOfVertices)) {}
 
-Graph Graph::createHypercube(const long long size) {
-    const long long numberOfVertices = 1 << size; // 2^size
-    Graph hypercube(numberOfVertices, true);
+Graph Graph::createHypercube(const int size) {
+    const int numberOfVertices = 1 << size; // 2^size
+    Graph hypercube(numberOfVertices);
 
     std::mt19937 mt(std::random_device{}());
 
-    for (long long vertex = 0; vertex < numberOfVertices; vertex++) {
+    for (int vertex = 0; vertex < numberOfVertices; vertex++) {
 
-        for (long long dimension = 0; dimension < size; dimension++) {
-            const long long neighbor = vertex | (1 << dimension); // neighbor's index differs by exactly one bit from vertex
+        for (int dimension = 0; dimension < size; dimension++) {
+            const int neighbor = vertex | (1 << dimension); // neighbor's index differs by exactly one bit from vertex
 
             if (vertex == neighbor) {
                 continue;
             }
 
-            const long long vertexHammingWeight = __builtin_popcount(vertex);
-            const long long vertexNumberOfZeroes = size - vertexHammingWeight;
+            const int vertexHammingWeight = __builtin_popcount(vertex);
+            const int vertexNumberOfZeroes = size - vertexHammingWeight;
 
-            const long long neighborHammingWeight = __builtin_popcount(neighbor);
-            const long long neighborNumberOfZeroes = size - neighborHammingWeight;
+            const int neighborHammingWeight = __builtin_popcount(neighbor);
+            const int neighborNumberOfZeroes = size - neighborHammingWeight;
 
-            const long long upperBound = 1 << std::max({vertexHammingWeight, vertexNumberOfZeroes, neighborHammingWeight, neighborNumberOfZeroes});
+            const int upperBound = 1 << std::max({vertexHammingWeight, vertexNumberOfZeroes, neighborHammingWeight, neighborNumberOfZeroes});
 
-            std::uniform_int_distribution<long long> distribution(1, upperBound);
+            std::uniform_int_distribution distribution(1, upperBound);
 
             hypercube.addEdge(vertex, neighbor, distribution(mt));
         }
@@ -40,48 +39,42 @@ Graph Graph::createHypercube(const long long size) {
     return hypercube;
 }
 
-Graph Graph::createBipartiteGraph(const long long size, const long long vertexDegree) {
-    const long long numberOfVertices = 1 << (size + 1); // 2^(2 * size)
-    Graph bipartiteGraph(numberOfVertices, false);
-
+Graph Graph::createBipartiteGraph(const int size, const int degree) {
     std::mt19937 mt(std::random_device{}());
 
-    std::uniform_int_distribution<long long> firstVertexSetDistribution(0, (2 << size) - 1);
-    std::uniform_int_distribution<long long> secondVertexSetDistribution((2 << size), (1 << (2 * size)) - 1);
+    const int initialNumberOfVertices = 1 << (size + 1);
+    Graph bipartiteGraph(initialNumberOfVertices + 2); // + 2 is for the source and sink vertices
 
-    for (long long vertex = 0; vertex < numberOfVertices; vertex++) {
-        for (int i = 0; i < vertexDegree; i++) {
-            const long long neighbor = (vertex <= (2 << size) - 1) ? secondVertexSetDistribution(mt) : firstVertexSetDistribution(mt);
-            bipartiteGraph.addEdge(vertex, neighbor, 1);
+    for (int i = 0; i < initialNumberOfVertices / 2; i++) {
+        std::vector<int> neighborCandidates(initialNumberOfVertices / 2);
+        std::iota(std::begin(neighborCandidates), std::end(neighborCandidates), initialNumberOfVertices / 2); 
+        std::shuffle(neighborCandidates.begin(), neighborCandidates.end(), mt);
+        
+        for (int j = 0; j < degree; j++) {
+            bipartiteGraph.addEdge(i, neighborCandidates[j], 1);
         }
+    }
+
+    const int sourceVertex = initialNumberOfVertices;
+    for (int i = 0; i < initialNumberOfVertices / 2; i++) {
+        bipartiteGraph.addEdge(sourceVertex, i, 1);
+    }
+
+    const int sinkVertex = initialNumberOfVertices + 1;
+    for (int i = initialNumberOfVertices / 2; i < initialNumberOfVertices; i++) {
+        bipartiteGraph.addEdge(i, sinkVertex, 1);
     }
 
     return bipartiteGraph;
 }
 
-void Graph::addEdge(const long long vertex1, const long long vertex2, const long long capacity) {
-    numberOfEdges_++;
-
-    if (isDirected_) {
-        adjacencyList_[vertex1].push_back(Edge(vertex1, vertex2, capacity, 0, adjacencyList_[vertex2].size()));
-        adjacencyList_[vertex2].push_back(Edge(vertex2, vertex1, 0, 0, adjacencyList_[vertex1].size() - 1)); // reverse edge
-        return;
-    }
-
+void Graph::addEdge(const int vertex1, const int vertex2, const int capacity) {
     adjacencyList_[vertex1].push_back(Edge(vertex1, vertex2, capacity, 0, adjacencyList_[vertex2].size()));
-    adjacencyList_[vertex2].push_back(Edge(vertex2, vertex1, capacity, 0, adjacencyList_[vertex1].size() - 1));
+    adjacencyList_[vertex2].push_back(Edge(vertex2, vertex1, 0, 0, adjacencyList_[vertex1].size() - 1)); // reverse edge
 }
 
-bool Graph::isDirected() const {
-    return isDirected_;
-}
-
-long long Graph::getNumberOfVertices() const {
+int Graph::getNumberOfVertices() const {
     return numberOfVertices_;
-}
-
-long long Graph::getNumberOfEdges() const {
-    return numberOfEdges_;
 }
 
 std::vector<std::vector<Edge>> &Graph::getAdjacencyList() {
