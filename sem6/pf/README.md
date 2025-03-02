@@ -1,0 +1,3 @@
+🇺🇸 Functional Programming
+
+🇵🇱 Programowanie funkcyjne

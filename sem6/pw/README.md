@@ -1,0 +1,3 @@
+🇺🇸 Parallel Programming
+
+🇵🇱 Programowanie współbieżne
