@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kompilator - Kod Źródłowy | Michał Kallas</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/code-style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="../index.html">Michał Kallas</a></h1>
+            <nav>
+                <input type="checkbox" id="menu-toggle" class="menu-toggle-checkbox" hidden>
+                <label for="menu-toggle" class="menu-toggle" aria-label="Menu">&#9776;</label>
+                <ul class="nav-menu">
+                    <li><a href="../index.html">O mnie</a></li>
+                    <li><a href="../projects.html" class="active">Projekty</a></li>
+                    <li><a href="../interests.html">Zainteresowania naukowe</a></li>
+                    <li><a href="../hobbies.html">Hobby</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <div class="container">
+                <h2>Gra go - Kod źródłowy</h2>
+
+                <div class="code-description">
+                    <h3 class="code-title">Plansza do gry</h3>
+                    <p>
+                        Poniżej przedstawiam fragment kodu odpowiedzialny za inicjalizację planszy do gry.
+                        Plansza ta korzysta ze wzorcu projektowego <b>Singleton</b>, jako że wiemy, że jest potrzebna tylko jedna plansza współdzielona między graczami.
+                        Fakt realizacji tego wzorca można zauważyć w metodzie <i>getInstance()</i>.
+                    </p>
+                </div>
+
+                <div class="code-container">
+                    <pre><code>
+<span class="keyword">public class</span> <span class="class-name">Board</span> <span class="keyword">implements</span> IBoard {
+    <span class="keyword">private static</span> String colorBlack = "<span class="string">\u001B[34m</span>";
+    <span class="keyword">private static</span> String colorWhite = "<span class="string">\u001B[33m</span>";
+    <span class="keyword">private static</span> String colorRed = "<span class="string">\u001B[31m</span>";
+    <span class="keyword">private static</span> String colorDefault = "<span class="string">\u001B[0m</span>";
+
+    <span class="keyword">private static volatile</span> Board instance = <span class="keyword">null</span>;
+    <span class="keyword">private</span> Stone[][] stones;
+    <span class="keyword">private</span> GameManager gm;
+    <span class="keyword">private</span> <span class="type">int</span> size;
+    <span class="keyword">private</span> String[] errorMessages = {"<span class="string"></span>", "<span class="string"></span>"}; <span class="comment">// error messages for player1 and player2</span>
+
+    <span class="keyword">private</span> Board() {}
+
+    <span class="keyword">public static</span> Board <span class="method">getInstance</span>() {
+        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) {
+            <span class="keyword">synchronized</span> (Board.<span class="keyword">class</span>) {
+                <span class="keyword">if</span> (instance == <span class="keyword">null</span>) {
+                    instance = <span class="keyword">new</span> Board();
+                }
+            }
+        }
+        <span class="keyword">return</span> instance;
+    }
+
+    <span class="annotation">@Override</span>
+    <span class="keyword">public void</span> <span class="method">initialize</span>(<span class="keyword">final int</span> size, <span class="keyword">final</span> GameManager gameManager) {
+        <span class="keyword">this</span>.gm = gameManager;
+        <span class="keyword">this</span>.size = size;
+        stones = <span class="keyword">new</span> Stone[size + 2][size + 2];
+
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i <= size + 1; i++) {
+            <span class="keyword">for</span> (<span class="keyword">int</span> j = 0; j <= size + 1; j++) {
+                stones[i][j] = <span class="keyword">new</span> Stone(i, j, EPointColor.NONE);
+            }
+        }
+
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i <= size + 1; i++) {
+            stones[i][0].<span class="method">setColor</span>(EPointColor.BORDER);
+            stones[i][size + 1].<span class="method">setColor</span>(EPointColor.BORDER);
+            stones[0][i].<span class="method">setColor</span>(EPointColor.BORDER);
+            stones[size + 1][i].<span class="method">setColor</span>(EPointColor.BORDER);
+        }
+    }
+    ...
+</code></pre>
+                </div>
+
+                <a href="../projects.html" class="topic-btn">
+                    <span class="btn-icon">&#8592;</span>
+                    Wróć do projektów
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Michał Kallas | Portfolio na Nowoczesne Technologie WWW</p>
+        </div>
+    </footer>
+</body>
+</html>

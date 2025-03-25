@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kompilator - Kod Źródłowy | Michał Kallas</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/code-style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="../index.html">Michał Kallas</a></h1>
+            <nav>
+                <input type="checkbox" id="menu-toggle" class="menu-toggle-checkbox" hidden>
+                <label for="menu-toggle" class="menu-toggle" aria-label="Menu">&#9776;</label>
+                <ul class="nav-menu">
+                    <li><a href="../index.html">O mnie</a></li>
+                    <li><a href="../projects.html" class="active">Projekty</a></li>
+                    <li><a href="../interests.html">Zainteresowania naukowe</a></li>
+                    <li><a href="../hobbies.html">Hobby</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <div class="container">
+                <h2>Kompilator języka imperatywnego - Kod źródłowy</h2>
+
+                <div class="code-description">
+                    <h3 class="code-title">Analiza leksykalna (Lexer)</h3>
+                    <p>
+                        Poniżej przedstawiam fragment kodu odpowiedzialny za analizę leksykalną w moim kompilatorze.
+                        Jest to plik wejściowy dla narzędzia Flex, które generuje skaner leksykalny. Kod definiuje tokeny
+                        językowe używane w kompilatorze, takie jak identyfikatory, liczby, operatory oraz słowa kluczowe.
+                    </p>
+                    <br>
+                    <p>
+                        Analiza leksykalna jest pierwszym etapem procesu kompilacji, który przekształca tekst źródłowy
+                        w sekwencję tokenów, które są następnie analizowane przez parser.
+                    </p>
+                </div>
+
+                <div class="code-container">
+                    <pre><code>%option noyywrap nounput yylineno
+%{
+    #include <span class="string">"parser.tab.h"</span>
+    #include &lt;stdlib.h&gt;
+    #define YY_USER_ACTION yylloc.first_line = yylloc.last_line = yylineno;
+%}
+%%
+[[:blank:]]+    { <span class="comment">/* Ignore whitespace */</span> }
+#.*             { <span class="comment">/* Ignore comments */</span> }
+\n              { <span class="comment">/* Ignore endlines */</span> }
+[_a-z]+         { yylval.text = strdup(yytext); return <span class="keyword">NAME</span>; }
+[1-9][0-9]*|0   { yylval.number = atoll(yytext); return <span class="keyword">NUM</span>; }
+<span class="string">"+"</span>             { return <span class="keyword">ADD</span>; }
+<span class="string">"-"</span>             { return <span class="keyword">SUB</span>; }
+<span class="string">"*"</span>             { return <span class="keyword">MUL</span>; }
+<span class="string">"/"</span>             { return <span class="keyword">DIV</span>; }
+<span class="string">"%"</span>             { return <span class="keyword">MOD</span>; }
+<span class="string">"!="</span>            { return <span class="keyword">NEQ</span>; }
+<span class="string">"="</span>             { return <span class="keyword">EQ</span>; }
+<span class="string">">="</span>            { return <span class="keyword">GEQ</span>; }
+<span class="string">">"</span>             { return <span class="keyword">GT</span>; }
+<span class="string">"<="</span>            { return <span class="keyword">LEQ</span>; }
+<span class="string">"<"</span>             { return <span class="keyword">LT</span>; }
+<span class="string">":="</span>            { return <span class="keyword">ASSIGN</span>; }
+<span class="string">":"</span>             { return <span class="keyword">COLON</span>; }
+<span class="string">","</span>             { return <span class="keyword">COMMA</span>; }
+<span class="string">";"</span>             { return <span class="keyword">SEMICOLON</span>; }
+<span class="string">"("</span>             { return <span class="keyword">LPAREN</span>; }
+<span class="string">")"</span>             { return <span class="keyword">RPAREN</span>; }
+<span class="string">"["</span>             { return <span class="keyword">LBRACK</span>; }
+<span class="string">"]"</span>             { return <span class="keyword">RBRACK</span>; }
+<span class="string">"PROCEDURE"</span>     { return <span class="keyword">PROCEDURE</span>; }
+<span class="string">"PROGRAM"</span>       { return <span class="keyword">PROGRAM</span>; }
+<span class="string">"IS"</span>            { return <span class="keyword">IS</span>; }
+<span class="string">"BEGIN"</span>         { return <span class="keyword">BEGINN</span>; }
+<span class="string">"END"</span>           { return <span class="keyword">END</span>; }
+<span class="string">"IF"</span>            { return <span class="keyword">IF</span>; }
+<span class="string">"THEN"</span>          { return <span class="keyword">THEN</span>; }
+<span class="string">"ELSE"</span>          { return <span class="keyword">ELSE</span>; }
+<span class="string">"ENDIF"</span>         { return <span class="keyword">ENDIF</span>; }
+<span class="string">"WHILE"</span>         { return <span class="keyword">WHILE</span>; }
+<span class="string">"DO"</span>            { return <span class="keyword">DO</span>; }
+<span class="string">"ENDWHILE"</span>      { return <span class="keyword">ENDWHILE</span>; }
+<span class="string">"REPEAT"</span>        { return <span class="keyword">REPEAT</span>; }
+<span class="string">"UNTIL"</span>         { return <span class="keyword">UNTIL</span>; }
+<span class="string">"FOR"</span>           { return <span class="keyword">FOR</span>; }
+<span class="string">"FROM"</span>          { return <span class="keyword">FROM</span>; }
+<span class="string">"TO"</span>            { return <span class="keyword">TO</span>; }
+<span class="string">"DOWNTO"</span>        { return <span class="keyword">DOWNTO</span>; }
+<span class="string">"ENDFOR"</span>        { return <span class="keyword">ENDFOR</span>; }
+<span class="string">"READ"</span>          { return <span class="keyword">READ</span>; }
+<span class="string">"WRITE"</span>         { return <span class="keyword">WRITE</span>; }
+<span class="string">"T"</span>             { return <span class="keyword">T</span>; }
+.               { return <span class="keyword">INVALID</span>; }
+%%</code></pre>
+                </div>
+
+                <a href="../projects.html" class="topic-btn">
+                    <span class="btn-icon">&#8592;</span>
+                    Wróć do projektów
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Michał Kallas | Portfolio na Nowoczesne Technologie WWW</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,565 @@
+/* ========== STYLES FOR THE WHOLE WEBSITE ========== */
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --accent-color: #e74c3c;
+    --light-color: #ecf0f1;
+    --dark-color: #2c3e50;
+    --text-color: #333;
+    --text-light: #ecf0f1;
+    --container-padding: 20px;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: #f9f9f9;
+}
+
+a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--accent-color);
+}
+
+ul {
+    list-style-type: none;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+}
+
+/* ========== HEADER AND NAVBAR ========== */
+header {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--box-shadow);
+}
+
+header .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-width: max-content;
+}
+
+header h1 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    white-space: nowrap;
+}
+
+header h1 a {
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+header h1 a:hover {
+    color: var(--secondary-color);
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu-toggle {
+  display: block;
+  background: none;
+  border: none;
+  color: var(--text-light);
+  font-size: 1.5rem;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  padding: 0.5rem 0;
+}
+
+.menu-toggle-checkbox {
+    display: none;
+}
+
+.nav-menu {
+    display: none; /* By default the icons are hidden */
+    width: 100%;
+    flex-direction: column;
+    text-align: center;
+}
+
+#menu-toggle:checked ~ .nav-menu {
+    display: flex; /* The icons will be visible after checking the checkbox */
+}
+
+.nav-menu li {
+    margin: 0.5rem 0;
+}
+
+.nav-menu a {
+    color: var(--text-light);
+    padding: 0.5rem;
+    display: block;
+    font-weight: 500;
+}
+
+.nav-menu a:hover, .nav-menu a.active {
+    color: var(--secondary-color);
+}
+
+/* ========== MAIN SECTIONS ========== */
+section {
+    padding: 2rem 0;
+}
+
+h2 {
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+/* Blue underline */
+h2::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 3px;
+    background-color: var(--secondary-color);
+    margin: 0.5rem auto;
+}
+
+/* ========== PROFILE ========== */
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.profile-image {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    border: 4px solid var(--secondary-color);
+    box-shadow: var(--box-shadow);
+}
+
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-info h2 {
+    margin-bottom: 0.5rem;
+}
+
+.profile-info p {
+    margin-bottom: 0.5rem;
+    color: var(--dark-color);
+}
+
+.hero {
+    padding-bottom: 0;
+}
+
+.about {
+    padding-top: 1rem;
+}
+
+section {
+    padding: 1.5rem 0;
+}
+
+/* ========== INTERESTS ========== */
+.interests-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.interest-box {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: var(--box-shadow);
+}
+
+.interest-box h3 {
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.interest-box ul li {
+    margin-bottom: 0.5rem;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.interest-box ul li::before {
+    content: '•';
+    color: var(--secondary-color);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+/* ========== CONTACT ========== */
+.contact {
+    background-color: var(--light-color);
+    padding: 3rem 0;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.contact-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: var(--box-shadow);
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.contact-icon {
+    font-size: 2.5rem;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+
+.contact-label {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.contact-value {
+    color: var(--text-color);
+}
+
+.contact-value a {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    background-color: var(--light-color);
+    border-radius: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.contact-value a:hover {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+@media screen and (min-width: 768px) {
+    .contact-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .contact-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .contact-card {
+        padding: 2rem;
+    }
+}
+
+/* ========== FOOTER ========== */
+footer {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    padding: 1.5rem 0;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+/* ========== RESPONSIVE SETTINGS FOR MENU AND INDEX PAGE ========== */
+@media screen and (min-width: 768px) {
+    header .container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    
+    header h1 {
+        margin-bottom: 0;
+    }
+    
+    .menu-toggle {
+        display: none;
+    }
+    
+    .nav-menu {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        width: auto;
+    }
+    
+    .nav-menu li {
+        margin: 0 0.5rem;
+    }
+    
+    .interests-container {
+        flex-direction: row;
+        gap: 2rem;
+    }
+    
+    .interest-box {
+        flex: 1;
+    }
+    
+    .profile-container {
+        flex-direction: row;
+        text-align: left;
+        gap: 2rem;
+        align-items: center;
+    }
+    
+    .profile-image {
+        margin-bottom: 0;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    :root {
+        --container-padding: 40px;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .nav-menu li {
+        margin: 0 1rem;
+    }
+    
+    /* Animation below links */
+    .nav-menu a {
+        position: relative;
+    }
+    
+    .nav-menu a::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--secondary-color);
+        transition: width 0.3s ease;
+    }
+    
+    /* Underlining the current menu option when hovering or when it's the current page */
+    .nav-menu a:hover::after, .nav-menu a.active::after {
+        width: 100%;
+    }
+    
+    .profile-image {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .interest-box ul li::before {
+        content: '→';
+    }
+    
+    section {
+        padding: 3rem 0;
+    }
+}
+
+/* ========== TOPICS ========== */
+.topics {
+    padding: 3rem 0;
+}
+
+.section-intro {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto 3rem;
+    color: var(--text-color);
+}
+
+.topics-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.topic-card {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.topic-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.topic-image {
+    height: 250px;
+    overflow: hidden;
+}
+
+.topic-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.topic-card:hover .topic-image img {
+    transform: scale(1.05);
+}
+
+.topic-content {
+    padding: 1.5rem;
+}
+
+.topic-content h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+.topic-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.tag {
+    background-color: var(--light-color);
+    color: var(--primary-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.topic-features {
+    margin: 1.5rem 0;
+}
+
+.topic-features li {
+    margin-bottom: 0.5rem;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.topic-features li::before {
+    content: '•';
+    color: var(--secondary-color);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+.topic-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.topic-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.topic-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.btn-icon {
+    font-size: 1.2rem;
+}
+
+@media screen and (min-width: 768px) {
+    .topic-card {
+        display: flex;
+        flex-direction: row;
+    }
+    
+    .topic-image {
+        width: 40%;
+        height: auto;
+    }
+    
+    .topic-content {
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .topic-links {
+        margin-top: auto;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .topic-features li::before {
+        content: '→';
+    }
+    
+    .topic-image {
+        width: 35%;
+    }
+    
+    .topic-content {
+        width: 65%;
+        padding: 2rem;
+    }
+}

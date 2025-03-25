@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projekty - Michał Kallas</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="index.html">Michał Kallas</a></h1>
+            <nav>
+                <input type="checkbox" id="menu-toggle" class="menu-toggle-checkbox" hidden>
+                <label for="menu-toggle" class="menu-toggle" aria-label="Menu">&#9776;</label>
+                <ul class="nav-menu">
+                    <li><a href="index.html">O mnie</a></li>
+                    <li><a href="projects.html" class="active">Projekty</a></li>
+                    <li><a href="interests.html">Zainteresowania naukowe</a></li>
+                    <li><a href="hobbies.html">Hobby</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="topics">
+            <div class="container">
+                <h2>Moje projekty</h2>
+                <p class="section-intro">
+                    Poniżej przedstawiam wybrane projekty, które zrealizowałem podczas studiów oraz w ramach własnych zainteresowań.
+                    Każdy z nich pozwolił mi rozwinąć różne umiejętności i zmierzyć się z ciekawymi wyzwaniami technologicznymi.
+                </p>
+                
+                <div class="topics-container">
+                    <article class="topic-card">
+                        <div class="topic-image">
+                            <img src="img/compiler.webp" alt="Kompilator języka imperatywnego">
+                        </div>
+                        <div class="topic-content">
+                            <h3>Kompilator języka imperatywnego</h3>
+                            <div class="topic-tags">
+                                <span class="tag">C++</span>
+                                <span class="tag">Python</span>
+                                <span class="tag">Bison</span>
+                                <span class="tag">Flex</span>
+                            </div>
+                            <p>
+                                Projekt kompilatora prostego języka imperatywnego zrealizowany w ramach "Języków Formalnych i Technik Translacji" na 5. semestrze.
+                            </p>
+                            <ul class="topic-features">
+                                <li>Analiza leksykalna z wykorzystaniem Flex</li>
+                                <li>Analiza składniowa z wykorzystaniem Bison</li>
+                                <li>Implementacja w C++</li>
+                                <li>Budowa drzewa AST</li>
+                                <li>Generowanie Assemblera dla maszyny wirtualnej</li>
+                            </ul>
+                            <div class="topic-links">
+                                <a href="projects/compiler.html" class="topic-btn">
+                                    <span class="btn-icon">📄</span>
+                                    Fragment kodu
+                                </a>
+                                <a href="https://github.com/kallazz/compiler" class="topic-btn" target="_blank">
+                                    <span class="btn-icon">&#128193;</span>
+                                    GitHub
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="topic-card">
+                        <div class="topic-image">
+                            <img src="img/makefile.png" alt="Generator plików Makefile">
+                        </div>
+                        <div class="topic-content">
+                            <h3>Generator plików Makefile</h3>
+                            <div class="topic-tags">
+                                <span class="tag">Rust</span>
+                                <span class="tag">Shell</span>
+                                <span class="tag">Makefile</span>
+                                <span class="tag">CLI</span>
+                            </div>
+                            <p>
+                                Narzędzie automatyzujące proces tworzenia plików Makefile dla projektów programistycznych w różnych językach.
+                                Generator analizuje strukturę projektu i automatycznie tworzy odpowiednie reguły kompilacji.
+                            </p>
+                            <ul class="topic-features">
+                                <li>Wsparcie dla dla C, C++ i Javy</li>
+                                <li>Kompatybilność z wszystkimi popularnymi dystrybucjami Linuxa</li>
+                                <li>Prostota użycia - generowanie Makefile jedną komendą</li>
+                                <li>Automatyczne dokańczanie komend dla Basha, Fisha i Zsh</li>
+                            </ul>
+                            <div class="topic-links">
+                                <a href="projects/makefile-generator.html" class="topic-btn">
+                                    <span class="btn-icon">📄</span>
+                                    Fragment kodu
+                                </a>
+                                <a href="https://github.com/kallazz/makewiz" class="topic-btn" target="_blank">
+                                    <span class="btn-icon">&#128193;</span>
+                                    GitHub
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="topic-card">
+                        <div class="topic-image">
+                            <img src="img/go.jpg" alt="Gra go">
+                        </div>
+                        <div class="topic-content">
+                            <h3>Gra "go" oparta na architekturze klient-serwer</h3>
+                            <div class="topic-tags">
+                                <span class="tag">Java</span>
+                                <span class="tag">Maven</span>
+                                <span class="tag">Klient-serwer</span>
+                            </div>
+                            <p>
+                                Ta implementacja chińskiej gry go pozwala na rywalizację online pomiędzy dwoma graczami.
+                                Projekt został zrealizowany w dwuosobowym zespole w ramach kursu "Technologia Programowania" na 3. semestrze studiów.
+                            </p>
+                            <ul class="topic-features">
+                                <li>Dokładne odzwierciedlenie zasad oryginalnego "go"</li>
+                                <li>Rywalizacja online</li>
+                                <li>Możliwość gry z botami</li>
+                            </ul>
+                            <div class="topic-links">
+                                <a href="projects/go.html" class="topic-btn">
+                                    <span class="btn-icon">📄</span>
+                                    Fragment kodu
+                                </a>
+                                <a href="https://github.com/kallazz/go" class="topic-btn" target="_blank">
+                                    <span class="btn-icon">&#128193;</span>
+                                    GitHub
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Michał Kallas | Portfolio na Nowoczesne Technologie WWW</p>
+        </div>
+    </footer>
+</body>
+</html>

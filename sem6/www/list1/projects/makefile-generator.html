@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Makefile - Kod Źródłowy | Michał Kallas</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/code-style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="../index.html">Michał Kallas</a></h1>
+            <nav>
+                <input type="checkbox" id="menu-toggle" class="menu-toggle-checkbox" hidden>
+                <label for="menu-toggle" class="menu-toggle" aria-label="Menu">&#9776;</label>
+                <ul class="nav-menu">
+                    <li><a href="../index.html">O mnie</a></li>
+                    <li><a href="../projects.html" class="active">Projekty</a></li>
+                    <li><a href="../interests.html">Zainteresowania naukowe</a></li>
+                    <li><a href="../hobbies.html">Hobby</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <div class="container">
+                <h2>Generator plików Makefile - Kod źródłowy</h2>
+
+                <div class="code-description">
+                    <h3 class="code-title">Segregacja plików projektu</h3>
+                    <p>
+                        Poniżej przedstawiam fragment kodu odpowiedzialny za kategoryzację plików w projekcie.
+                        Jest to kluczowa część generatora, która analizuje strukturę katalogów, rozpoznaje pliki źródłowe,
+                        nagłówkowe i inne, a następnie przygotowuje dane do generowania reguł w pliku Makefile.
+                    </p>
+                </div>
+
+                <div class="code-container">
+                    <pre><code><span class="keyword">const</span> SOURCE_EXTENSIONS: [&<span class="type">str</span>; <span class="number">3</span>] = [<span class="string">"c"</span>, <span class="string">"cpp"</span>, <span class="string">"java"</span>]; 
+<span class="keyword">const</span> HEADER_EXTENSIONS: [&<span class="type">str</span>; <span class="number">2</span>] = [<span class="string">"h"</span>, <span class="string">"hpp"</span>]; 
+
+<span class="keyword">enum</span> <span class="type">FileType</span> {
+    Source,
+    Header,
+    Other
+}
+<span class="keyword">impl</span> <span class="type">FileType</span> {
+    <span class="keyword">fn</span> <span class="function">get_extension_type</span>(file_name: &<span class="type">str</span>) -> <span class="type">FileType</span> {
+        <span class="keyword">let</span> extension = get_extension(file_name);
+        <span class="keyword">if</span> SOURCE_EXTENSIONS.contains(&extension) { <span class="type">FileType</span>::Source }
+        <span class="keyword">else if</span> HEADER_EXTENSIONS.contains(&extension) { <span class="type">FileType</span>::Header }
+        <span class="keyword">else</span> { <span class="type">FileType</span>::Other }
+    }
+}
+
+<span class="keyword">pub fn</span> <span class="function">extract_names</span>(paths: fs::ReadDir) -> <span class="type">Result</span>&lt;BuildData, Box&lt;dyn std::error::Error&gt;&gt; {
+    <span class="keyword">let mut</span> files = BuildData::new();
+    <span class="keyword">for</span> path_result <span class="keyword">in</span> paths {
+        <span class="keyword">let</span> path = path_result?;
+        <span class="keyword">let</span> name = path.path().file_name().unwrap().to_str().unwrap().to_string();
+        <span class="keyword">let</span> extension = <span class="type">FileType</span>::get_extension_type(&name);
+        <span class="keyword">match</span> extension {
+            <span class="type">FileType</span>::Source => files.source_files.0.push(name),
+            <span class="type">FileType</span>::Header => files.header_files.0.push(name),
+            <span class="type">FileType</span>::Other => {}
+        }
+    }
+    files.source_files.0.sort();
+    files.header_files.0.sort();
+    files.generate_compiled_files();
+    <span class="keyword">Ok</span>(files)
+}</code></pre>
+                </div>
+
+                <a href="../projects.html" class="topic-btn">
+                    <span class="btn-icon">&#8592;</span>
+                    Wróć do projektów
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Michał Kallas | Portfolio na Nowoczesne Technologie WWW</p>
+        </div>
+    </footer>
+</body>
+</html>
