@@ -1,0 +1,138 @@
+\documentclass{article}
+\usepackage{polski}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{float}
+
+\title{Sprawozdanie 2 - Wprowadzenie do Sztucznej Inteligencji}
+\author{Michał Kallas}
+
+\begin{document}
+
+\maketitle
+
+\section{Algorytm A*}
+Algorytm A* (czyt. A-star) to algorytm wyszukiwania ścieżki, który znajduje zastosowanie w problemach znajdowania najkrótszej drogi, takich jak układanka Piętnastka. Jest to algorytm informowany, który korzysta z funkcji oceny \(f(n) = g(n) + h(n)\), gdzie \(g(n)\) oznacza koszt dotarcia do węzła \(n\), a \(h(n)\) to heurystyczne oszacowanie kosztu dotarcia do celu z \(n\). A* gwarantuje znalezienie najkrótszej ścieżki, jeśli użyta heurystyka jest dopuszczalna (nigdy nie przecenia kosztu dotarcia do celu).
+
+\section{Heurystyka: Misplaced Tiles}
+Pierwszą zastosowaną heurystyką była liczba błędnie ułożonych płytek (\textit{misplaced tiles}). Heurystyka ta zlicza liczbę płytek, które nie znajdują się na swoim miejscu. Jest prosta do implementacji i dopuszczalna, lecz nie uwzględnia rzeczywistej odległości płytek od ich celu.
+
+\section{Heurystyka: Manhattan Distance + Linear Conflict}
+Druga zastosowana heurystyka opiera się na sumie odległości Manhattan, uzupełnionej o tzw. konflikt liniowy (\textit{linear conflict}).
+
+Odległość Manhattan dla każdej płytki jest obliczana jako suma wartości bezwzględnych różnic rzędów i kolumn między jej aktualną pozycją a pozycją docelową. Można to zapisać wzorem:
+\[
+\text{Manhattan}(n) = \sum_{i=1}^{n} \left| x_i - x_i^* \right| + \left| y_i - y_i^* \right|
+\]
+gdzie \((x_i, y_i)\) to aktualna pozycja płytki \(i\), a \((x_i^*, y_i^*)\) to jej pozycja docelowa.
+
+Konflikt liniowy występuje wtedy, gdy dwie płytki znajdują się w tej samej linii (wierszu lub kolumnie), co ich pozycje docelowe, ale są ustawione w odwrotnej kolejności względem swojego celu, co oznacza, że wzajemnie się blokują i przynajmniej jedna z nich musi opuścić linię, aby ustąpić drugiej miejsca.
+
+Dla każdej pary takich płytek dodajemy do wartości heurystyki dodatkowy koszt 2, ponieważ co najmniej dwa ruchy są wymagane do rozwiązania konfliktu: jedna płytka musi ustąpić drugiej, aby umożliwić jej poprawne ustawienie.
+
+Złożona heurystyka \( h(n) = \text{Manhattan}(n) + 2 \times \text{LinearConflict}(n) \) pozwala lepiej ocenić rzeczywisty koszt dotarcia do celu niż sama odległość Manhattan. Choć jej obliczenie jest nieco bardziej czasochłonne, w praktyce znacząco zmniejsza liczbę odwiedzanych stanów i poprawia wydajność całego algorytmu.
+
+\section{Wyniki: Układanka 3x3 - przypadki losowe}
+\begin{table}[H]
+\centering
+\caption{Misplaced Tiles}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Test Index & Ilość kroków & Liczba odwiedzonych stanów & Czas (s) \\ \hline
+1 & 20 & 4978 & 0.0092 \\ \hline
+2 & 22 & 11851 & 0.0204 \\ \hline
+3 & 24 & 26663 & 0.0504 \\ \hline
+4 & 24 & 24148 & 0.0418 \\ \hline
+5 & 22 & 11941 & 0.0213 \\ \hline
+6 & 20 & 4849 & 0.0082 \\ \hline
+7 & 22 & 10493 & 0.0190 \\ \hline
+8 & 16 & 820 & 0.0020 \\ \hline
+9 & 22 & 12005 & 0.0213 \\ \hline
+10 & 16 & 946 & 0.0020 \\ \hline
+\textbf{\textbf{Średnia}} & \textbf{20.8} & \textbf{10869.4} & \textbf{0.0195} \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Manhattan Distance + Linear Conflict}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Test Index & Ilość kroków & Liczba odwiedzonych stanów & Czas (s) \\ \hline
+1 & 20 & 119 & 0.0019 \\ \hline
+2 & 22 & 955 & 0.0032 \\ \hline
+3 & 24 & 1331 & 0.0036 \\ \hline
+4 & 24 & 903 & 0.0031 \\ \hline
+5 & 22 & 525 & 0.0023 \\ \hline
+6 & 20 & 370 & 0.0020 \\ \hline
+7 & 22 & 940 & 0.0036 \\ \hline
+8 & 16 & 51 & 0.0016 \\ \hline
+9 & 22 & 237 & 0.0021 \\ \hline
+10 & 16 & 130 & 0.0017 \\ \hline
+\textbf{\textbf{Średnia}} & \textbf{20.8} & \textbf{556.1} & \textbf{0.0025} \\ \hline
+\end{tabular}
+\end{table}
+
+\section{Wyniki: Układanka 4x4 z cofaniem (k = 20)}
+\begin{table}[H]
+\centering
+\caption{Misplaced Tiles}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Test Index & Ilość kroków & Liczba odwiedzonych stanów & Czas (s) \\ \hline
+1 & 20 & 1607 & 0.0051 \\ \hline
+2 & 20 & 3019 & 0.0083 \\ \hline
+3 & 20 & 4295 & 0.0096 \\ \hline
+4 & 18 & 1393 & 0.0039 \\ \hline
+5 & 20 & 9593 & 0.0221 \\ \hline
+6 & 20 & 7148 & 0.0168 \\ \hline
+7 & 20 & 3036 & 0.0073 \\ \hline
+8 & 20 & 3394 & 0.0082 \\ \hline
+9 & 18 & 4400 & 0.0118 \\ \hline
+10 & 20 & 4065 & 0.0094 \\ \hline
+\textbf{\textbf{Średnia}} & \textbf{19.6} & \textbf{4195.0} & \textbf{0.0103} \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Manhattan Distance + Linear Conflict}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Test Index & Ilość kroków & Liczba odwiedzonych stanów & Czas (s) \\ \hline
+1 & 20 & 116 & 0.0021 \\ \hline
+2 & 20 & 304 & 0.0028 \\ \hline
+3 & 20 & 185 & 0.0014 \\ \hline
+4 & 18 & 95 & 0.0019 \\ \hline
+5 & 20 & 167 & 0.0023 \\ \hline
+6 & 20 & 73 & 0.0016 \\ \hline
+7 & 20 & 115 & 0.0021 \\ \hline
+8 & 20 & 182 & 0.0023 \\ \hline
+9 & 18 & 260 & 0.0027 \\ \hline
+10 & 20 & 113 & 0.0019 \\ \hline
+\textbf{\textbf{Średnia}} & \textbf{19.6} & \textbf{161.0} & \textbf{0.0021} \\ \hline
+\end{tabular}
+\end{table}
+
+\section{Wyniki: Układanka 4x4 losowa}
+\begin{table}[H]
+\centering
+\caption{Manhattan Distance + Linear Conflict}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Test Index & Ilość kroków & Liczba odwiedzonych stanów & Czas (s) \\ \hline
+1 & 56 & 1012511 & 3.4200 \\ \hline
+2 & 50 & 1798560 & 6.4828 \\ \hline
+3 & 52 & 995734 & 3.1266 \\ \hline
+4 & 42 & 125194 & 0.3416 \\ \hline
+5 & 52 & 1030333 & 3.0526 \\ \hline
+6 & 62 & 3656408 & 14.6329 \\ \hline
+7 & 48 & 2133428 & 6.8089 \\ \hline
+8 & 46 & 1795761 & 5.7958 \\ \hline
+9 & 48 & 14036 & 0.0387 \\ \hline
+10 & 56 & 3031262 & 11.9864 \\ \hline
+\textbf{\textbf{Średnia}} & \textbf{51.2} & \textbf{1559322.7} & \textbf{5.5686} \\ \hline
+\end{tabular}
+\end{table}
+
+\end{document}
