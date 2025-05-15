@@ -34,6 +34,11 @@ constexpr int SCORE_DRAW = 0;
 constexpr int SCORE_CENTER_POSITION = 2;
 constexpr int SCORE_GAPPED_SEQUENCE = 500;  // Value for sequences with a gap (e.g., XX_X)
 
+// Additional constants
+constexpr size_t MESSAGE_BUFFER_SIZE = 16;
+constexpr int MESSAGE_COMMUNICATION_CODE_DIVISOR = 100;
+constexpr int GAPPED_SEQUENCE_LENGTH = 4;
+
 int gameBoard[BOARD_SIZE][BOARD_SIZE];
 
 void initializeBoard() {
@@ -44,9 +49,9 @@ void initializeBoard() {
     }
 }
 
-bool isValidMove(int movePosition) {
-    int rowIndex = movePosition / 10 - 1;
-    int colIndex = movePosition % 10 - 1;
+bool isValidMove(const int movePosition) {
+    const int rowIndex = movePosition / 10 - 1;
+    const int colIndex = movePosition % 10 - 1;
 
     if (rowIndex < 0 || rowIndex >= BOARD_SIZE || colIndex < 0 || colIndex >= BOARD_SIZE) {
         return false;
@@ -55,25 +60,25 @@ bool isValidMove(int movePosition) {
     return gameBoard[rowIndex][colIndex] == EMPTY;
 }
 
-bool makeMove(int movePosition, int currentPlayer) {
+bool makeMove(const int movePosition, const int currentPlayer) {
     if (!isValidMove(movePosition)) {
         return false;
     }
 
-    int rowIndex = movePosition / 10 - 1;
-    int colIndex = movePosition % 10 - 1;
+    const int rowIndex = movePosition / 10 - 1;
+    const int colIndex = movePosition % 10 - 1;
     gameBoard[rowIndex][colIndex] = currentPlayer;
 
     return true;
 }
 
-void undoMove(int movePosition) {
-    int rowIndex = movePosition / 10 - 1;
-    int colIndex = movePosition % 10 - 1;
+void undoMove(const int movePosition) {
+    const int rowIndex = movePosition / 10 - 1;
+    const int colIndex = movePosition % 10 - 1;
     gameBoard[rowIndex][colIndex] = EMPTY;
 }
 
-bool hasPlayerWon(int playerSymbol) {
+bool hasPlayerWon(const int playerSymbol) {
     // Check horizontally
     for (int rowIndex = 0; rowIndex < BOARD_SIZE; rowIndex++) {
         for (int colIndex = 0; colIndex <= BOARD_SIZE - WIN_LENGTH; colIndex++) {
@@ -133,7 +138,7 @@ bool hasPlayerWon(int playerSymbol) {
     return false;
 }
 
-bool hasPlayerLost(int playerSymbol) {
+bool hasPlayerLost(const int playerSymbol) {
     // Check horizontally
     for (int rowIndex = 0; rowIndex < BOARD_SIZE; rowIndex++) {
         for (int colIndex = 0; colIndex <= BOARD_SIZE - LOSE_LENGTH; colIndex++) {
@@ -268,7 +273,7 @@ std::vector<int> generatePossibleMoves() {
     return availableMoves;
 }
 
-int evaluateSequenceValue(int sequenceLength, int openEndsCount) {
+int evaluateSequenceValue(const int sequenceLength, const int openEndsCount) {
     if (sequenceLength >= WIN_LENGTH) return SCORE_WIN;
 
     switch (sequenceLength) {
@@ -283,7 +288,7 @@ int evaluateSequenceValue(int sequenceLength, int openEndsCount) {
     }
 }
 
-int evaluateContinuousSequences(int playerSymbol) {
+int evaluateContinuousSequences(const int playerSymbol) {
     int sequenceScore = 0;
 
     // Evaluate continuous horizontal sequences
@@ -377,12 +382,12 @@ int evaluateContinuousSequences(int playerSymbol) {
     return sequenceScore;
 }
 
-int evaluateGappedSequences(int playerSymbol) {
+int evaluateGappedSequences(const int playerSymbol) {
     int gappedScore = 0;
 
     // Check horizontally
     for (int rowIndex = 0; rowIndex < BOARD_SIZE; rowIndex++) {
-        for (int colIndex = 0; colIndex <= BOARD_SIZE - 4; colIndex++) {
+        for (int colIndex = 0; colIndex <= BOARD_SIZE - GAPPED_SEQUENCE_LENGTH; colIndex++) {
             // Patterns: XX_X or X_XX
             if (gameBoard[rowIndex][colIndex] == playerSymbol && gameBoard[rowIndex][colIndex + 1] == playerSymbol &&
                 gameBoard[rowIndex][colIndex + 2] == EMPTY && gameBoard[rowIndex][colIndex + 3] == playerSymbol) {
@@ -397,7 +402,7 @@ int evaluateGappedSequences(int playerSymbol) {
 
     // Check vertically
     for (int colIndex = 0; colIndex < BOARD_SIZE; colIndex++) {
-        for (int rowIndex = 0; rowIndex <= BOARD_SIZE - 4; rowIndex++) {
+        for (int rowIndex = 0; rowIndex <= BOARD_SIZE - GAPPED_SEQUENCE_LENGTH; rowIndex++) {
             // Patterns: XX_X or X_XX
             if (gameBoard[rowIndex][colIndex] == playerSymbol && gameBoard[rowIndex + 1][colIndex] == playerSymbol &&
                 gameBoard[rowIndex + 2][colIndex] == EMPTY && gameBoard[rowIndex + 3][colIndex] == playerSymbol) {
@@ -411,8 +416,8 @@ int evaluateGappedSequences(int playerSymbol) {
     }
 
     // Check diagonal (\)
-    for (int rowIndex = 0; rowIndex <= BOARD_SIZE - 4; rowIndex++) {
-        for (int colIndex = 0; colIndex <= BOARD_SIZE - 4; colIndex++) {
+    for (int rowIndex = 0; rowIndex <= BOARD_SIZE - GAPPED_SEQUENCE_LENGTH; rowIndex++) {
+        for (int colIndex = 0; colIndex <= BOARD_SIZE - GAPPED_SEQUENCE_LENGTH; colIndex++) {
             // Patterns: XX_X or X_XX
             if (gameBoard[rowIndex][colIndex] == playerSymbol && gameBoard[rowIndex + 1][colIndex + 1] == playerSymbol &&
                 gameBoard[rowIndex + 2][colIndex + 2] == EMPTY && gameBoard[rowIndex + 3][colIndex + 3] == playerSymbol) {
@@ -426,8 +431,8 @@ int evaluateGappedSequences(int playerSymbol) {
     }
 
     // Check diagonal (/)
-    for (int rowIndex = 0; rowIndex <= BOARD_SIZE - 4; rowIndex++) {
-        for (int colIndex = 3; colIndex < BOARD_SIZE; colIndex++) {
+    for (int rowIndex = 0; rowIndex <= BOARD_SIZE - GAPPED_SEQUENCE_LENGTH; rowIndex++) {
+        for (int colIndex = GAPPED_SEQUENCE_LENGTH - 1; colIndex < BOARD_SIZE; colIndex++) {
             // Patterns: XX_X or X_XX
             if (gameBoard[rowIndex][colIndex] == playerSymbol && gameBoard[rowIndex + 1][colIndex - 1] == playerSymbol &&
                 gameBoard[rowIndex + 2][colIndex - 2] == EMPTY && gameBoard[rowIndex + 3][colIndex - 3] == playerSymbol) {
@@ -443,7 +448,7 @@ int evaluateGappedSequences(int playerSymbol) {
     return gappedScore;
 }
 
-int evaluateSequences(int playerSymbol, int opponentSymbol) {
+int evaluateSequences(const int playerSymbol) {
     return evaluateContinuousSequences(playerSymbol) + evaluateGappedSequences(playerSymbol);
 }
 
@@ -487,15 +492,15 @@ int evaluateSequences(int playerSymbol, int opponentSymbol) {
  *
  * Returns a positive value if the position is favorable for the AI player, negative if favorable for the opponent, and 0 if neutral.
  */
-int evaluateBoard(int playerSymbol) {
-    int opponentSymbol = (playerSymbol == PLAYER_X) ? PLAYER_O : PLAYER_X;
+int evaluateBoard(const int playerSymbol) {
+    const int opponentSymbol = (playerSymbol == PLAYER_X) ? PLAYER_O : PLAYER_X;
     int totalScore = 0;
 
     // Evaluation for the player
-    totalScore += evaluateSequences(playerSymbol, opponentSymbol);
+    totalScore += evaluateSequences(playerSymbol);
 
     // Evaluation for the opponent (negated)
-    totalScore -= evaluateSequences(opponentSymbol, playerSymbol);
+    totalScore -= evaluateSequences(opponentSymbol);
 
     // Promote central positions
     for (int rowIndex = 1; rowIndex < BOARD_SIZE - 1; rowIndex++) {
@@ -521,11 +526,11 @@ int minimax(const int depth, const bool isMaximizing, int alpha, int beta, const
     if (isBoardFull()) return SCORE_DRAW;
     if (depth == 0) return evaluateBoard(aiPlayerSymbol);
 
-    std::vector<int> possibleMoves = generatePossibleMoves();
+    const std::vector<int> possibleMoves = generatePossibleMoves();
 
     if (isMaximizing) {
         int bestScore = INT_MIN;
-        for (int movePosition : possibleMoves) {
+        for (const int movePosition : possibleMoves) {
             if (makeMove(movePosition, aiPlayerSymbol)) {
                 const int score = minimax(depth - 1, false, alpha, beta, aiPlayerSymbol);
                 undoMove(movePosition);
@@ -537,7 +542,7 @@ int minimax(const int depth, const bool isMaximizing, int alpha, int beta, const
         return bestScore;
     } else {
         int bestScore = INT_MAX;
-        for (int movePosition : possibleMoves) {
+        for (const int movePosition : possibleMoves) {
             if (makeMove(movePosition, opponentSymbol)) {
                 const int score = minimax(depth - 1, true, alpha, beta, aiPlayerSymbol);
                 undoMove(movePosition);
@@ -550,13 +555,13 @@ int minimax(const int depth, const bool isMaximizing, int alpha, int beta, const
     }
 }
 
-int findBestMove(int playerSymbol, int searchDepth) {
+int findBestMove(const int playerSymbol, const int searchDepth) {
     int bestScore = INT_MIN;
     int bestMove = -1;
 
-    std::vector<int> possibleMoves = generatePossibleMoves();
+    const std::vector<int> possibleMoves = generatePossibleMoves();
 
-    for (int movePosition : possibleMoves) {
+    for (const int movePosition : possibleMoves) {
         if (makeMove(movePosition, playerSymbol)) {
             // Check for immediate win
             if (hasPlayerWon(playerSymbol)) {
@@ -570,7 +575,7 @@ int findBestMove(int playerSymbol, int searchDepth) {
                 continue;  // Skip losing moves
             }
 
-            int score = minimax(searchDepth - 1, false, INT_MIN, INT_MAX, playerSymbol);
+            const int score = minimax(searchDepth - 1, false, INT_MIN, INT_MAX, playerSymbol);
             undoMove(movePosition);
 
             if (score > bestScore) {
@@ -593,12 +598,14 @@ int main(int argc, char* argv[]) {
         printf("Usage: %s <ip_address> <port> <player_number> <player_name> <depth>\n", argv[0]);
         return -1;
     }
+
     // Initialize data
-    char* serverIp = argv[1];
-    int port = atoi(argv[2]);
-    int player = atoi(argv[3]);
-    char* playerName = argv[4];
-    int depth = atoi(argv[5]);
+    const char* serverIp = argv[1];
+    const int port = atoi(argv[2]);
+    const int player = atoi(argv[3]);
+    const char* playerName = argv[4];
+    const int depth = atoi(argv[5]);
+
     // Validate input data
     if (player != PLAYER_X && player != PLAYER_O) {
         printf("Invalid player number (should be 1 or 2)\n");
@@ -608,12 +615,13 @@ int main(int argc, char* argv[]) {
         printf("Invalid depth (should be from 1 to %d)\n", MAX_DEPTH);
         return -1;
     }
+
     // Initialize socket
     int serverSocket;
     struct sockaddr_in serverAddr;
-    char serverMessage[16], playerMessage[16];
+    char serverMessage[MESSAGE_BUFFER_SIZE], playerMessage[MESSAGE_BUFFER_SIZE];
     bool endGame;
-    int msg, move;
+
     // Create socket
     serverSocket = socket(AF_INET, SOCK_STREAM, 0);
     if (serverSocket < 0) {
@@ -621,22 +629,26 @@ int main(int argc, char* argv[]) {
         return -1;
     }
     printf("Socket created successfully\n");
+
     // Set port and IP address
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_port = htons(port);
     serverAddr.sin_addr.s_addr = inet_addr(serverIp);
+
     // Send connection request to the server
     if (connect(serverSocket, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) < 0) {
         printf("Unable to connect to the server\n");
         return -1;
     }
     printf("Connected to the server\n");
+
     // Receive message from the server
     memset(serverMessage, '\0', sizeof(serverMessage));
     if (recv(serverSocket, serverMessage, sizeof(serverMessage), 0) < 0) {
         printf("Error receiving message from the server\n");
         return -1;
     }
+
     // Send player data to the server
     memset(playerMessage, '\0', sizeof(playerMessage));
     snprintf(playerMessage, sizeof(playerMessage), "%d %s", player, playerName);
@@ -644,9 +656,11 @@ int main(int argc, char* argv[]) {
         printf("Unable to send message\n");
         return -1;
     }
+
     // Initialize the board
     initializeBoard();
     endGame = false;
+
     // Main game loop
     while (!endGame) {
         memset(serverMessage, '\0', sizeof(serverMessage));
@@ -654,17 +668,21 @@ int main(int argc, char* argv[]) {
             printf("Error receiving message from the server\n");
             return -1;
         }
+
+        int msg, move;
         sscanf(serverMessage, "%d", &msg);
-        move = msg % 100;
-        msg = msg / 100;
+        move = msg % MESSAGE_COMMUNICATION_CODE_DIVISOR;
+        msg = msg / MESSAGE_COMMUNICATION_CODE_DIVISOR;
+
         // Handle opponent's move
         if (move != 0) {
             makeMove(move, (player == PLAYER_X) ? PLAYER_O : PLAYER_X);
         }
+
         // Handle messages
-        if (msg == 0 || msg == 6) {
+        if (msg == MSG_YOUR_TURN || msg == MSG_CONTINUE_TURN) {
             // Our turn to move - use minimax
-            move = findBestMove(player, depth);
+            const int move = findBestMove(player, depth);
             // Execute the move
             makeMove(move, player);
             // Send the move to the server
@@ -678,24 +696,25 @@ int main(int argc, char* argv[]) {
             // End of the game
             endGame = true;
             switch (msg) {
-                case 1:
+                case MSG_YOU_WIN:
                     printf("You won.\n");
                     break;
-                case 2:
+                case MSG_YOU_LOSE:
                     printf("You lost.\n");
                     break;
-                case 3:
+                case MSG_DRAW:
                     printf("Draw.\n");
                     break;
-                case 4:
+                case MSG_OPPONENT_ERROR:
                     printf("You won. Opponent error.\n");
                     break;
-                case 5:
+                case MSG_YOUR_ERROR:
                     printf("You lost. Your error.\n");
                     break;
             }
         }
     }
+
     // Close the socket
     close(serverSocket);
     return 0;
