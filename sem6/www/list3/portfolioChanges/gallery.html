@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria - Michał Kallas</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <noscript>
+    <header>
+        <div class="container">
+            <h1><a href="index.html">Michał Kallas</a></h1>
+            <nav>
+                <input type="checkbox" id="menu-toggle" class="menu-toggle-checkbox" hidden>
+                <label for="menu-toggle" class="menu-toggle" aria-label="Menu">&#9776;</label>
+                <ul class="nav-menu">
+                    <li><a href="index.html">O mnie</a></li>
+                    <li><a href="projects.html">Projekty</a></li>
+                    <li><a href="interests.html">Zainteresowania naukowe</a></li>
+                    <li><a href="hobbies.html">Hobby</a></li>
+                    <li><a href="gallery.html" class="active">Galeria</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    </noscript>
+
+    <header class="js-menu">
+        <div class="container">
+            <h1><a href="index.html">Michał Kallas</a></h1>
+            <nav>
+                <button id="menu-toggle" class="menu-toggle" aria-label="Menu">&#9776;</button>
+                <ul class="nav-menu">
+                    <li><a href="index.html">O mnie</a></li>
+                    <li><a href="projects.html">Projekty</a></li>
+                    <li><a href="interests.html">Zainteresowania naukowe</a></li>
+                    <li><a href="hobbies.html">Hobby</a></li>
+                    <li><a href="gallery.html" class="active">Galeria</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <noscript>
+        <style>
+            .js-menu {
+                display: none;
+            }
+        </style>
+    </noscript>
+
+    <main>
+        <section class="gallery">
+            <div class="container">
+                <h2>Galeria zdjęć</h2>
+                <div id="gallery-grid" class="gallery-grid">
+                    <!-- Pictures will be loaded here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Michał Kallas | Portfolio na Nowoczesne Technologie WWW</p>
+        </div>
+    </footer>
+
+    <script src="scripts/menu.js"></script>
+    <script src="scripts/gallery.js"></script>
+</body>
+</html>
