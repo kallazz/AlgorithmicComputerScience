@@ -1,6 +1,6 @@
 const request = require('supertest');
-const { Book } = require('../models/Book');
-const { Review } = require('../models/Review');
+const { Book } = require('../src/models/Book');
+const { Review } = require('../src/models/Review');
 
 describe('Reviews Routes', () => {
   let admin, user1, user2, adminToken, user1Token, user2Token, testBook;

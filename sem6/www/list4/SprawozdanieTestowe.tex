@@ -1,0 +1,184 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{polski}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\title{Testy API Biblioteki - Lista 4 WWW}
+\author{Michał Kallas}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Wstęp}
+Testy zostały zaimplementowane przy użyciu frameworka testowego \textbf{Jest}, który jest popularnym narzędziem do testowania aplikacji napisanych w JavaScript.
+\textbf{Jest} zapewnia prostą konfigurację, wsparcie dla asynchronicznych testów oraz wbudowane mechanizmy do mockowania i asercji.
+Do zarządzania danymi testowymi wykorzystano \textbf{MongoDB Memory Server}, czyli lekką wersję bazy MongoDB działającą w pamięci RAM, co pozwala na szybkie i izolowane testy bez konieczności uruchamiania zewnętrznej instancji bazy danych.
+Przed każdym testem baza danych jest czyszczona, aby zapewnić niezależność przypadków testowych.
+Testy są w pełni zautomatyzowane i można je uruchomić za pomocą pojedynczej komendy w środowisku Node.js, np. \texttt{npm test}, co zapewnia łatwość użycia i potencjalnej integracji z procesami CI/CD.
+
+\section{Przypadki testowe dla zasobu Users}
+
+\begin{itemize}
+    \item \textbf{POST /api/users - Rejestracja użytkownika:}
+    \begin{itemize}
+        \item Sprawdzenie, czy nowy użytkownik może się zarejestrować z poprawnymi danymi (status 201).
+        \item Sprawdzenie odrzucenia duplikatu nazwy użytkownika (status 409).
+        \item Sprawdzenie odrzucenia duplikatu adresu e-mail (status 409).
+        \item Sprawdzenie błędu dla nieprawidłowego formatu e-mail (status 400).
+        \item Sprawdzenie odrzucenia zbyt krótkiej nazwy użytkownika (status 400).
+        \item Sprawdzenie odrzucenia zbyt słabego hasła (status 400).
+        \item Sprawdzenie odrzucenia żądania z brakującymi polami (status 400).
+    \end{itemize}
+
+    \item \textbf{GET /api/users - Lista użytkowników (tylko admin):}
+    \begin{itemize}
+        \item Sprawdzenie, czy administrator otrzymuje listę użytkowników (status 200, brak haseł w odpowiedzi).
+        \item Sprawdzenie, że użytkownik bez uprawnień otrzymuje błąd 403.
+        \item Sprawdzenie odrzucenia nieautoryzowanego dostępu (status 401).
+    \end{itemize}
+
+    \item \textbf{GET /api/users/:id - Pobieranie profilu użytkownika:}
+    \begin{itemize}
+        \item Sprawdzenie, czy użytkownik może zobaczyć własny profil (status 200, brak hasła).
+        \item Sprawdzenie, że administrator może zobaczyć dowolny profil (status 200).
+        \item Sprawdzenie odrzucenia dostępu do cudzego profilu przez zwykłego użytkownika (status 403).
+        \item Sprawdzenie błędu 404 dla nieistniejącego użytkownika.
+    \end{itemize}
+
+    \item \textbf{PUT /api/users/:id - Aktualizacja użytkownika:}
+    \begin{itemize}
+        \item Sprawdzenie, czy użytkownik może zaktualizować własny profil (status 200).
+        \item Sprawdzenie, że administrator może zaktualizować dowolny profil (status 200).
+        \item Sprawdzenie odrzucenia próby aktualizacji cudzego profilu przez zwykłego użytkownika (status 403).
+    \end{itemize}
+
+    \item \textbf{DELETE /api/users/:id - Usuwanie użytkownika (tylko admin):}
+    \begin{itemize}
+        \item Sprawdzenie, czy administrator może usunąć użytkownika (status 204, użytkownik nie istnieje).
+        \item Sprawdzenie, że zwykły użytkownik nie może usunąć profilu (status 403).
+        \item Sprawdzenie błędu 404 dla nieistniejącego użytkownika.
+    \end{itemize}
+\end{itemize}
+
+\section{Przypadki testowe dla zasobu Auth}
+
+\begin{itemize}
+    \item \textbf{POST /api/auth/login - Logowanie:}
+    \begin{itemize}
+        \item Sprawdzenie logowania z poprawnymi danymi (status 200).
+        \item Sprawdzenie odrzucenia nieprawidłowego e-maila (status 401).
+        \item Sprawdzenie odrzucenia nieprawidłowego hasła (status 401).
+        \item Sprawdzenie odrzucenia brakujących danych logowania (status 401).
+        \item Sprawdzenie odrzucenia pustego ciała żądania (status 401).
+    \end{itemize}
+
+    \item \textbf{Walidacja tokenu:}
+    \begin{itemize}
+        \item Sprawdzenie poprawności struktury tokenu JWT (status 200).
+        \item Sprawdzenie odrzucenia nieprawidłowego tokenu (status 401).
+        \item Sprawdzenie odrzucenia żądania bez tokenu (status 401).
+    \end{itemize}
+\end{itemize}
+
+\section{Przypadki testowe dla zasobu Books}
+
+\begin{itemize}
+    \item \textbf{POST /api/books - Dodawanie książki (tylko admin):}
+    \begin{itemize}
+        \item Sprawdzenie, czy administrator może dodać książkę z poprawnymi danymi (status 201, dane zgodne z wysłanymi).
+        \item Sprawdzenie, że użytkownik bez uprawnień administratora otrzymuje błąd 403 (Brak uprawnień administratora).
+        \item Sprawdzenie odrzucenia żądania z brakującymi wymaganymi polami (tytuł, autor, ISBN) – status 400.
+        \item Sprawdzenie, że próba dodania książki z istniejącym ISBN zwraca błąd 409 (Konflikt).
+        \item Sprawdzenie odrzucenia nieautoryzowanego żądania – status 401.
+    \end{itemize}
+
+    \item \textbf{GET /api/books - Lista książek:}
+    \begin{itemize}
+        \item Sprawdzenie, czy lista książek jest zwracana bez autoryzacji (status 200, poprawna liczba książek i paginacja).
+        \item Sprawdzenie wsparcia dla paginacji (strona 1, limit 2, poprawne dane paginacji).
+        \item Sprawdzenie filtrowania książek po autorze (zwraca tylko książki danego autora).
+        \item Sprawdzenie filtrowania książek po roku publikacji (zwraca książki z danego roku).
+        \item Sprawdzenie sortowania książek po roku publikacji w porządku malejącym.
+        \item Sprawdzenie obsługi pustych wyników dla nieistniejącego autora (status 200, pusta lista).
+    \end{itemize}
+
+    \item \textbf{GET /api/books/:id - Pobieranie pojedynczej książki:}
+    \begin{itemize}
+        \item Sprawdzenie, czy pojedyncza książka jest zwracana poprawnie (status 200, zgodne dane).
+        \item Sprawdzenie błędu 404 dla nieistniejącej książki.
+        \item Sprawdzenie obsługi nieprawidłowego ObjectId (status 500).
+    \end{itemize}
+
+    \item \textbf{PUT /api/books/:id - Aktualizacja książki (tylko admin):}
+    \begin{itemize}
+        \item Sprawdzenie, czy administrator może zaktualizować książkę (status 200, zgodne dane).
+        \item Sprawdzenie, że użytkownik bez uprawnień administratora otrzymuje błąd 403.
+        \item Sprawdzenie błędu 404 dla nieistniejącej książki.
+    \end{itemize}
+
+    \item \textbf{DELETE /api/books/:id - Usuwanie książki (tylko admin):}
+    \begin{itemize}
+        \item Sprawdzenie, czy administrator może usunąć książkę (status 204, książka nie istnieje w bazie).
+        \item Sprawdzenie, że użytkownik bez uprawnień otrzymuje błąd 403.
+        \item Sprawdzenie błędu 404 dla nieistniejącej książki.
+    \end{itemize}
+\end{itemize}
+
+\section{Przypadki testowe dla zasobu Reviews}
+
+\begin{itemize}
+    \item \textbf{POST /api/reviews - Dodawanie recenzji:}
+    \begin{itemize}
+        \item Sprawdzenie, czy uwierzytelniony użytkownik może dodać recenzję (status 201, zgodne dane).
+        \item Sprawdzenie odrzucenia nieautoryzowanej recenzji (status 401).
+        \item Sprawdzenie odrzucenia recenzji z brakującymi polami (status 400).
+        \item Sprawdzenie odrzucenia nieprawidłowych wartości oceny (poza zakresem 1–5, status 400).
+        \item Sprawdzenie błędu 404 dla nieistniejącej książki.
+        \item Sprawdzenie odrzucenia duplikatu recenzji tego samego użytkownika dla tej samej książki (status 409).
+        \item Sprawdzenie, że różni użytkownicy mogą oceniać tę samą książkę (status 201).
+    \end{itemize}
+
+    \item \textbf{GET /api/reviews - Lista recenzji:}
+    \begin{itemize}
+        \item Sprawdzenie, czy wszystkie recenzje są zwracane bez autoryzacji (status 200, posortowane po dacie).
+        \item Sprawdzenie filtrowania recenzji po \texttt{book\_id} (tylko recenzje danej książki).
+        \item Sprawdzenie poprawności populacji danych użytkownika i książki w odpowiedzi.
+        \item Sprawdzenie obsługi pustych wyników dla nieistniejącej książki (status 200, pusta lista).
+    \end{itemize}
+
+    \item \textbf{GET /api/reviews/:id - Pobieranie pojedynczej recenzji:}
+    \begin{itemize}
+        \item Sprawdzenie, czy pojedyncza recenzja jest zwracana z poprawnymi danymi i populacją (status 200).
+        \item Sprawdzenie błędu 404 dla nieistniejącej recenzji.
+    \end{itemize}
+
+    \item \textbf{PUT /api/reviews/:id - Aktualizacja recenzji:}
+    \begin{itemize}
+        \item Sprawdzenie, czy autor może zaktualizować własną recenzję (status 200).
+        \item Sprawdzenie, że administrator może zaktualizować dowolną recenzję (status 200).
+        \item Sprawdzenie odrzucenia aktualizacji przez innego użytkownika (status 403).
+        \item Sprawdzenie odrzucenia nieprawidłowej oceny (status 400).
+        \item Sprawdzenie błędu 404 dla nieistniejącej recenzji.
+        \item Sprawdzenie odrzucenia nieautoryzowanej aktualizacji (status 401).
+    \end{itemize}
+
+    \item \textbf{DELETE /api/reviews/:id - Usuwanie recenzji:}
+    \begin{itemize}
+        \item Sprawdzenie, czy autor może usunąć własną recenzję (status 204, recenzja nie istnieje).
+        \item Sprawdzenie, że administrator może usunąć dowolną recenzję (status 204).
+        \item Sprawdzenie odrzucenia usuwania przez innego użytkownika (status 403).
+        \item Sprawdzenie błędu 404 dla nieistniejącej recenzji.
+        \item Sprawdzenie odrzucenia nieautoryzowanego usuwania (status 401).
+    \end{itemize}
+
+    \item \textbf{Przypadki brzegowe i obsługa błędów:}
+    \begin{itemize}
+        \item Sprawdzenie obsługi nieprawidłowych ObjectId (status 500).
+        \item Sprawdzenie ścisłego sprawdzania granic oceny (0.9 i 5.1 odrzucone, 1–5 akceptowane).
+    \end{itemize}
+\end{itemize}
+
+\end{document}

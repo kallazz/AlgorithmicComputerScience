@@ -1,6 +1,6 @@
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const mongoose = require('mongoose');
-const createApp = require('../app'); // import the async function
+const createApp = require('../src/app');
 
 let mongoServer;
 
@@ -18,7 +18,7 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  await mongoose.disconnect();    // Disconnect mongoose from MongoDB
+  await mongoose.disconnect();
   await mongoServer.stop(); 
 });
 
@@ -34,7 +34,7 @@ beforeEach(async () => {
 // Globalne funkcje pomocnicze
 global.createTestUser = async (userData = {}) => {
   const bcrypt = require('bcryptjs');
-  const { User } = require('../models/User');
+  const { User } = require('../src/models/User');
   
   const defaultUserData = {
     username: 'testuser',

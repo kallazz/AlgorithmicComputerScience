@@ -2,12 +2,12 @@
   "name": "list4",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "src/server.js",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "start": "node server.js"
+    "start": "node src/server.js"
   },
   "keywords": [],
   "author": "",
@@ -24,13 +24,19 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "setupFilesAfterEnv": ["<rootDir>/tests/setupTests.js"],
-    "testPathIgnorePatterns": ["/node_modules/"],
+    "setupFilesAfterEnv": [
+      "<rootDir>/tests/setupTests.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
     "collectCoverageFrom": [
-      "routes/**/*.js",
-      "models/**/*.js",
-      "middleware/**/*.js",
-      "!node_modules/**"
+      "src/routes/**/*.js",
+      "src/models/**/*.js",
+      "src/middleware/**/*.js"
     ]
+  },
+  "devDependencies": {
+    "mongodb-memory-server": "^10.1.4"
   }
 }

@@ -1,5 +1,5 @@
 const request = require('supertest');
-const { User } = require('../models/User');
+const { User } = require('../src/models/User');
 
 describe('Users Routes', () => {
   describe('POST /api/users - Registration', () => {
