@@ -145,13 +145,13 @@ Testy są w pełni zautomatyzowane i można je uruchomić za pomocą pojedynczej
     \begin{itemize}
         \item Sprawdzenie, czy wszystkie recenzje są zwracane bez autoryzacji (status 200, posortowane po dacie).
         \item Sprawdzenie filtrowania recenzji po \texttt{book\_id} (tylko recenzje danej książki).
-        \item Sprawdzenie poprawności populacji danych użytkownika i książki w odpowiedzi.
+        \item Sprawdzenie poprawności dołączonych danych użytkownika i książki w odpowiedzi.
         \item Sprawdzenie obsługi pustych wyników dla nieistniejącej książki (status 200, pusta lista).
     \end{itemize}
 
     \item \textbf{GET /api/reviews/:id - Pobieranie pojedynczej recenzji:}
     \begin{itemize}
-        \item Sprawdzenie, czy pojedyncza recenzja jest zwracana z poprawnymi danymi i populacją (status 200).
+        \item Sprawdzenie, czy pojedyncza recenzja jest zwracana z poprawnymi danymi oraz uzupełnionymi informacjami o użytkowniku i książce (status 200).
         \item Sprawdzenie błędu 404 dla nieistniejącej recenzji.
     \end{itemize}
 

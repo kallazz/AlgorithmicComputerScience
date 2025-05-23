@@ -18,7 +18,7 @@ const createApp = async () => {
   app.use('/api/reviews', reviewRoutes);
 
   app.use((req, res) => {
-    res.status(404).json({ error: 'Endpoint nie znaleziony' });
+    res.status(404).json({ error: 'Endpoint nieznaleziony' });
   });
 
   return app;

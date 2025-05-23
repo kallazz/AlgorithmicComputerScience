@@ -85,7 +85,7 @@ router.get('/:id', async (req, res) => {
     const book = await Book.findById(id);
     
     if (!book) {
-      return res.status(404).json({ error: 'Książka nie znaleziona' });
+      return res.status(404).json({ error: 'Książka nieznaleziona' });
     }
 
     res.json(book);
@@ -107,7 +107,7 @@ router.put('/:id', authMiddleware, adminMiddleware, async (req, res) => {
     );
 
     if (!book) {
-      return res.status(404).json({ error: 'Książka nie znaleziona' });
+      return res.status(404).json({ error: 'Książka nieznaleziona' });
     }
 
     res.json(book);
@@ -123,7 +123,7 @@ router.delete('/:id', authMiddleware, adminMiddleware, async (req, res) => {
     const book = await Book.findByIdAndDelete(id);
     
     if (!book) {
-      return res.status(404).json({ error: 'Książka nie znaleziona' });
+      return res.status(404).json({ error: 'Książka nieznaleziona' });
     }
 
     res.status(204).send();

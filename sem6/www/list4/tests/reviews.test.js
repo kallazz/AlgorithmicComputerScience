@@ -95,7 +95,7 @@ describe('Reviews Routes', () => {
         });
 
       expect(response.status).toBe(404);
-      expect(response.body.error).toBe('Książka nie znaleziona');
+      expect(response.body.error).toBe('Książka nieznaleziona');
     });
 
     it('should reject duplicate review from same user', async () => {
@@ -256,7 +256,7 @@ describe('Reviews Routes', () => {
         .get(`/api/reviews/${nonExistentId}`);
 
       expect(response.status).toBe(404);
-      expect(response.body.error).toBe('Recenzja nie znaleziona');
+      expect(response.body.error).toBe('Recenzja nieznaleziona');
     });
   });
 
@@ -341,7 +341,7 @@ describe('Reviews Routes', () => {
         });
 
       expect(response.status).toBe(404);
-      expect(response.body.error).toBe('Recenzja nie znaleziona');
+      expect(response.body.error).toBe('Recenzja nieznaleziona');
     });
 
     it('should reject unauthenticated update', async () => {
@@ -408,7 +408,7 @@ describe('Reviews Routes', () => {
         .set('Authorization', `Bearer ${user1Token}`);
 
       expect(response.status).toBe(404);
-      expect(response.body.error).toBe('Recenzja nie znaleziona');
+      expect(response.body.error).toBe('Recenzja nieznaleziona');
     });
 
     it('should reject unauthenticated deletion', async () => {

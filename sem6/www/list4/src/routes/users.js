@@ -59,7 +59,7 @@ router.get('/:id', authMiddleware, async (req, res) => {
     const user = await User.findById(id, '-password');
     
     if (!user) {
-      return res.status(404).json({ error: 'Użytkownik nie znaleziony' });
+      return res.status(404).json({ error: 'Użytkownik nieznaleziony' });
     }
 
     res.json(user);
@@ -85,7 +85,7 @@ router.put('/:id', authMiddleware, async (req, res) => {
     );
 
     if (!user) {
-      return res.status(404).json({ error: 'Użytkownik nie znaleziony' });
+      return res.status(404).json({ error: 'Użytkownik nieznaleziony' });
     }
 
     res.json(user);
@@ -101,7 +101,7 @@ router.delete('/:id', authMiddleware, adminMiddleware, async (req, res) => {
     const user = await User.findByIdAndDelete(id);
     
     if (!user) {
-      return res.status(404).json({ error: 'Użytkownik nie znaleziony' });
+      return res.status(404).json({ error: 'Użytkownik nieznaleziony' });
     }
 
     res.status(204).send();

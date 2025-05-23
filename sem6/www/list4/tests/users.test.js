@@ -188,7 +188,7 @@ describe('Users Routes', () => {
         .set('Authorization', `Bearer ${token}`);
 
       expect(response.status).toBe(404);
-      expect(response.body.error).toBe('Użytkownik nie znaleziony');
+      expect(response.body.error).toBe('Użytkownik nieznaleziony');
     });
   });
 
@@ -285,7 +285,7 @@ describe('Users Routes', () => {
         .set('Authorization', `Bearer ${token}`);
 
       expect(response.status).toBe(404);
-      expect(response.body.error).toBe('Użytkownik nie znaleziony');
+      expect(response.body.error).toBe('Użytkownik nieznaleziony');
     });
   });
 });

@@ -19,7 +19,7 @@ router.post('/', authMiddleware, async (req, res) => {
 
     const book = await Book.findById(book_id);
     if (!book) {
-      return res.status(404).json({ error: 'Książka nie znaleziona' });
+      return res.status(404).json({ error: 'Książka nieznaleziona' });
     }
 
     const review = new Review({
@@ -77,7 +77,7 @@ router.get('/:id', async (req, res) => {
       .populate('book_id', 'title');
     
     if (!review) {
-      return res.status(404).json({ error: 'Recenzja nie znaleziona' });
+      return res.status(404).json({ error: 'Recenzja nieznaleziona' });
     }
 
     const formattedReview = {
@@ -100,7 +100,7 @@ router.put('/:id', authMiddleware, async (req, res) => {
 
     const review = await Review.findById(id);
     if (!review) {
-      return res.status(404).json({ error: 'Recenzja nie znaleziona' });
+      return res.status(404).json({ error: 'Recenzja nieznaleziona' });
     }
 
     if (req.user.role !== 'admin' && review.user_id.toString() !== req.user._id.toString()) {
@@ -130,7 +130,7 @@ router.delete('/:id', authMiddleware, async (req, res) => {
 
     const review = await Review.findById(id);
     if (!review) {
-      return res.status(404).json({ error: 'Recenzja nie znaleziona' });
+      return res.status(404).json({ error: 'Recenzja nieznaleziona' });
     }
 
     if (req.user.role !== 'admin' && review.user_id.toString() !== req.user._id.toString()) {

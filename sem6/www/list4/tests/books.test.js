@@ -201,7 +201,7 @@ describe('Books Routes', () => {
         .get(`/api/books/${nonExistentId}`);
 
       expect(response.status).toBe(404);
-      expect(response.body.error).toBe('Książka nie znaleziona');
+      expect(response.body.error).toBe('Książka nieznaleziona');
     });
 
     it('should handle invalid ObjectId', async () => {
@@ -259,7 +259,7 @@ describe('Books Routes', () => {
         .send({ title: 'Updated Title' });
 
       expect(response.status).toBe(404);
-      expect(response.body.error).toBe('Książka nie znaleziona');
+      expect(response.body.error).toBe('Książka nieznaleziona');
     });
   });
 
@@ -302,7 +302,7 @@ describe('Books Routes', () => {
         .set('Authorization', `Bearer ${adminToken}`);
 
       expect(response.status).toBe(404);
-      expect(response.body.error).toBe('Książka nie znaleziona');
+      expect(response.body.error).toBe('Książka nieznaleziona');
     });
   });
 });
