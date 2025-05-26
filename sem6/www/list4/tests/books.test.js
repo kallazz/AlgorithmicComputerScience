@@ -54,7 +54,7 @@ describe('Books Routes', () => {
         .set('Authorization', `Bearer ${adminToken}`)
         .send({
           title: 'Test Book'
-          // brak author i isbn
+          // not author and isbn
         });
 
       expect(response.status).toBe(400);
@@ -68,13 +68,11 @@ describe('Books Routes', () => {
         isbn: '978-3-16-148410-0'
       };
 
-      // Dodaj pierwszą książkę
       await request(app)
         .post('/api/books')
         .set('Authorization', `Bearer ${adminToken}`)
         .send(bookData);
 
-      // Spróbuj dodać książkę z tym samym ISBN
       const response = await request(app)
         .post('/api/books')
         .set('Authorization', `Bearer ${adminToken}`)
@@ -103,7 +101,6 @@ describe('Books Routes', () => {
 
   describe('GET /api/books - List Books', () => {
     beforeEach(async () => {
-      // Dodaj testowe książki
       const books = [
         { title: 'Book A', author: 'Author X', isbn: '111', published_year: 2020 },
         { title: 'Book B', author: 'Author Y', isbn: '222', published_year: 2021 },
@@ -281,7 +278,6 @@ describe('Books Routes', () => {
 
       expect(response.status).toBe(204);
 
-      // Sprawdź czy książka została usunięta
       const deletedBook = await Book.findById(testBook._id);
       expect(deletedBook).toBeNull();
     });

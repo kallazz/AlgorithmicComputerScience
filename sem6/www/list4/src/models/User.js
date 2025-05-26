@@ -1,20 +1,16 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-// Funkcja walidacji hasła
 const validatePassword = function(password) {
-  // Sprawdzenie długości
-  if (password.length < 8) {
+    if (password.length < 8) {
     return false;
   }
   
-  // Sprawdzenie dużej litery
-  if (!/[A-Z]/.test(password)) {
+    if (!/[A-Z]/.test(password)) {
     return false;
   }
   
-  // Sprawdzenie znaku specjalnego
-  if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
+    if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
     return false;
   }
   
@@ -55,7 +51,6 @@ const userSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-// Middleware do hashowania hasła przed zapisem
 userSchema.pre('save', async function(next) {
   try {
     this.password = await bcrypt.hash(this.password, 10);
@@ -65,7 +60,6 @@ userSchema.pre('save', async function(next) {
   }
 });
 
-// Metoda do porównywania haseł
 userSchema.methods.comparePassword = async function(candidatePassword) {
   return bcrypt.compare(candidatePassword, this.password);
 };

@@ -4,7 +4,6 @@ const { User } = require('../src/models/User');
 describe('Auth Routes', () => {
   describe('POST /api/auth/login', () => {
     beforeEach(async () => {
-      // Stwórz użytkownika testowego
       await new User({
         username: 'testuser',
         email: 'test@example.com',

@@ -5,39 +5,35 @@ const authMiddleware = require('../middleware/auth');
 const adminMiddleware = require('../middleware/admin');
 const router = express.Router();
 
-// Rejestracja użytkownika
 router.post('/', async (req, res) => {
   try {
-    const { username, email, password } = req.body; // Nie przyjmujemy role
-    
+    const { username, email, password } = req.body;
+
     const user = new User({
       username,
       email,
-      password, // Hasło zostanie zhashowane automatycznie przez middleware
-      role: 'user' // Zawsze ustawiamy rolę na 'user'
+      password,
+      role: 'user'
     });
 
-    await user.save(); // Walidacja nastąpi tutaj
-    
+    await user.save();
+
     const userResponse = user.toObject();
     delete userResponse.password;
     res.status(201).json(userResponse);
   } catch (error) {
     if (error.code === 11000) {
-      // Duplikat klucza (username lub email)
       const field = Object.keys(error.keyPattern)[0];
       res.status(409).json({ error: `${field === 'email' ? 'Email' : 'Nazwa użytkownika'} już istnieje` });
     } else if (error.name === 'ValidationError') {
-      // Błędy walidacji z modelu
       const messages = Object.values(error.errors).map(err => err.message);
-      res.status(400).json({ error: messages[0] }); // Zwracamy pierwszy błąd
+      res.status(400).json({ error: messages[0] });
     } else {
       res.status(500).json({ error: 'Błąd serwera' });
     }
   }
 });
 
-// Pobieranie użytkowników (tylko admin)
 router.get('/', authMiddleware, adminMiddleware, async (req, res) => {
   try {
     const users = await User.find({}, '-password').sort({ createdAt: -1 });
@@ -47,17 +43,16 @@ router.get('/', authMiddleware, adminMiddleware, async (req, res) => {
   }
 });
 
-// Pobieranie profilu użytkownika
 router.get('/:id', authMiddleware, async (req, res) => {
   try {
     const { id } = req.params;
-    
+
     if (req.user.role !== 'admin' && req.user._id.toString() !== id) {
       return res.status(403).json({ error: 'Brak uprawnień' });
     }
 
     const user = await User.findById(id, '-password');
-    
+
     if (!user) {
       return res.status(404).json({ error: 'Użytkownik nieznaleziony' });
     }
@@ -68,12 +63,11 @@ router.get('/:id', authMiddleware, async (req, res) => {
   }
 });
 
-// Aktualizacja użytkownika
 router.put('/:id', authMiddleware, async (req, res) => {
   try {
     const { id } = req.params;
     const { username, email } = req.body;
-    
+
     if (req.user.role !== 'admin' && req.user._id.toString() !== id) {
       return res.status(403).json({ error: 'Brak uprawnień' });
     }
@@ -94,7 +88,6 @@ router.put('/:id', authMiddleware, async (req, res) => {
   }
 });
 
-// Usuwanie użytkownika (tylko admin)
 router.delete('/:id', authMiddleware, adminMiddleware, async (req, res) => {
   try {
     const { id } = req.params;

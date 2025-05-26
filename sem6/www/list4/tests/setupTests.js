@@ -5,16 +5,14 @@ const createApp = require('../src/app');
 let mongoServer;
 
 beforeAll(async () => {
-  // Uruchom serwer MongoDB w pamięci
   mongoServer = await MongoMemoryServer.create();
   const mongoUri = mongoServer.getUri();
   
-  // Ustaw zmienną środowiskową dla testów
   process.env.MONGODB_URI= mongoUri;
   process.env.NODE_ENV = 'test';
   process.env.JWT_SECRET = 'test-jwt-secret-key';
 
-  app = await createApp(); // wait for connected app
+  app = await createApp();
 });
 
 afterAll(async () => {
@@ -23,7 +21,6 @@ afterAll(async () => {
 });
 
 beforeEach(async () => {
-  // Wyczyść wszystkie kolekcje przed każdym testem
   const collections = mongoose.connection.collections;
   for (const key in collections) {
     const collection = collections[key];
@@ -31,7 +28,6 @@ beforeEach(async () => {
   }
 });
 
-// Globalne funkcje pomocnicze
 global.createTestUser = async (userData = {}) => {
   const bcrypt = require('bcryptjs');
   const { User } = require('../src/models/User');
@@ -63,5 +59,5 @@ global.createTestAdmin = async () => {
 
 global.generateAuthToken = (userId) => {
   const jwt = require('jsonwebtoken');
-  return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '24h' });
+  return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '24h', algorithm: "HS512" });
 };

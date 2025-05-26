@@ -14,7 +14,6 @@ describe('Reviews Routes', () => {
     user1Token = generateAuthToken(user1._id);
     user2Token = generateAuthToken(user2._id);
 
-    // Stwórz testową książkę
     testBook = await new Book({
       title: 'Test Book',
       author: 'Test Author',
@@ -99,7 +98,6 @@ describe('Reviews Routes', () => {
     });
 
     it('should reject duplicate review from same user', async () => {
-      // Dodaj pierwszą recenzję
       await request(app)
         .post('/api/reviews')
         .set('Authorization', `Bearer ${user1Token}`)
@@ -109,7 +107,6 @@ describe('Reviews Routes', () => {
           comment: 'First review'
         });
 
-      // Spróbuj dodać drugą recenzję tej samej książki przez tego samego użytkownika
       const response = await request(app)
         .post('/api/reviews')
         .set('Authorization', `Bearer ${user1Token}`)
@@ -124,7 +121,6 @@ describe('Reviews Routes', () => {
     });
 
     it('should allow different users to review same book', async () => {
-      // User1 dodaje recenzję
       await request(app)
         .post('/api/reviews')
         .set('Authorization', `Bearer ${user1Token}`)
@@ -134,7 +130,6 @@ describe('Reviews Routes', () => {
           comment: 'User1 review'
         });
 
-      // User2 dodaje recenzję tej samej książki
       const response = await request(app)
         .post('/api/reviews')
         .set('Authorization', `Bearer ${user2Token}`)
@@ -158,7 +153,6 @@ describe('Reviews Routes', () => {
         isbn: '978-3-16-148410-1'
       }).save();
 
-      // Dodaj testowe recenzje
       review1 = await new Review({
         user_id: user1._id,
         book_id: testBook._id,
@@ -189,7 +183,6 @@ describe('Reviews Routes', () => {
       expect(Array.isArray(response.body)).toBe(true);
       expect(response.body).toHaveLength(3);
       
-      // Sprawdź czy recenzje są posortowane po dacie (najnowsze pierwsze)
       const dates = response.body.map(review => new Date(review.createdAt));
       for (let i = 1; i < dates.length; i++) {
         expect(dates[i-1].getTime()).toBeGreaterThanOrEqual(dates[i].getTime());
@@ -375,7 +368,6 @@ describe('Reviews Routes', () => {
 
       expect(response.status).toBe(204);
 
-      // Sprawdź czy recenzja została usunięta
       const deletedReview = await Review.findById(testReview._id);
       expect(deletedReview).toBeNull();
     });
@@ -387,7 +379,6 @@ describe('Reviews Routes', () => {
 
       expect(response.status).toBe(204);
 
-      // Sprawdź czy recenzja została usunięta
       const deletedReview = await Review.findById(testReview._id);
       expect(deletedReview).toBeNull();
     });
@@ -428,11 +419,6 @@ describe('Reviews Routes', () => {
       expect(response.body.error).toBe('Błąd serwera');
     });
 
-    it('should handle database connection errors', async () => {
-      // Ten test wymagałby mockowania mongoose lub symulacji błędu bazy danych
-      // W rzeczywistym środowisku można by zaimplementować takie testy
-    });
-
     it('should validate rating bounds strictly', async () => {
       const borderCases = [
         { rating: 0.9, shouldFail: true },
@@ -456,7 +442,6 @@ describe('Reviews Routes', () => {
           expect(response.status).toBe(400);
         } else {
           expect(response.status).toBe(201);
-          // Usuń recenzję po teście, aby uniknąć konfliktu w następnej iteracji
           await Review.findOneAndDelete({ user_id: user1._id, book_id: testBook._id });
         }
       }

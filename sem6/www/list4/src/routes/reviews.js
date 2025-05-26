@@ -4,7 +4,6 @@ const { Review} = require('../models/Review');
 const authMiddleware = require('../middleware/auth');
 const router = express.Router();
 
-// Dodawanie recenzji
 router.post('/', authMiddleware, async (req, res) => {
   try {
     const { book_id, rating, comment } = req.body;
@@ -41,7 +40,6 @@ router.post('/', authMiddleware, async (req, res) => {
   }
 });
 
-// Pobieranie recenzji książki
 router.get('/', async (req, res) => {
   try {
     const { book_id } = req.query;
@@ -68,7 +66,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Pobieranie pojedynczej recenzji
 router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -92,7 +89,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Aktualizacja recenzji
 router.put('/:id', authMiddleware, async (req, res) => {
   try {
     const { id } = req.params;
@@ -123,7 +119,6 @@ router.put('/:id', authMiddleware, async (req, res) => {
   }
 });
 
-// Usuwanie recenzji
 router.delete('/:id', authMiddleware, async (req, res) => {
   try {
     const { id } = req.params;

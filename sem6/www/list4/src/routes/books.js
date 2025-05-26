@@ -4,7 +4,6 @@ const authMiddleware = require('../middleware/auth');
 const adminMiddleware = require('../middleware/admin');
 const router = express.Router();
 
-// Dodawanie książki (tylko admin)
 router.post('/', authMiddleware, adminMiddleware, async (req, res) => {
   try {
     const { title, author, isbn, description, published_year } = req.body;
@@ -32,7 +31,6 @@ router.post('/', authMiddleware, adminMiddleware, async (req, res) => {
   }
 });
 
-// Pobieranie książek z paginacją, filtrowaniem i sortowaniem
 router.get('/', async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
@@ -78,7 +76,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Pobieranie pojedynczej książki
 router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -94,7 +91,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Aktualizacja książki (tylko admin)
 router.put('/:id', authMiddleware, adminMiddleware, async (req, res) => {
   try {
     const { id } = req.params;
@@ -116,7 +112,6 @@ router.put('/:id', authMiddleware, adminMiddleware, async (req, res) => {
   }
 });
 
-// Usuwanie książki (tylko admin)
 router.delete('/:id', authMiddleware, adminMiddleware, async (req, res) => {
   try {
     const { id } = req.params;

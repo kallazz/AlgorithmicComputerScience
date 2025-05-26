@@ -95,7 +95,7 @@ describe('Users Routes', () => {
         .post('/api/users')
         .send({
           username: 'testuser'
-          // brak email i password
+          // no email and password
         });
 
       expect(response.status).toBe(400);
@@ -258,7 +258,6 @@ describe('Users Routes', () => {
 
       expect(response.status).toBe(204);
 
-      // Sprawdź czy użytkownik został usunięty
       const deletedUser = await User.findById(user._id);
       expect(deletedUser).toBeNull();
     });

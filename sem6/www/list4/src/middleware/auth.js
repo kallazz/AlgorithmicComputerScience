@@ -9,7 +9,7 @@ const authMiddleware = async (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET, { algorithms: ['HS512'] });
     const user = await User.findById(decoded.userId);
     if (!user) {
       return res.status(401).json({ error: 'Użytkownik nieznaleziony' });
