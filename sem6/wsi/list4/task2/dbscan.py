@@ -61,6 +61,7 @@ class DBSCAN:
         self.labels_ = labels
         return self
 
-    def fit_predict(self, X: np.ndarray) -> Optional[np.ndarray]:
+    def fit_predict(self, X: np.ndarray) -> np.ndarray:
         self.fit(X)
+        assert self.labels_ is not None
         return self.labels_
