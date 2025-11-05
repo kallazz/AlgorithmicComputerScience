@@ -1,0 +1,78 @@
+time python encode.py ../tests/tests1/test1.bin out.bin
+Entropy: 0.0000 bits/symbol
+Average code length: 0.0033 bits/symbol
+Compression ratio: 2461.4460
+
+real    0m1.698s
+user    0m1.687s
+sys     0m0.010s
+
+󰣛 kallas  …/sem7/kkd/list2   main ?   v3.12.7   01:26  
+ time python decode.py out.bin out.txt
+
+real    0m1.048s
+user    0m1.037s
+sys     0m0.010s
+
+󰣛 kallas  …/sem7/kkd/list2   main ?   v3.12.7   01:26  
+ diff out.txt ../tests/tests1/test1.bin 
+
+󰣛 kallas  …/sem7/kkd/list2   main ?   v3.12.7   01:26  
+ time python encode.py ../tests/tests1/test2.bin out.bin
+Entropy: 8.0000 bits/symbol
+Average code length: 7.9571 bits/symbol
+Compression ratio: 1.0054
+
+real    0m18.640s
+user    0m18.570s
+sys     0m0.071s
+
+󰣛 kallas  …/sem7/kkd/list2   main ?   v3.12.7   01:27  
+ time python decode.py out.bin out.txt
+
+real    0m17.519s
+user    0m17.478s
+sys     0m0.041s
+
+󰣛 kallas  …/sem7/kkd/list2   main ?   v3.12.7   01:27  
+ diff out.txt ../tests/tests1/test2.bin 
+
+󰣛 kallas  …/sem7/kkd/list2   main ?   v3.12.7   01:27  
+ time python encode.py ../tests/tests1/test3.bin out.bin
+Entropy: 8.0000 bits/symbol
+Average code length: 8.0008 bits/symbol
+Compression ratio: 0.9999
+
+real    0m20.645s
+user    0m20.585s
+sys     0m0.051s
+
+󰣛 kallas  …/sem7/kkd/list2   main ?   v3.12.7   01:28  
+ time python decode.py out.bin out.txt
+
+real    0m29.924s
+user    0m29.913s
+sys     0m0.010s
+
+󰣛 kallas  …/sem7/kkd/list2   main ?   v3.12.7   01:29  
+ diff out.txt ../tests/tests1/test3.bin 
+
+󰣛 kallas  …/sem7/kkd/list2   main ?   v3.12.7   01:29  
+ time python encode.py ../tests/tests1/pan-tadeusz-czyli-ostatni-zajazd-na-litwie.txt out.bin
+Entropy: 5.0392 bits/symbol
+Average code length: 5.0446 bits/symbol
+Compression ratio: 1.5859
+
+real    0m7.093s
+user    0m7.072s
+sys     0m0.021s
+
+󰣛 kallas  …/sem7/kkd/list2   main ?   v3.12.7   01:29  
+ time python decode.py out.bin out.txt
+
+real    0m9.512s
+user    0m9.512s
+sys     0m0.001s
+
+󰣛 kallas  …/sem7/kkd/list2   main ?   v3.12.7   01:30  
+ diff out.txt ../tests/tests1/pan-tadeusz-czyli-ostatni-zajazd-na-litwie.txt 
