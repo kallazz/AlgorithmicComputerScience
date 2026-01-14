@@ -4,11 +4,6 @@ import pickle
 from typing import Tuple, Dict
 
 def read_tga(filename: str) -> Tuple[bytes, np.ndarray, int, int]:
-    """
-    Reads a TGA file, handling header, optional Image ID and pixel data.
-    Ignores TGA footer.
-    Returns BGR header (24-bit), data (float64), width and height.
-    """
     with open(filename, 'rb') as f:
         header = f.read(18)
         if len(header) < 18:
@@ -45,11 +40,9 @@ def read_tga(filename: str) -> Tuple[bytes, np.ndarray, int, int]:
         return bytes(out_header), pixels[:, :, :3].astype(np.float64), width, height
 
 def compand(x: np.ndarray, alpha: float) -> np.ndarray:
-    """Nonlinear transformation (companding)."""
     return np.sign(x) * (np.abs(x) ** alpha)
 
 def non_uniform_quantize(data: np.ndarray, k: int, min_val: float, max_val: float, alpha: float) -> Tuple[np.ndarray, float, float]:
-    """Non-uniform quantization using companding."""
     levels = 2**k
     
     # Transform to nonlinear space
@@ -65,7 +58,6 @@ def non_uniform_quantize(data: np.ndarray, k: int, min_val: float, max_val: floa
     return indices, step, t_min
 
 def encode_channel(channel: np.ndarray, k: int) -> Dict:
-    """Encodes one channel returning quantized data."""
     h, w = channel.shape
     work_w = w if w % 2 == 0 else w - 1
     

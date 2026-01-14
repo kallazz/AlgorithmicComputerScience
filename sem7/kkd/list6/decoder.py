@@ -4,23 +4,19 @@ import pickle
 from typing import Dict, Tuple, List
 
 def write_tga(filename: str, header: bytes, image: np.ndarray) -> None:
-    """Saves image in TGA format."""
     with open(filename, 'wb') as f:
         f.write(header)
         img_data = np.clip(np.round(image), 0, 255).astype(np.uint8)
         f.write(img_data.tobytes())
 
 def expand(y: np.ndarray, alpha: float) -> np.ndarray:
-    """Inverse of nonlinear transformation."""
     return np.sign(y) * (np.abs(y) ** (1/alpha))
 
 def dequantize(indices: np.ndarray, step: float, t_min: float, alpha: float) -> np.ndarray:
-    """Dequantization - inverse of non_uniform_quantize."""
     recon_t = indices * step + t_min
     return expand(recon_t, alpha)
 
 def decode_channel(encoded: Dict) -> np.ndarray:
-    """Decodes one channel from encoded data."""
     h, w = encoded['shape']
     work_w = encoded['work_w']
     
@@ -48,15 +44,13 @@ def decode_channel(encoded: Dict) -> np.ndarray:
     recon_channel[:, 0:work_w:2] = L_recon + H_q
     recon_channel[:, 1:work_w:2] = L_recon - H_q
     
-    # If width was odd, last column remains zero
-    # (or can be copied from second-to-last)
+    # If width was odd, last column will be copied from second-to-last
     if work_w < w:
         recon_channel[:, w-1] = recon_channel[:, w-2]
     
     return recon_channel
 
 def calculate_stats(orig: np.ndarray, decoded: np.ndarray) -> Tuple[float, List[float], float]:
-    """Calculates MSE and SNR statistics."""
     mse_total = np.mean((orig - decoded) ** 2)
     mse_per_channel = [np.mean((orig[:,:,i] - decoded[:,:,i]) ** 2) for i in range(3)]
     

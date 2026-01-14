@@ -3,10 +3,6 @@ import numpy as np
 from typing import Tuple
 
 def read_tga(filename: str) -> Tuple[bytes, np.ndarray, int, int]:
-    """
-    Reads a TGA file, handling the header, optional Image ID, and pixel data.
-    Ignores the TGA footer by reading only the required number of bytes.
-    """
     with open(filename, 'rb') as f:
         header = f.read(18)
         if len(header) < 18:
@@ -47,9 +43,6 @@ def read_tga(filename: str) -> Tuple[bytes, np.ndarray, int, int]:
         return bytes(out_header), pixels[:, :, :3].astype(np.float64), width, height
 
 def save_tga(filename: str, header: bytes, pixels: np.ndarray) -> None:
-    """
-    Saves the quantized pixel data into a TGA file using the provided header.
-    """
     with open(filename, 'wb') as f:
         f.write(header)
         # Clip values to valid range [0, 255] and convert back to uint8
@@ -57,15 +50,9 @@ def save_tga(filename: str, header: bytes, pixels: np.ndarray) -> None:
         f.write(out_pixels.tobytes())
 
 def calculate_mse(original: np.ndarray, quantized: np.ndarray) -> float:
-    """
-    Calculates the Mean Squared Error for the entire image.
-    """
     return float(np.mean((original - quantized) ** 2))
 
 def calculate_snr(original: np.ndarray, mse: float) -> Tuple[float, float]:
-    """
-    Calculates the Signal-to-Noise Ratio in linear scale and decibels.
-    """
     signal_power = np.mean(original ** 2)
     if mse == 0:
         return float('inf'), float('inf')
@@ -74,10 +61,6 @@ def calculate_snr(original: np.ndarray, mse: float) -> Tuple[float, float]:
     return snr_linear, snr_db
 
 def lbg_quantization(pixels: np.ndarray, num_bits: int) -> np.ndarray:
-    """
-    Performs Vector Quantization using the Linde-Buzo-Gray (LBG) algorithm
-    with the Taxicab (L1) metric.
-    """
     # Flatten image to a list of BGR vectors (N x 3)
     vectors = pixels.reshape(-1, 3)
     target_count = 2 ** num_bits
